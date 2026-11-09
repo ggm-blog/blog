@@ -33,12 +33,14 @@ website:
 format:
   html:
     theme:
-      light: litera
-      dark: superhero
+      light: [litera, assets/light.scss]
+      dark: [litera, assets/dark.scss]
     css: assets/custom.css
+    grid:
+      body-width: 860px
     toc: true
     code-fold: true
-    code-tools: true
+    code-tools: false
 
 execute:
   freeze: auto

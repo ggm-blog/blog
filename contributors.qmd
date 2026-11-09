@@ -1,6 +1,7 @@
 ---
 title: "Contributors"
 code-tools: false
+body-classes: contributors-page
 ---
 
 ```{r}
