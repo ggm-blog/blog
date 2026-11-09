@@ -10,7 +10,7 @@ author:
   - ming-xiang
 date: "2026-11-16"
 categories: [about]
-description: "Why we are starting this blog, our point of view, and how we plan to proceed."
+featured: true
 ---
 
 Welcome to GGM (Grammars Gone Mental) – a new blog conceived of by Brian Dillon, Tim Hunter, Ellen Lau, Dave Kush, Laurel Perkins, Matt Wagers, and Ming Xiang. We are a group of linguists and cognitive scientists who care about how language – intricate, dynamic and infinite – arises in our finite brains. We are here because we wanted to think through, together, both the enduring questions and the latest developments in language science. We have our own point of view, of course, but we’re writing for anyone who cares about them: linguists, psychologists, neuroscientists, students, and the growing number of people in AI who find themselves wondering what language is and how humans manage it.

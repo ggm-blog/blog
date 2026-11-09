@@ -60,6 +60,7 @@ figures, and properly formatted citations, all from the same file.
 ├── assets/
 │   ├── light.scss          # Litera light-mode palette
 │   ├── dark.scss           # Litera dark-mode palette
+│   ├── listing-home.ejs    # Latest, pinned, and compact archive listing
 │   ├── custom.css
 │   ├── author-filter.js     # Author/category selector behavior only
 │   └── authors/             # Author photos: <slug>.jpg (optional, convention-based)
@@ -97,6 +98,24 @@ The Quarto setting `freeze: auto` means code chunks are only re-executed when
 their source changes. Frozen output is committed to the repo under `_freeze/`,
 so the build remains fast even as the post archive grows. **R code is rendered
 locally** and its frozen output committed; the Netlify build does not run R.
+
+---
+
+## Home page
+
+`index.qmd` uses one date-descending Quarto listing with `assets/listing-home.ejs`.
+The newest post is the Latest hero. Other posts with `featured: true` form Pinned,
+newest first; a featured latest post appears only in the hero, with a Pinned badge.
+All posts below contains every remaining post, newest first, with no duplicates.
+Pinned is omitted when there are no separately pinned posts. Sort/filter widgets
+are disabled; category links use Quarto's category hashes and RSS includes all posts.
+
+Previews come from the post's opening text, not front-matter descriptions.
+`max-description-length: 400` (the Quarto 1.9 option) supplies hero/pinned excerpts;
+the template limits compact previews to about 160 characters. Display-name authors
+still come from the generated registry metadata. The origin story's `featured: true`
+is a removable test flag. Scoped home styles inherit both Litera palettes and wrap
+on narrow screens.
 
 ---
 
@@ -158,15 +177,13 @@ forwarded; status, notes, and affiliation remain on profile cards.
 original `.qmd`, with display-name authors, slug arrays, and selector labels.
 Quarto merges these over document metadata, preserving titles, dates,
 descriptions, images, categories, draft rules, and document links. The index uses
-`templates/posts.ejs.md`; the same listing supplies display names to RSS creators.
+`assets/listing-home.ejs`; the same listing supplies display names to RSS creators.
 Generated files are ignored and recreated even on a fresh checkout. Unchanged
 generated content is not rewritten, avoiding preview watch loops.
 
-The Author selector uses slug values and display-name labels. Category filtering
-is a companion selector; both combine with Quarto's listing search and sorting.
-`assets/author-filter.js` filters already-rendered items with List.js. It never
-maps slugs to names in the browser: names, links, ORCIDs, and RSS creators exist
-in the build output without JavaScript.
+The home listing groups posts as described under Home page. Category links filter
+already-rendered items through Quarto; names, links, ORCIDs, and RSS creators exist
+in the build output without browser-side slug mapping.
 
 ### Author registry (`authors.yml`)
 

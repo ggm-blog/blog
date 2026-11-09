@@ -4,11 +4,8 @@ author:
   - tim-hunter
 date: "2026-12-07"
 categories: [parsing, grammar]
-description: "Is a grammar an abstraction over the parser, or an information resource the parser consults?"
 ---
 
-
-# What it might mean for the parser to (not) be the grammar
 
 Suppose it's agreed that the following system of phrase-structure rules accurately 
 characterizes the sentences that a certain group of speakers recognize as well-formed 

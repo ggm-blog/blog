@@ -4,7 +4,6 @@ author:
   - ellen-lau
 date: "2026-11-23"
 categories: [neuroscience, symbolic-computation]
-description: "Why neural implementation does not undermine symbolic theories of cognition."
 ---
 
 *‘Neural computation and symbolic computation appear to differ radically and irreconcilably, yet our results reveal that there is not necessarily a tension between the two: A single system can be simultaneously neural and symbolic by using a neural architecture to construct symbolic representations.’* –McCoy et al. 2026[^1]
