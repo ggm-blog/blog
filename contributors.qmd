@@ -1,5 +1,6 @@
 ---
 title: "Contributors"
+code-tools: false
 ---
 
 ```{r}
@@ -33,9 +34,9 @@ status_badge <- function(status) {
 
 orcid_badge <- function(orcid) {
   tags$a(href = paste0("https://orcid.org/", orcid), target = "_blank",
-         style = "text-decoration:none;",
+         style = "text-decoration:none;color:inherit;",
     HTML('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#a6ce39"/><text x="3" y="11" fill="white" font-size="9" font-family="sans-serif">iD</text></svg>'),
-    tags$span(style = "font-size:0.8em;color:#a6ce39;", orcid)
+    tags$span(style = "font-size:0.8em;", orcid)
   )
 }
 
