@@ -4,11 +4,14 @@ title: "Contributors"
 
 ```{r}
 #| echo: false
+#| results: asis
 
 library(yaml)
 library(htmltools)
 
 authors <- yaml::read_yaml("authors.yml")
+
+present <- function(x) !is.null(x) && length(x) == 1L && !is.na(x) && nzchar(trimws(x))
 
 last_name <- function(x) tail(strsplit(x$name, " ")[[1]], 1)
 editors   <- Filter(function(x) x$status == "editor", authors)
@@ -31,8 +34,7 @@ status_badge <- function(status) {
 orcid_badge <- function(orcid) {
   tags$a(href = paste0("https://orcid.org/", orcid), target = "_blank",
          style = "text-decoration:none;",
-    tags$img(src = "https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png",
-             style = "vertical-align:middle;margin-right:4px;"),
+    HTML('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#a6ce39"/><text x="3" y="11" fill="white" font-size="9" font-family="sans-serif">iD</text></svg>'),
     tags$span(style = "font-size:0.8em;color:#a6ce39;", orcid)
   )
 }
@@ -48,7 +50,7 @@ photo_tag <- function(id, name) {
 }
 
 make_card <- function(a) {
-  name_tag <- if (!is.null(a$url)) {
+  name_tag <- if (present(a$url)) {
     tags$a(href = a$url, target = "_blank",
            style = "font-weight:600;font-size:1.05em;text-decoration:none;", a$name)
   } else {
@@ -61,14 +63,14 @@ make_card <- function(a) {
       name_tag,
       tags$br(),
       status_badge(a$status),
-      if (!is.null(a$orcid))       tagList(tags$br(), orcid_badge(a$orcid))              else NULL,
-      if (!is.null(a$affiliation)) tagList(tags$br(), tags$small(a$affiliation))          else NULL,
-      if (!is.null(a$notes))       tagList(tags$br(), tags$small(style="color:#555;", a$notes)) else NULL
+      if (present(a$orcid))       tagList(tags$br(), orcid_badge(a$orcid))              else NULL,
+      if (present(a$affiliation)) tagList(tags$br(), tags$small(a$affiliation))          else NULL,
+      if (present(a$notes))       tagList(tags$br(), tags$small(style="color:#555;", a$notes)) else NULL
     )
   )
 }
 
-tagList(
-  tags$div(class = "grid", lapply(sorted, make_card))
-)
+cat("\n```{=html}\n",
+    as.character(tags$div(class = "grid", lapply(sorted, make_card))),
+    "\n```\n", sep = "")
 ```

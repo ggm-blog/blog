@@ -1,32 +1,26 @@
-- id: brian-dillon
-  name: Brian Dillon
+- id: jane-smith
+  name: Jane Smith
   status: editor
-  url: https://people.umass.edu/bwdillon/
-  orcid: 0000-0000-0000-0001
-  affiliation: UMass Amherst
-  notes: "Techno-optimist"
+  url: https://example.com/jane-smith
+  orcid: "0000-0000-0000-0001"
+  affiliation: UC Santa Cruz
+  notes: "Placeholder editor profile."
 
-- id: ellen-lau
-  name: Ellen Lau
+- id: alex-johnson
+  name: Alex Johnson
   status: editor
-  orcid: 0000-0000-0000-0002
-  affiliation: University of Maryland
-  notes: "Read your Gallistel!"
+  orcid: "0000-0000-0000-0002"
+  affiliation: Stanford
+  notes: "Placeholder editor profile."
 
-- id: dave-kush
-  name: Dave Kush
-  status: flaneur
-  orcid: 0000-0000-0000-0002
-  affiliation: University of Toronto
-
-- id: ming-xiang
-  name: Ming Xiang
-  status: editor
+- id: sam-lee
+  name: Sam Lee
+  status: member
   url: https://example.com/sam-lee
-  affiliation: University of Chicago
+  affiliation: UC Santa Cruz
 
-- id: matt-wagers
-  name: Matt Wagers
+- id: robin-patel
+  name: Robin Patel
   status: guest
-  url: https://getyarn.io/yarn-clip/caab1389-d5a8-4572-b14e-a2eba31afc97
-  notes: "Avec plaisir"
+  url: https://example.com/robin-patel
+  notes: "Placeholder guest profile."
