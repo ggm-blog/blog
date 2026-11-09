@@ -1,4 +1,4 @@
-# Contributing to The Consortium Blog
+# Contributing to Grammars Gone Mental
 
 Thank you for contributing! Follow the steps below to create and submit a new post.
 

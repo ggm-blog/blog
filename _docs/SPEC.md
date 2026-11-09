@@ -1,4 +1,4 @@
-# Consortium Blog — Technical Specification
+# Grammars Gone Mental — Technical Specification
 
 ## Why This Architecture
 
