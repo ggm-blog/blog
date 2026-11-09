@@ -8,3 +8,6 @@ pagefind/             # local pagefind output
 .DS_Store
 
 **/*.quarto_ipynb
+
+# Rebuilt by the bundled-Deno pre-render script
+/generated/

@@ -3,11 +3,17 @@ title: "The Consortium Blog"
 page-layout: full
 title-block-banner: true
 listing:
-  contents: posts
+  id: posts
+  contents: generated/posts.yml
+  template: templates/posts.ejs.md
+  fields: [date, title, author, categories, description]
   sort: "date desc"
   type: default
-  categories: true
-  sort-ui: true
+  categories: false
+  sort-ui: [date, title, author]
   filter-ui: true
   feed: true
+include-after-body:
+  - text: |
+      <script src="/assets/author-filter.js"></script>
 ---

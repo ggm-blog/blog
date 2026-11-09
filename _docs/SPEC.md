@@ -25,7 +25,7 @@ figures, and properly formatted citations, all from the same file.
 | Build & deploy | [Netlify](https://netlify.com) | Triggered on merge to `main`; PR previews included |
 | Search | Pagefind | Full-text index built by `build.sh` after render |
 | Comments | Giscus | Backed by GitHub Discussions; requires GitHub account |
-| Author profiles | `authors.yml` + contributors page | Stage 4 profiles implemented; byline mapping pending |
+| Author profiles | `authors.yml` + contributors page | Stage 4 complete: profiles, bylines, listing filters, RSS |
 
 ---
 
@@ -40,17 +40,25 @@ figures, and properly formatted citations, all from the same file.
 ├── search.qmd               # Dedicated Pagefind search page
 ├── authors.yml              # Author registry
 ├── CONTRIBUTING.md          # How to write and submit a post
-├── scripts/                # Contributor refresh and shared SHA-256 guard
+├── scripts/                 # Contributor refresh, guard, and author metadata
 │   ├── refresh-contributors.sh
-│   └── authors-hash.sh
+│   ├── authors-hash.sh
+│   └── prepare-authors.ts    # Bundled-Deno registry validation and listing metadata
+├── filters/
+│   └── author-byline.lua     # Resolve title-block author identity before normalization
+├── templates/
+│   └── posts.ejs.md          # Static listing names and slug-keyed selectors
+├── generated/               # Gitignored, regenerated every render
+│   └── posts.yml            # Document-backed listing metadata
 ├── build.sh                 # Netlify build script (installs Quarto, renders, indexes)
 ├── netlify.toml             # Netlify config (build command, publish dir)
 ├── renv.lock                # R package lockfile (local use only)
 ├── .Rprofile                # Activates renv on project open (local use only)
-├── _docs/                   # Internal docs (gitignored, excluded from Quarto render)
+├── _docs/                   # Internal docs (tracked, excluded from Quarto render)
 │   └── SPEC.md              # This document
 ├── assets/
 │   ├── custom.css
+│   ├── author-filter.js     # Author/category selector behavior only
 │   └── authors/             # Author photos: <slug>.jpg (optional, convention-based)
 └── posts/
     ├── _metadata.yml        # Shared defaults applied to every post
@@ -68,9 +76,11 @@ figures, and properly formatted citations, all from the same file.
 On every push to `main`, Netlify:
 
 1. Runs `build.sh`, which:
-   - Downloads and installs the pinned Quarto version from GitHub releases
    - Checks `_freeze/authors.hash` against `authors.yml` plus sorted author photo filenames; fails on stale metadata
-   - Runs `quarto render` to produce the static site in `_site/`
+   - Downloads and installs the pinned Quarto version from GitHub releases
+   - Runs `quarto render`; its pre-render hook uses bundled Deno to validate registry slugs and regenerate `generated/posts.yml`
+   - A pre-AST Lua filter resolves names, URLs, and ORCIDs for post title blocks
+   - Quarto renders static HTML and RSS into `_site/`, with display names supplied by generated listing metadata
    - Runs `npx pagefind --site _site` to build the full-text search index
 2. Publishes `_site/` to the Netlify CDN
 
@@ -123,6 +133,35 @@ author:
   - jane-smith
   - alex-johnson
 ```
+
+### Byline and listing mechanism
+
+Posts retain slug lists in source. `scripts/prepare-authors.ts` runs via
+`project: pre-render` for both render and preview using the Deno interpreter and
+`stdlib/yaml` bundled with pinned Quarto **1.9.37**. It scans `posts/**/*.qmd`,
+validates a nonempty list of known slugs on every post (including drafts), rejects
+duplicate registry IDs, and reports the post path and unknown slug on failure.
+No R, Python, Node, network imports, or source rewrites are used by this step.
+
+`filters/author-byline.lua` runs at `pre-ast`, reads the registry, and supplies
+both `author` and `authors` metadata before Quarto normalizes authors. Title
+blocks show display names in post order, link to `url` when supplied, and use
+Quarto's built-in linked ORCID icon when supplied. Only identity fields are
+forwarded; status, notes, and affiliation remain on profile cards.
+
+`generated/posts.yml` contains document-backed listing entries pointing to each
+original `.qmd`, with display-name authors, slug arrays, and selector labels.
+Quarto merges these over document metadata, preserving titles, dates,
+descriptions, images, categories, draft rules, and document links. The index uses
+`templates/posts.ejs.md`; the same listing supplies display names to RSS creators.
+Generated files are ignored and recreated even on a fresh checkout. Unchanged
+generated content is not rewritten, avoiding preview watch loops.
+
+The Author selector uses slug values and display-name labels. Category filtering
+is a companion selector; both combine with Quarto's listing search and sorting.
+`assets/author-filter.js` filters already-rendered items with List.js. It never
+maps slugs to names in the browser: names, links, ORCIDs, and RSS creators exist
+in the build output without JavaScript.
 
 ### Author registry (`authors.yml`)
 
@@ -221,7 +260,7 @@ The site is being built incrementally. Completed stages are marked ✅.
 | 1 | R package management via `renv` (local) | ✅ Complete |
 | 2 | Full-text search via Pagefind | ✅ Complete |
 | 3 | Post comments via Giscus | ✅ Complete |
-| 4 | Multi-author system (profiles, registry, contributor page) | Profiles complete; slug bylines/filtering pending decision |
+| 4 | Multi-author system (profiles, registry, contributor page) | ✅ Complete |
 
 ---
 

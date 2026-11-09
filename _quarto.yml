@@ -1,5 +1,6 @@
 project:
   type: website
+  pre-render: scripts/prepare-authors.ts
   render:
     - "*.qmd"
     - "posts/**/*.qmd"
@@ -41,3 +42,7 @@ format:
 
 execute:
   freeze: auto
+
+filters:
+  - at: pre-ast
+    path: filters/author-byline.lua
