@@ -1,6 +1,7 @@
 ---
 title: "Power Analysis for Two-Sample t-Tests: A Worked Example"
-author: "Jane Smith"
+author:
+  - jane-smith
 date: "2026-05-08"
 categories: [methods, R, statistics]
 description: "A reproducible walkthrough of sample size and power calculations for two-sample t-tests, with simulated power curves across common effect sizes."

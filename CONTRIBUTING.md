@@ -38,7 +38,8 @@ Paste this at the top of your `index.qmd` and fill in the fields:
 ```yaml
 ---
 title: "Your Post Title"
-author: "Your Name"
+author:
+  - jane-smith
 date: "YYYY-MM-DD"
 categories: [category1, category2]
 description: "A one- or two-sentence summary shown in the listing."
@@ -83,3 +84,26 @@ before merging.
   a `#| fig-cap:` for cross-referencing with `@fig-something`.
 - **Bibliography:** Keep `.bib` files inside the post folder, not at the 
   project root, to avoid namespace collisions.
+
+## Author records and photos
+
+Always use a list of persistent author slugs in post front matter, even for a
+single author. For coauthors, add one slug per list item. Display-name mapping
+is pending; bylines currently show slugs.
+
+An editor or maintainer adds each contributor to root `authors.yml` before their
+first post. Required fields are `id`, `name`, and `status` (`editor`, `member`,
+`guest`). Optional fields are `url`, `orcid`, `affiliation`, and `notes`; omit
+unused fields. Keep the slug stable. The supplied records and ORCIDs are placeholders.
+
+Add an optional JPEG at `assets/authors/<id>.jpg`. After changing the registry,
+adding/removing/renaming a photo, or editing contributor rendering, run:
+
+```bash
+scripts/refresh-contributors.sh
+git add authors.yml assets/authors/ contributors.qmd _freeze/
+```
+
+Commit the frozen output and `_freeze/authors.hash` with the source changes.
+Netlify runs no R and rejects stale contributor metadata. The guard tracks photo
+filenames, not image contents; also refresh after replacing an existing photo.

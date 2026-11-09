@@ -1,6 +1,9 @@
 project:
   type: website
-
+  render:
+    - "*.qmd"
+    - "posts/**/*.qmd"
+    - "!_docs/"
 
 website:
   site-url: https://majestic-palmier-4ce0f2.netlify.app
