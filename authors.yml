@@ -5,7 +5,7 @@
   name: Brian Dillon
   status: editor
   affiliation: UMass Amherst
-  notes: "Sentence processing, syntax."
+  url: "https://people.umass.edu/bwdillon/"
 - id: tim-hunter
   name: Tim Hunter
   status: editor
@@ -15,12 +15,12 @@
   name: Ellen Lau
   status: editor
   affiliation: University of Maryland
-  notes: "Neurolinguistics, language comprehension."
+  notes: ""
 - id: dave-kush
   name: Dave Kush
   status: editor
   affiliation: University of Toronto
-  notes: "Syntactic dependencies, sentence processing."
+  notes: ""
 - id: laurel-perkins
   name: Laurel Perkins
   status: editor
@@ -32,7 +32,7 @@
   affiliation: UC Santa Cruz
   notes: "Sentence processing, syntax."
 - id: ming-xiang
-  name: Ming Xiang
+  name: Ming Xiang 向明
   status: editor
   affiliation: University of Chicago
-  notes: "Sentence processing, psycholinguistics."
+  url: "https://voices.uchicago.edu/mingxianglab/"
