@@ -87,9 +87,11 @@ On every push to `main`, Netlify:
    - Runs `npx pagefind --site _site` to build the full-text search index
 2. Publishes `_site/` to the Netlify CDN
 
-On every pull request, Netlify additionally generates a **deploy preview** — a
+On pull requests targeting the production branch (`main`), Netlify additionally
+generates a **deploy preview** — a
 live, publicly accessible URL rendering that branch's version of the site. This
-is how posts are reviewed before publication.
+is how posts are reviewed before publication. For a PR targeting another base
+branch, Netlify requires branch deploys to be enabled for that base.
 
 The Quarto setting `freeze: auto` means code chunks are only re-executed when
 their source changes. Frozen output is committed to the repo under `_freeze/`,
