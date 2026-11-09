@@ -20,6 +20,7 @@ figures, and properly formatted citations, all from the same file.
 | Layer | Tool | Notes |
 |---|---|---|
 | Authoring | [Quarto](https://quarto.org) | `.qmd` source files |
+| Theme | Bootswatch Litera in both modes | Warm paper light palette and warm ink dark palette via local SCSS |
 | R packages | renv (local only) | `renv.lock` pins packages for local reproducibility; not restored on Netlify |
 | Version control | Git + GitHub | Org repo; posts submitted as pull requests |
 | Build & deploy | [Netlify](https://netlify.com) | Triggered on merge to `main`; PR previews included |
@@ -57,6 +58,8 @@ figures, and properly formatted citations, all from the same file.
 ├── _docs/                   # Internal docs (tracked, excluded from Quarto render)
 │   └── SPEC.md              # This document
 ├── assets/
+│   ├── light.scss          # Litera light-mode palette
+│   ├── dark.scss           # Litera dark-mode palette
 │   ├── custom.css
 │   ├── author-filter.js     # Author/category selector behavior only
 │   └── authors/             # Author photos: <slug>.jpg (optional, convention-based)
@@ -270,6 +273,31 @@ The site is being built incrementally. Completed stages are marked ✅.
 Controls site-wide settings: title, navigation, themes (light/dark), global
 format options (`code-fold`, `toc`, `freeze`). Changes here affect every page.
 The `search: true` key enables Quarto's built-in navbar search widget.
+
+### Theme layers and shared styling
+
+Both modes use Bootswatch Litera: `light: [litera, assets/light.scss]` and
+`dark: [litera, assets/dark.scss]`. The Quarto navbar light/dark toggle remains.
+The SCSS files define Bootstrap colors, with warm paper (`#fffdf8`) and ink
+(`#1c1b19`) backgrounds. Dark mode uses amber links and warm gray surfaces.
+Shared CSS retains an 860px content cap, limits essay text to 78ch, uses 1.7
+line spacing, small category labels, rounded code blocks, and responsive images.
+
+Contributor page front matter adds `contributors-page` for scoped CSS over its
+frozen markup. CSS makes card backgrounds, notes, borders, and ORCID icon/text
+adapt to the active palette, without changing the R card generator. Status
+badge text remains white on its existing green/blue/gray backgrounds.
+Site and shared post defaults use `code-tools: false`, so prose pages do not
+show source menus. A future code-focused post can opt in through front matter.
+Pagefind keeps its Default UI and indexing pipeline, with palette variables
+in `custom.css`. Quarto's existing Giscus theme switch messages remain unchanged.
+
+Palette calculations meet 4.5:1 for normal text and 3:1 for UI outlines in both
+modes: body 14.06/13.57, links 6.93/8.25, muted card text 5.89/6.26, and status
+badges at least 4.69. These are color-pair checks, not a complete accessibility
+audit. The standard ORCID image in post bylines is a brand mark; card SVG/text
+colors are adjusted separately for contrast. Browser visual inspection remains
+a PR review item when desktop automation is unavailable.
 
 ### `posts/_metadata.yml`
 Inherits into every post without authors needing to repeat themselves. Currently
