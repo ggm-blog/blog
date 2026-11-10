@@ -1,5 +1,6 @@
 ---
 title: "Tensor Tension"
+subtitle: "Why neural implementation does not undermine symbolic theories of cognition."
 author:
   - ellen-lau
 date: "2026-11-23"

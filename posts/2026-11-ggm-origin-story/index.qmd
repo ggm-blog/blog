@@ -1,5 +1,6 @@
 ---
 title: "GGM Origin Story"
+subtitle: "Why we are starting this blog, our point of view, and how we plan to proceed."
 author:
   - brian-dillon
   - tim-hunter

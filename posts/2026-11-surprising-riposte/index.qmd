@@ -1,5 +1,6 @@
 ---
 title: "A surprising riposte"
+subtitle: "On using many language models to test Surprisal theory, in reply to a recent critique."
 author:
   - brian-dillon
 date: "2026-11-30"

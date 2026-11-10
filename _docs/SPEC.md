@@ -111,6 +111,7 @@ Pinned is omitted when there are no separately pinned posts. Sort/filter widgets
 are disabled; category links use Quarto's category hashes and RSS includes all posts.
 
 Previews come from the post's opening text, not front-matter descriptions.
+One-sentence post taglines use `subtitle:` and appear below the post title.
 `max-description-length: 400` (the Quarto 1.9 option) supplies hero/pinned excerpts;
 the template limits compact previews to about 160 characters. Display-name authors
 still come from the generated registry metadata. The origin story's `featured: true`
