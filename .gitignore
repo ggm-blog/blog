@@ -11,3 +11,6 @@ pagefind/             # local pagefind output
 
 # Rebuilt by the bundled-Deno pre-render script
 /generated/
+
+# Generated navbar fragment; rebuilt by the same pre-render script
+/_nav-posts.yml

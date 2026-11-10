@@ -35,6 +35,7 @@ figures, and properly formatted citations, all from the same file.
 ```
 /
 ├── _quarto.yml              # Site-wide config: theme, navbar, format defaults
+├── _nav-posts.yml           # Generated navbar fragment (gitignored)
 ├── index.qmd                # Home page — auto-generated post listing
 ├── about.qmd                # About the blog
 ├── contributors.qmd         # Author profile cards (rendered from authors.yml)
@@ -44,7 +45,7 @@ figures, and properly formatted citations, all from the same file.
 ├── scripts/                 # Contributor refresh, guard, and author metadata
 │   ├── refresh-contributors.sh
 │   ├── authors-hash.sh
-│   └── prepare-authors.ts    # Bundled-Deno registry validation and listing metadata
+│   └── prepare-authors.ts    # Bundled-Deno author/listing and navbar metadata
 ├── filters/
 │   └── author-byline.lua     # Resolve title-block author identity before normalization
 ├── templates/
@@ -82,7 +83,7 @@ On every push to `main`, Netlify:
 1. Runs `build.sh`, which:
    - Checks `_freeze/authors.hash` against `authors.yml` plus sorted author photo filenames; fails on stale metadata
    - Downloads and installs the pinned Quarto version from GitHub releases
-   - Runs `quarto render`; its pre-render hook uses bundled Deno to validate registry slugs and regenerate `generated/posts.yml`
+   - Runs `quarto render`; its pre-render hook uses bundled Deno to validate registry slugs and regenerate `generated/posts.yml` and `_nav-posts.yml`
    - A pre-AST Lua filter resolves names, URLs, and ORCIDs for post title blocks
    - Quarto renders static HTML and RSS into `_site/`, with display names supplied by generated listing metadata
    - Runs `npx pagefind --site _site` to build the full-text search index
@@ -117,6 +118,25 @@ the template limits compact previews to about 160 characters. Display-name autho
 still come from the generated registry metadata. The origin story's `featured: true`
 is a removable test flag. Scoped home styles inherit both Litera palettes and wrap
 on narrow screens.
+
+---
+
+## Navbar
+
+The existing bundled-Deno pre-render script also generates `_nav-posts.yml`.
+Top-level `metadata-files` merges that fragment into the project on Quarto 1.9.37;
+no generated block rewrites `_quarto.yml`. The fragment is an ignored build
+artifact, recreated on a fresh checkout; unchanged output is not rewritten.
+
+After Home, the menu labeled by `POSTS_MENU_LABEL` lists the newest eight
+non-draft posts, newest first, then a divider and All posts link. Titles and
+ISO `YYYY-MM-DD` dates are required on every post; failures name the file and
+field. Adding a post folder automatically adds an eligible menu entry.
+
+`website.navbar.pinned: true` keeps the slimmer bar visible. Dropdown titles
+wrap within 26rem and the phone hamburger menu. Quarto measures the actual
+header height for body/TOC offsets; CSS adds clearance for heading and footnote
+jumps. The existing light/dark palettes and toggle are retained.
 
 ---
 
