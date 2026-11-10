@@ -29,7 +29,8 @@ status_badge <- function(status) {
     guest   = "background:#6c757d;color:#fff;",
     "background:#aaa;color:#fff;"
   )
-  tags$span(style = paste0("font-size:0.72em;padding:2px 8px;border-radius:10px;", color),
+  tags$span(class = paste("author-status", paste0("author-status-", status)),
+            style = paste0("font-size:0.72em;padding:2px 8px;border-radius:10px;", color),
             tools::toTitleCase(status))
 }
 

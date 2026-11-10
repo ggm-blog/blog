@@ -1,20 +1,27 @@
 /*-- scss:defaults --*/
+$ggm-primary: #4f46e5;
+$ggm-primary-hover: #4338ca;
+$ggm-secondary: #fbbf24;
+$ggm-secondary-text: #b45309;
 // Warm paper, with darker links and muted text than stock Litera.
 $body-bg: #fffdf8;
 $body-color: #2d2a25;
-$link-color: #79501f;
-$link-hover-color: #543612;
-$primary: #79501f;
+$primary: $ggm-primary;
+$secondary: $ggm-secondary;
+$link-color: $primary;
+$link-hover-color: $ggm-primary-hover;
 $text-muted: #625e55;
 $body-secondary-color: #625e55;
 $navbar-bg: #f4f0e8;
 $navbar-fg: #2d2a25;
-$navbar-hl: #79501f;
+$navbar-hl: $primary;
+$navbar-brand: $primary;
+$navbar-brand-hl: $link-hover-color;
 $card-bg: #f8f4ec;
 $border-color: #c7bfb2;
 $input-border-color: #81786b;
 $code-bg: #f2ede3;
-$code-color: #74401f;
+$code-color: $body-color;
 $code-block-bg: #f2ede3;
 $blockquote-color: #625e55;
 $min-contrast-ratio: 4.5;
@@ -22,13 +29,16 @@ $line-height-base: 1.65;
 
 /*-- scss:rules --*/
 :root {
+  --ggm-accent-2-text: #{$ggm-secondary-text};
+  --ggm-on-accent: #{$body-bg};
+  --ggm-on-accent-2: #{$body-color};
   color-scheme: light;
   --ggm-code-bg: #f2ede3;
   --ggm-surface: #f8f4ec;
   --ggm-muted: #625e55;
   --ggm-ui-border: #81786b;
-  --ggm-mark-bg: #f1d5a7;
-  --ggm-mark-text: #2d2a25;
+  --ggm-mark-bg: transparent;
+  --ggm-mark-text: #{$primary};
   --ggm-orcid-green: #3f6212;
   --ggm-orcid-ink: #ffffff;
 }

@@ -1,11 +1,15 @@
 /*-- scss:defaults --*/
+$ggm-primary: #8b85ff;
+$ggm-primary-hover: #a6a1ff;
+$ggm-secondary: #fbbf24;
+$ggm-secondary-text: $ggm-secondary;
 // Litera typography on warm ink, rather than a separate dark Bootswatch theme.
 $body-bg: #1c1b19;
 $body-color: #e8e4dc;
-$link-color: #e0a96d;
-$link-hover-color: #f0c48f;
-$primary: #e0a96d;
-$secondary: #a8a399;
+$primary: $ggm-primary;
+$secondary: $ggm-secondary;
+$link-color: $primary;
+$link-hover-color: $ggm-primary-hover;
 $headings-color: #e8e4dc;
 $text-muted: #a8a399;
 $body-secondary-color: #a8a399;
@@ -15,7 +19,9 @@ $body-tertiary-bg: #2b2924;
 $card-bg: #242320;
 $navbar-bg: #242320;
 $navbar-fg: #e8e4dc;
-$navbar-hl: #e0a96d;
+$navbar-hl: $primary;
+$navbar-brand: $primary;
+$navbar-brand-hl: $link-hover-color;
 $footer-fg: #a8a399;
 $border-color: #3a3833;
 $input-bg: #242320;
@@ -26,16 +32,16 @@ $form-select-indicator-color: #e8e4dc;
 $dropdown-bg: #242320;
 $dropdown-color: #e8e4dc;
 $dropdown-link-color: #e8e4dc;
-$dropdown-link-hover-color: #f0c48f;
+$dropdown-link-hover-color: $link-hover-color;
 $dropdown-link-hover-bg: #2b2924;
 $pagination-bg: #242320;
-$pagination-color: #e0a96d;
+$pagination-color: $primary;
 $pagination-border-color: #79756d;
 $table-bg: #1c1b19;
 $table-color: #e8e4dc;
 $table-border-color: #79756d;
 $code-bg: #25241f;
-$code-color: #e0b98e;
+$code-color: $body-color;
 $code-block-bg: #25241f;
 $blockquote-color: #a8a399;
 $min-contrast-ratio: 4.5;
@@ -43,13 +49,16 @@ $line-height-base: 1.65;
 
 /*-- scss:rules --*/
 :root {
+  --ggm-accent-2-text: #{$ggm-secondary-text};
+  --ggm-on-accent: #{$body-bg};
+  --ggm-on-accent-2: #{$body-bg};
   color-scheme: dark;
   --ggm-code-bg: #25241f;
   --ggm-surface: #242320;
   --ggm-muted: #a8a399;
   --ggm-ui-border: #79756d;
-  --ggm-mark-bg: #5a422a;
-  --ggm-mark-text: #f4e8d8;
+  --ggm-mark-bg: transparent;
+  --ggm-mark-text: #{$primary};
   --ggm-orcid-green: #9dc84b;
   --ggm-orcid-ink: #1c1b19;
 }
