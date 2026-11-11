@@ -42,7 +42,8 @@ author:
   - jane-smith
 date: "YYYY-MM-DD"
 categories: [category1, category2]
-description: "A one- or two-sentence summary shown in the listing."
+subtitle: "A one-sentence tagline shown below the post title."
+draft: true
 bibliography: references.bib
 image: thumbnail.png
 ---
@@ -53,7 +54,7 @@ image: thumbnail.png
 To preview the blog locally before opening a PR:
 
 ```bash
-quarto preview
+quarto preview --profile staging
 ```
 
 This starts a live-reloading server at `http://localhost:4200`.
@@ -95,7 +96,7 @@ time. Do not put display names or author metadata in post front matter.
 An editor or maintainer adds each contributor to root `authors.yml` before their
 first post. Required fields are `id`, `name`, and `status` (`editor`, `member`,
 `guest`). Optional fields are `url`, `orcid`, `affiliation`, and `notes`; omit
-unused fields. Keep the slug stable. The supplied records and ORCIDs are placeholders.
+unused fields. Keep the slug stable. Use confirmed author details.
 
 Add an optional JPEG at `assets/authors/<id>.jpg`. After changing the registry,
 adding/removing/renaming a photo, or editing contributor rendering, run:
@@ -120,12 +121,78 @@ do not edit it. Unknown slugs stop the render with the post path and bad slug.
 
 A Lua filter resolves each post's title-block author names, links, and ORCIDs
 before Quarto normalizes its authors. The generated listing metadata supplies
-names for the home page and RSS feed. The home page's Author selector uses
-persistent slugs internally while displaying names; it works together with the
-Category selector, text search, and sorting. JavaScript is used only for the
-interactive selectors, not to replace bylines or display names.
+names for the home page and RSS feed. The home page automatically groups posts as Latest, Pinned (`featured: true`),
+and All posts. Empty groups are omitted. Category links remain available; the
+quiet home search form opens Pagefind on the Search page. The Posts menu is
+regenerated at build time. Display names do not depend on browser-side mapping.
 
 After changing author metadata, refresh the contributors page as described above,
 then render the whole site to check bylines, listings, and RSS. Posts containing R
 chunks still need to be rendered and frozen locally before submitting a PR;
 the Netlify build does not execute R.
+
+## Drafts, scheduled dates, and publication
+
+`draft: true` means a post is not approved for publication, regardless of its date.
+Once approved, remove `draft: true` and set a valid ISO `YYYY-MM-DD` date. A future
+date keeps it out of production until a build on or after that date, using
+`America/Los_Angeles` from `_publish.yml`. Post folder names need not change when
+the publication date changes. Tuesday is the conventional publication day, not
+an enforced restriction; any valid date is allowed.
+
+To print the next Tuesday strictly after today (Python 3.9+, stdlib only):
+
+```bash
+python3 scripts/next-publish-date.py
+python3 scripts/next-publish-date.py --n 2
+```
+
+The helper reads `_publish.yml`; no Python is used on Netlify. The bundled-Deno
+pre-render script checks all post dates and authors, including drafts. Missing
+or impossible dates fail with the post path. Never edit generated
+`posts/*/_metadata.yml`, `generated/posts.yml`, or `_nav-posts.yml`. These files
+are ignored, rebuilt, and safe across profile switches. Hand-maintained folder
+metadata is never overwritten; a conflicting future-date gate fails explicitly.
+
+Review every post, including drafts and future dates, with:
+
+```bash
+quarto preview --profile staging
+```
+
+Staging also runs automatically on Netlify deploy-preview and branch-deploy
+contexts. Drafts have text-sized Draft badges in the home listing and Quarto's
+built-in Draft banner on their page. Staging includes them in search, RSS,
+sitemap, and the Posts menu. These are public previews: URLs use guessable,
+sequential PR numbers. To make previews follow production visibility instead,
+remove both `QUARTO_PROFILE = "staging"` lines from `netlify.toml`.
+
+To check the actual production output locally, use `quarto render` with no
+`QUARTO_PROFILE` set, then `npx pagefind --site _site`. Quarto's local preview
+server itself makes draft pages visible; a production render is the authority
+for publication checks. Production excludes hidden posts from listings, the
+Posts menu, search, RSS, and sitemap. Quarto's `gone` mode leaves blank HTML
+stubs rather than post content. Author profile cards still show the registry;
+they contain no staged-post listings.
+
+### Manual publishing routine
+
+1. Merge the approved post with its intended date and without `draft: true`.
+2. On that date (Los Angeles time), open Netlify for the site and choose
+   **Deploys > Trigger deploy > Deploy site** for `main`.
+3. Check the home page, Posts menu, search, and RSS after the deploy finishes.
+
+Any deploy on or after the date publishes a due, approved post. An unrelated
+deploy after the date also publishes it; this is expected. The date alone does
+not change an already deployed site. There is no scheduled Action or build hook.
+
+The initial schedule is Tim Hunter and the pinned origin story on November 17,
+2026; Ellen Lau on November 24 and Brian Dillon on December 1 remain drafts
+until author sign-off. Equal dates sort non-featured posts first, then by title,
+so Tim is Latest and the origin story is Pinned when those two are live.
+
+Run the isolated publication regression checks with pinned Quarto:
+
+```bash
+python3 tests/test-prelaunch.py /path/to/quarto-1.9.37/bin/quarto
+```
