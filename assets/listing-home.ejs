@@ -1,5 +1,6 @@
 <%
-// Quarto supplies items sorted by date descending and resolves registry names.
+// The pre-render rank is date descending, non-featured first on ties, then title.
+items.sort((a, b) => Number(a["ggm-order"]) - Number(b["ggm-order"]));
 const latest = items[0];
 const isFeatured = (item) => item.featured === true || item.featured === 'true';
 const pinned = items.slice(1).filter(isFeatured);
@@ -21,13 +22,16 @@ const preview = (description, length) => {
 %>
 ```{=html}
 <div class="home-listing">
-  <p class="home-category-reset"><a href="#category=">All categories</a></p>
+  <% if (!latest) { %><p class="home-empty">No posts published yet.</p><% } %>
+  <% if (latest) { %><p class="home-category-reset"><a href="#category=">All categories</a></p><% } %>
   <div class="list">
   <% for (const entry of grouped) { const item = entry.item; %>
     <article class="home-post home-<%= entry.kind %>" <%= metadataAttrs(item) %>>
-      <% if (entry.label) { %><h2 class="home-group-title"><%- entry.label %></h2><% } %>
+      <% if (entry.label && entry.kind !== 'compact') { %><span class="ggm-badge ggm-badge-<%- entry.kind %>"><%- entry.label %></span><% } %>
+      <% if (entry.label && entry.kind === 'compact') { %><h2 class="home-group-title">All posts</h2><% } %>
       <div class="home-post-content">
-        <% if (entry.kind === 'latest' && isFeatured(item)) { %><span class="home-pinned-badge">Pinned</span><% } %>
+        <% if (entry.kind === 'latest' && isFeatured(item)) { %><span class="ggm-badge ggm-badge-pinned">Pinned</span><% } %>
+        <% if (item['ggm-draft'] === true || item['ggm-draft'] === 'true') { %><span class="ggm-badge ggm-badge-draft">Draft</span><% } %>
         <h3 class="listing-title"><a href="<%- item.path %>"><%= item.title %></a></h3>
         <div class="home-post-meta">
           <span class="listing-author"><%= item.author %></span>
