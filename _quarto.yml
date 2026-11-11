@@ -10,6 +10,7 @@ project:
     - "!_docs/"
 
 website:
+  draft-mode: gone
   site-url: https://majestic-palmier-4ce0f2.netlify.app
   title: "Grammars Gone Mental"
   navbar:
@@ -17,7 +18,9 @@ website:
     right:
       - icon: github
         href: https://github.com/your-org/blog
-  search: true
+  search:
+    location: navbar
+    type: overlay
   page-footer:
     left: "© 2026 The Consortium"
     right:
