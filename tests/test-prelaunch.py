@@ -180,14 +180,14 @@ def main():
         original_gate = gate.read_text()
         env = os.environ.copy()
         env.pop('QUARTO_PROFILE', None)
-        for instant, count in [('2026-11-17T07:59:59Z', 0), ('2026-11-17T08:00:00Z', 2)]:
+        for instant, count in [('2026-11-12T07:59:59Z', 0), ('2026-11-12T08:00:00Z', 2)]:
             gate.write_text(original_gate.replace('.formatToParts(new Date());',
                 f'.formatToParts(new Date("{instant}"));'))
             result = subprocess.run([QUARTO, 'run', 'scripts/prepare-authors.ts'], cwd=work,
                 env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             assert result.returncode == 0, result.stdout
             assert (work / 'generated/posts.yml').read_text().count('- path:') == count
-        print('PASS real November 17 schedule at Los Angeles midnight (UTC boundary)', flush=True)
+        print('PASS real November 12 schedule at Los Angeles midnight (UTC boundary)', flush=True)
 
         # All fixture post edits above are front matter; real sources are unchanged.
         for slug in SLUGS:
