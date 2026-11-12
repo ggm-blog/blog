@@ -113,12 +113,12 @@ pre, pre code { color: var(--bs-body-color); }
 .home-listing .listing-title { margin: 0 0 .65rem; line-height: 1.2; }
 .home-listing .listing-title a { color: var(--ggm-accent); text-decoration: underline; }
 .home-listing .listing-title a:hover { color: var(--bs-link-hover-color); text-decoration: underline; }
-.home-listing .home-latest .listing-title { font-size: clamp(1.75rem, 4vw, 2.65rem); }
+.home-listing .home-latest .listing-title { font-size: clamp(1.6rem, 2.4vw, 1.75rem); }
 .home-listing .home-pinned .home-post-content {
   border-bottom: 1px solid var(--bs-border-color);
   padding: .25rem 0 1.5rem;
 }
-.home-listing .home-pinned .listing-title { font-size: clamp(1.4rem, 3vw, 1.85rem); }
+.home-listing .home-pinned .listing-title { font-size: 1.35rem; }
 .home-listing .home-post-meta { font-size: .88rem; line-height: 1.6; color: var(--ggm-muted); }
 .home-listing .listing-author, .home-listing .listing-date { display: block; }
 .home-listing .home-categories { display: flex; flex-wrap: wrap; gap: .4rem; margin: .75rem 0; }
@@ -129,18 +129,9 @@ pre, pre code { color: var(--bs-body-color); }
   text-decoration: none;
 }
 .home-listing .listing-description { margin: .85rem 0 0; }
-.home-listing .home-compact .listing-title { font-size: 1.2rem; }
+.home-listing .home-compact .listing-title { font-size: 1.15rem; }
 .home-listing .home-compact .home-post-content { padding-bottom: 1rem; border-bottom: 1px solid var(--bs-border-color); }
 .home-listing .home-compact .listing-description { font-size: .95rem; }
-.home-listing .home-pinned-badge {
-  display: inline-block;
-  font-size: .75rem;
-  color: var(--bs-body-color);
-  border: 1px solid var(--ggm-ui-border);
-  border-radius: 1rem;
-  padding: .1rem .6rem;
-  margin-bottom: .65rem;
-}
 
 /* Pinned, compact navbar; Quarto measures its height for body/TOC offsets. */
 .navbar { padding-block: .15rem; }
@@ -196,7 +187,7 @@ main.content a[href]:hover { color: var(--bs-link-hover-color); text-decoration:
   text-decoration-thickness: 2px;
   text-underline-offset: .35em;
 }
-.home-listing .home-latest .home-group-title { color: var(--ggm-accent); }
+
 #title-block-header .quarto-category a { color: var(--ggm-accent); text-decoration: underline; }
 .home-listing .listing-category { border-color: var(--ggm-accent); text-decoration: underline; }
 .sidebar nav[role="doc-toc"] a.active {
@@ -204,16 +195,6 @@ main.content a[href]:hover { color: var(--bs-link-hover-color); text-decoration:
   border-left-color: var(--ggm-accent) !important;
 }
 /* Amber stays small: pin pills, a title rule, and result hover/focus markers. */
-.home-listing .home-pinned-badge,
-.home-listing .home-pinned .home-group-title {
-  display: inline-block;
-  color: var(--ggm-on-accent-2);
-  background: var(--ggm-accent-2);
-  border: 1px solid var(--ggm-accent-2-text);
-  border-radius: 1rem;
-  padding: .1rem .6rem;
-  font-size: .75rem;
-}
 #title-block-header h1.title::after {
   content: "";
   display: block;
@@ -234,3 +215,52 @@ main.content a[href]:hover { color: var(--bs-link-hover-color); text-decoration:
 #search a[href] { color: var(--ggm-accent); text-decoration: underline; }
 #search a[href]:hover { color: var(--bs-link-hover-color); }
 #search .pagefind-ui__search-input:focus { outline: 3px solid var(--ggm-accent) !important; outline-offset: 3px; }
+
+/* Home labels are text-sized spans, outside Quarto's heading anchors. */
+.home-listing .ggm-badge {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  margin: 0 .4rem .85rem 0;
+  padding: .1rem .6rem;
+  border: 1px solid var(--ggm-accent);
+  border-radius: 1rem;
+  font-size: .75rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: .05em;
+}
+.ggm-badge-latest { color: var(--ggm-on-accent); background: var(--ggm-accent); }
+.home-listing .ggm-badge-pinned {
+  color: var(--ggm-on-accent-2);
+  background: var(--ggm-accent-2);
+  border-color: var(--ggm-accent-2-text);
+}
+.home-listing .ggm-badge-draft {
+  color: var(--ggm-muted);
+  background: var(--ggm-surface);
+  border-color: var(--ggm-ui-border);
+}
+/* The full page title stays larger than every listing title, including phones. */
+body:has(.home-listing) #title-block-header h1.title { font-size: clamp(1.9rem, 3vw, 2.25rem); }
+.home-search { max-width: 32rem; margin-bottom: 1.75rem; }
+.home-search label { display: block; font-size: .88rem; color: var(--ggm-muted); margin-bottom: .3rem; }
+.home-search-controls { display: flex; gap: .5rem; }
+.home-search input, .home-search button {
+  min-height: 44px;
+  border: 1px solid var(--ggm-ui-border);
+  border-radius: .3rem;
+  background: var(--ggm-surface);
+  color: var(--bs-body-color);
+  font: inherit;
+  font-size: .9rem;
+  padding: .4rem .65rem;
+}
+.home-search input { flex: 1; width: 100%; min-width: 0; }
+.home-search input::placeholder { color: var(--ggm-muted); opacity: 1; }
+.home-search button { color: var(--ggm-accent); }
+
+html:not([data-ggm-category-filter]) .listing-no-matching { display: none !important; }
+.home-listing .home-staged .listing-title { font-size: 1.15rem; }
+.home-listing .home-staged .home-post-content { padding-bottom: 1rem; border-bottom: 1px solid var(--bs-border-color); }
+.home-listing .ggm-badge-scheduled { color: var(--ggm-muted); background: var(--ggm-surface); }

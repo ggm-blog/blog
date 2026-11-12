@@ -10,11 +10,13 @@ title: "Search"
 
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    new PagefindUI({ 
+    const ui = new PagefindUI({
       element: '#search',
       showImages: false,
       openFilters: ['Categories']
     });
+    const query = new URLSearchParams(window.location.search).get('query');
+    if (query) ui.triggerSearch(query);
   });
 </script>
 

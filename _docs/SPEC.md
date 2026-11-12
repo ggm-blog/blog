@@ -35,7 +35,9 @@ figures, and properly formatted citations, all from the same file.
 ```
 /
 ├── _quarto.yml              # Site-wide config: theme, navbar, format defaults
-├── _nav-posts.yml           # Generated navbar fragment (gitignored)
+├── _nav-posts.yml           # Generated navbar + project draft list (gitignored)
+├── _quarto-staging.yml      # Visible drafts for review builds
+├── _publish.yml             # Conventional weekday + publication timezone
 ├── index.qmd                # Home page — auto-generated post listing
 ├── about.qmd                # About the blog
 ├── contributors.qmd         # Author profile cards (rendered from authors.yml)
@@ -45,7 +47,9 @@ figures, and properly formatted citations, all from the same file.
 ├── scripts/                 # Contributor refresh, guard, and author metadata
 │   ├── refresh-contributors.sh
 │   ├── authors-hash.sh
-│   └── prepare-authors.ts    # Bundled-Deno author/listing and navbar metadata
+│   ├── next-publish-date.py  # Local stdlib date helper
+│   └── prepare-authors.ts    # Bundled-Deno identity, date gates, navbar metadata
+├── tests/test-prelaunch.py  # Isolated publishing integration checks
 ├── filters/
 │   └── author-byline.lua     # Resolve title-block author identity before normalization
 ├── templates/
@@ -69,6 +73,7 @@ figures, and properly formatted citations, all from the same file.
     ├── _metadata.yml        # Shared defaults applied to every post
     └── YYYY-MM-slug/
         ├── index.qmd        # Post source
+        ├── _metadata.yml    # Generated date gate (gitignored, marker-owned)
         ├── references.bib   # Citations (if used)
         ├── thumbnail.png    # Listing image (optional)
         └── data/            # Data files (optional)
@@ -83,7 +88,11 @@ On every push to `main`, Netlify:
 1. Runs `build.sh`, which:
    - Checks `_freeze/authors.hash` against `authors.yml` plus sorted author photo filenames; fails on stale metadata
    - Downloads and installs the pinned Quarto version from GitHub releases
-   - Runs `quarto render`; its pre-render hook uses bundled Deno to validate registry slugs and regenerate `generated/posts.yml` and `_nav-posts.yml`
+   - Runs `quarto render`; its bundled-Deno pre-render validates all dates/slugs,
+     evaluates the publication date in `_publish.yml`'s timezone, maintains
+     marker-owned per-post date gates, and regenerates visible listing/navbar metadata
+   - Production uses `website.draft-mode: gone`; Netlify deploy-preview and
+     branch-deploy contexts set `QUARTO_PROFILE=staging` (`draft-mode: visible`)
    - A pre-AST Lua filter resolves names, URLs, and ORCIDs for post title blocks
    - Quarto renders static HTML and RSS into `_site/`, with display names supplied by generated listing metadata
    - Runs `npx pagefind --site _site` to build the full-text search index
@@ -104,20 +113,28 @@ locally** and its frozen output committed; the Netlify build does not run R.
 
 ## Home page
 
-`index.qmd` uses one date-descending Quarto listing with `assets/listing-home.ejs`.
-The newest post is the Latest hero. Other posts with `featured: true` form Pinned,
-newest first; a featured latest post appears only in the hero, with a Pinned badge.
-All posts below contains every remaining post, newest first, with no duplicates.
-Pinned is omitted when there are no separately pinned posts. Sort/filter widgets
-are disabled; category links use Quarto's category hashes and RSS includes all posts.
+`index.qmd` uses one Quarto listing with `assets/listing-home.ejs`. The generated
+rank sorts dates descending, non-featured before featured on equal dates, then
+by title. The newest eligible post is Latest. Other featured posts form Pinned;
+a featured latest appears once in the hero, with a Pinned badge. All posts
+contains the remaining eligible posts, and is omitted entirely when empty.
 
-Previews come from the post's opening text, not front-matter descriptions.
-One-sentence post taglines use `subtitle:` and appear below the post title.
-`max-description-length: 400` (the Quarto 1.9 option) supplies hero/pinned excerpts;
-the template limits compact previews to about 160 characters. Display-name authors
-still come from the generated registry metadata. The origin story's `featured: true`
-is a removable test flag. Scoped home styles inherit both Litera palettes and wrap
-on narrow screens.
+Latest, Pinned, and Draft labels are text-sized `.ggm-badge` spans, not headings
+or links. `anchor-sections: false` on the home page prevents stray anchor icons
+on listing titles and metadata. Site title (1.9–2.25rem) > hero (1.6–1.75rem) >
+pinned (1.35rem) > compact titles (1.15rem), in both modes and on phones.
+
+The quiet Search posts form at the top submits `query` to Pagefind's Search
+page; `query` avoids Quarto navbar search's reserved `q` parameter. Navbar search
+is explicitly configured as an overlay icon. Pagefind remains the full-text
+search engine on the Search page. Categories and RSS are retained; sort/filter
+widgets stay disabled. RSS uses the same eligible posts and generated names.
+
+Previews come from opening text, not front-matter descriptions. One-sentence
+taglines use `subtitle:`. `max-description-length: 400` supplies hero/pinned
+excerpts; compact excerpts are limited to about 160 characters. The origin
+story retains `featured: true` for the launch pin. Staging includes and labels
+manual drafts; production includes only approved, due posts.
 
 ---
 
@@ -125,11 +142,13 @@ on narrow screens.
 
 The existing bundled-Deno pre-render script also generates `_nav-posts.yml`.
 Top-level `metadata-files` merges that fragment into the project on Quarto 1.9.37;
-no generated block rewrites `_quarto.yml`. The fragment is an ignored build
-artifact, recreated on a fresh checkout; unchanged output is not rewritten.
+no generated block rewrites `_quarto.yml`. The fragment also supplies the generated `website.drafts` list for hidden
+production posts. It is an ignored build artifact, recreated on a fresh
+checkout; unchanged output is not rewritten.
 
 After Home, the menu labeled by `POSTS_MENU_LABEL` lists the newest eight
-non-draft posts, newest first, then a divider and All posts link. Titles and
+eligible posts (all posts in staging), sorted by the same date/featured/title
+rank as home, then a divider and All posts link. Titles and
 ISO `YYYY-MM-DD` dates are required on every post; failures name the file and
 field. Adding a post folder automatically adds an eligible menu entry.
 
@@ -137,6 +156,74 @@ field. Adding a post folder automatically adds an eligible menu entry.
 wrap within 26rem and the phone hamburger menu. Quarto measures the actual
 header height for body/TOC offsets; CSS adds clearance for heading and footnote
 jumps. The existing light/dark palettes and toggle are retained.
+
+---
+
+## Staging and scheduled publication
+
+`_publish.yml` defines the conventional publication weekday (`tuesday`) and the
+IANA timezone (`America/Los_Angeles`). Tuesday is editorial convention, not a
+validation restriction. `scripts/next-publish-date.py` (local Python 3.9+,
+stdlib only) prints the next matching date strictly after today; `--n 2` prints
+the second one. Netlify runs no Python for publication.
+
+A manual `draft: true` is withheld regardless of date. An approved post with a
+future ISO date is withheld until a build on or after that date, evaluated by
+bundled Deno's `Intl` timezone support. All dates and author slugs are validated,
+including hidden posts, and failures name the post. Production's generated
+listing and menu contain only approved, due posts; author profile cards read
+the registry and contain no post listings.
+
+For a future, non-draft `posts/*/index.qmd`, pre-render writes folder
+`_metadata.yml` with the first-line marker `# generated by pre-render date gate`
+and `draft: true`. When due or in staging, it removes only its own marked file.
+An unmarked file is never changed; if it conflicts with a needed date gate,
+the build fails clearly. These per-folder files are gitignored. Quarto 1.9.37
+honors folder draft metadata, but post front matter `draft: false` overrides it.
+Therefore `_nav-posts.yml` also supplies `website.drafts` for hidden posts;
+this project-level draft list prevents that override from bypassing the gate.
+
+Default/production uses `website.draft-mode: gone`. Tested on Quarto 1.9.37:
+it strips hidden post HTML to blank stubs and omits posts from listings, Quarto
+search, RSS, and sitemap. Pagefind indexes the rendered public content, so the
+blank stubs contribute no post text. `visible` renders complete drafts, includes
+them in these outputs, and adds Quarto's built-in Draft page banner. The custom
+listing supplies its own Draft span badge; the script explicitly filters the
+Posts menu because that menu is generated independently of Quarto's listing.
+
+`_quarto-staging.yml` enables visible drafts. Netlify deploy-preview and
+branch-deploy contexts select it automatically with `QUARTO_PROFILE=staging`;
+production `main` uses the default. Staging skips date gating entirely and
+includes all four launch posts. Review with `quarto preview --profile staging`.
+Quarto's local preview server forces draft-page visibility, so use an ordinary
+`quarto render` without a profile for authoritative production checks.
+
+Preview visibility is an editorial trade-off, not access control: deploy-preview
+URLs use guessable sequential PR numbers, and staging search/RSS expose drafts.
+To make previews follow production rules, remove both
+`QUARTO_PROFILE = "staging"` lines from `netlify.toml`. Neither unpublished
+assets nor a public source repository become private through draft mode.
+
+### Manual redeploy routine
+
+Merge an approved post with its intended date and no `draft: true`. On the
+scheduled date, use Netlify **Deploys > Trigger deploy > Deploy site** for
+`main`. Any deploy on or after that date publishes the post, including an
+unrelated deploy; this is expected. An already deployed site does not change
+when the clock crosses midnight. No scheduled GitHub Action or build hook is
+configured.
+
+Launch front matter: Tim Hunter and the featured origin story are approved for
+November 17, 2026; Ellen Lau (November 24) and Brian Dillon (December 1) remain
+manual drafts pending sign-off. Before November 17 production has no posts;
+on/after November 17 it has Tim as Latest and the origin story as Pinned, with
+no empty All posts group. Staging has all four.
+
+`tests/test-prelaunch.py` tests these outputs in an isolated project copy,
+including today/future/past boundaries, explicit `draft: false`, profile
+transitions, equal-date ordering, featured-latest de-duplication, bad dates,
+unknown slugs, and protection of hand-maintained metadata. It changes fixture
+front matter only. Real post bodies must remain byte-for-byte unchanged.
 
 ---
 
@@ -186,7 +273,8 @@ Posts retain slug lists in source. `scripts/prepare-authors.ts` runs via
 `stdlib/yaml` bundled with pinned Quarto **1.9.37**. It scans `posts/**/*.qmd`,
 validates a nonempty list of known slugs on every post (including drafts), rejects
 duplicate registry IDs, and reports the post path and unknown slug on failure.
-No R, Python, Node, network imports, or source rewrites are used by this step.
+No R, Python, Node, network imports, or post source rewrites are used by this step.
+It also maintains publication gates and visible metadata as described above.
 
 `filters/author-byline.lua` runs at `pre-ast`, reads the registry, and supplies
 both `author` and `authors` metadata before Quarto normalizes authors. Title
@@ -312,7 +400,7 @@ The site is being built incrementally. Completed stages are marked ✅.
 ### `_quarto.yml`
 Controls site-wide settings: title, navigation, themes (light/dark), global
 format options (`code-fold`, `toc`, `freeze`). Changes here affect every page.
-The `search: true` key enables Quarto's built-in navbar search widget.
+The `website.search` overlay configuration enables Quarto's navbar search icon.
 
 ### Theme layers and shared styling
 
@@ -375,3 +463,12 @@ and records a SHA-256 of registry contents plus sorted filenames (including
 `.gitkeep`) in `_freeze/authors.hash`. Commit `_freeze/` with the sources.
 `build.sh` checks the same fingerprint without R before rendering. Photo content
 replacements retain the same fingerprint; refresh locally for those too.
+
+
+## Deferred
+
+- A scheduled daily rebuild via a GitHub Action calling a Netlify build hook,
+  to adopt once publication volume is steady. Not implemented.
+- Making the site repository private. Giscus requires a public repository with
+  Discussions; a private site repository would need Giscus pointed at a
+  separate public comments repository. No repository or Giscus settings changed.

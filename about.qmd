@@ -4,23 +4,30 @@ title: "About"
 
 ## What is Grammars Gone Mental?
 
-Grammars Gone Mental is a shared scholarly space for collaborative research
-communication. It is maintained by a group of researchers committed to open
-science, reproducible analysis, and transparent methods.
+Grammars Gone Mental (GGM) is a group blog about how language – intricate, dynamic and infinite – arises in finite human brains. It was started by seven linguists and cognitive scientists: Brian Dillon, Tim Hunter, Dave Kush, Ellen Lau, Laurel Perkins, Matt Wagers, and Ming Xiang.
+
+We work in the generative grammar tradition and are mentalists. We think the three big questions about language (what a speaker knows, how that knowledge is put to use, and how it is acquired) are best answered in terms of the mental capacities and processes of language users, and that those answers should be stated in explicit formal models. Beyond that, we try to be ecumenical but rigorous about methods, and glad to hear from people who think we're wrong.
+
+We write for anyone who cares about these questions: linguists, psychologists, neuroscientists, students, and people in AI who are wondering what language is and how humans manage it. The blog takes inspiration from Norbert Hornstein's [*Faculty of Language*](https://facultyoflanguage.blogspot.com/). It aims to be more nimble than journal publishing and more lasting than social media. It's free to read, open to comment, and posts are as long as the idea needs.
 
 ## What we write about
 
-Posts on this blog span a range of topics central to empirical research:
+Our topics are the core questions of language science, and how they fare as the field meets neighboring disciplines and new technologies. Not every post is a Big Question. Expect:
 
-- **Methods notes** — walkthroughs of statistical or computational techniques
-- **Data explorations** — descriptive and exploratory analyses of public or
-  shared datasets
-- **Replications** — attempts to reproduce published findings with new data
-  or updated code
-- **Tutorials** — step-by-step guides for tools, packages, and workflows
+- **Reactions** to specific papers, debates and claims
+- **Bite-sized tutorials** on methods, models and formal tools
+- **Round-ups** of recent research, in the spirit of *Glot International*'s old "State-of-the-Article" pieces
+- **Conjectures and kvetches** about what we think the field is missing
+
+We give each other feedback before anything goes up, and every post is written by its human authors. We aim to publish about once a week.
 
 ## Contributing
 
-All consortium members are welcome to contribute posts. See the
-[CONTRIBUTING guide](CONTRIBUTING.md) for branch naming conventions, post
-folder structure, required front matter, and the Git/PR workflow.
+We plan to publish guest posts, and we welcome proposals from a wide range of viewpoints. If you have an idea for a post, or a topic you'd like to see us take on, write to us:
+
+- **Email:** editors@grammarsgonemental.org <!-- PLACEHOLDER: replace with real address -->
+- **Editorial contact:** [Name], [Institution] <!-- PLACEHOLDER -->
+
+A short pitch is all we need to begin: a few sentences on the idea, why it matters now, and roughly how long it would be.
+
+To join the discussion on an existing post, see [How to comment](/commenting.qmd).

@@ -4,25 +4,29 @@ metadata-files:
 project:
   type: website
   pre-render: scripts/prepare-authors.ts
+  post-render: scripts/remove-hidden-posts.ts
   render:
     - "*.qmd"
     - "posts/**/*.qmd"
     - "!_docs/"
 
 website:
+  draft-mode: gone
   site-url: https://majestic-palmier-4ce0f2.netlify.app
   title: "Grammars Gone Mental"
   navbar:
     pinned: true
     right:
       - icon: github
-        href: https://github.com/your-org/blog
-  search: true
+        href: https://github.com/mattwagers/roundup-sandbox
+  search:
+    location: navbar
+    type: overlay
   page-footer:
-    left: "© 2026 The Consortium"
+    left: "© 2026 Grammars Gone Mental"
     right:
       - icon: github
-        href: https://github.com/placeholder/consortium-blog
+        href: https://github.com/mattwagers/roundup-sandbox
         aria-label: GitHub
 
 format:

@@ -1,13 +1,14 @@
 ---
 title: "Grammars Gone Mental"
+anchor-sections: false
 page-layout: full
 title-block-banner: true
 listing:
   id: posts
   contents: generated/posts.yml
   template: assets/listing-home.ejs
-  fields: [date, title, author, categories, description, featured]
-  sort: "date desc"
+  fields: [date, title, author, categories, description, featured, ggm-draft, ggm-live, ggm-scheduled, ggm-order]
+  sort: "ggm-order"
   type: default
   categories: false
   sort-ui: false
@@ -16,3 +17,26 @@ listing:
   page-size: 1000000
   feed: true
 ---
+
+```{=html}
+<form class="home-search" action="search.html" method="get" role="search">
+  <label for="home-search-query">Search posts</label>
+  <div class="home-search-controls">
+    <input id="home-search-query" name="query" type="search" placeholder="Search posts" required>
+    <button type="submit">Search</button>
+  </div>
+</form>
+```
+
+```{=html}
+<script>
+// Quarto also shows its empty-filter message for an initially empty listing.
+// Only expose it when the visitor has actually selected a category filter.
+function syncCategoryFilter() {
+  const category = new URLSearchParams(location.hash.slice(1)).get('category');
+  document.documentElement.toggleAttribute('data-ggm-category-filter', Boolean(category));
+}
+window.addEventListener('hashchange', syncCategoryFilter);
+syncCategoryFilter();
+</script>
+```

@@ -14,3 +14,6 @@ pagefind/             # local pagefind output
 
 # Generated navbar fragment; rebuilt by the same pre-render script
 /_nav-posts.yml
+
+# Per-post date gates; generated locally and on Netlify
+/posts/*/_metadata.yml

@@ -3,7 +3,7 @@ title: "A surprising riposte"
 subtitle: "On using many language models to test Surprisal theory, in reply to a recent critique."
 author:
   - brian-dillon
-date: "2026-11-30"
+date: "2026-12-01"
 categories: [psycholinguistics, surprisal]
 csl: https://www.zotero.org/styles/apa
 nocite: |
@@ -123,6 +123,7 @@ references:
     volume: 7
     URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10449406/
     note: "VERIFY: the post says Hoover et al. (2024); this record is the 2023 Open Mind paper. Left as plain text in the post; listed via nocite."
+draft: true
 ---
 
 It’s been an interesting couple of years for the Surprisal theory of human sentence processing, which has enjoyed an unusually long run as a leading candidate for a (mostly) unifying theory of sentence processing[^1]. 
