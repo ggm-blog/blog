@@ -90,6 +90,7 @@ try {
   const staging = (Deno.env.get("QUARTO_PROFILE") || "").split(",").includes("staging");
   const today = publicationDay();
   const hiddenPosts: string[] = [];
+  const excludedPosts: string[] = [];
   const items = [];
   const menuPosts: { path: string; title: string; date: number; featured: boolean }[] = [];
   for (const path of posts("posts")) {
@@ -104,8 +105,9 @@ try {
     if (path.endsWith("/index.qmd")) dateGate(path, future && meta.draft !== true, staging);
     const visible = staging || (meta.draft !== true && !future);
     if (!visible) hiddenPosts.push(path);
+    if (meta.draft === true || future) excludedPosts.push(path);
     const featured = meta.featured === true;
-    if (visible) menuPosts.push({ path, title, date, featured });
+    if (meta.draft !== true && !future) menuPosts.push({ path, title, date, featured });
     if (!Array.isArray(meta.author) || !meta.author.length) {
       throw new Error(`${path}: author must be a nonempty list of registry slugs`);
     }
@@ -123,6 +125,8 @@ try {
       "author-slugs": authors.map((a) => a.id),
       "author-records": authors,
       "ggm-draft": meta.draft === true,
+      "ggm-live": meta.draft !== true && !future,
+      "ggm-scheduled": future && meta.draft !== true ? new Date(date).toISOString().slice(0, 10) : "",
       "ggm-order": 0,
       "ggm-sort-date": new Date(date).toISOString().slice(0, 10),
       "ggm-featured": featured,
@@ -134,6 +138,7 @@ try {
   items.forEach((item, index) => { item["ggm-order"] = index; });
   Deno.mkdirSync("generated", { recursive: true });
   writeIfChanged("generated/posts.yml", stringify(items));
+  writeIfChanged("generated/hidden-posts.json", JSON.stringify(staging ? [] : excludedPosts));
   menuPosts.sort((a, b) => b.date - a.date || Number(a.featured) - Number(b.featured) || a.title.localeCompare(b.title));
   const menu = menuPosts.slice(0, POSTS_MENU_LIMIT).map((post) => ({
     text: post.title, href: post.path,

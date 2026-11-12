@@ -7,7 +7,7 @@ listing:
   id: posts
   contents: generated/posts.yml
   template: assets/listing-home.ejs
-  fields: [date, title, author, categories, description, featured, ggm-draft, ggm-order]
+  fields: [date, title, author, categories, description, featured, ggm-draft, ggm-live, ggm-scheduled, ggm-order]
   sort: "ggm-order"
   type: default
   categories: false
@@ -26,4 +26,17 @@ listing:
     <button type="submit">Search</button>
   </div>
 </form>
+```
+
+```{=html}
+<script>
+// Quarto also shows its empty-filter message for an initially empty listing.
+// Only expose it when the visitor has actually selected a category filter.
+function syncCategoryFilter() {
+  const category = new URLSearchParams(location.hash.slice(1)).get('category');
+  document.documentElement.toggleAttribute('data-ggm-category-filter', Boolean(category));
+}
+window.addEventListener('hashchange', syncCategoryFilter);
+syncCategoryFilter();
+</script>
 ```

@@ -162,8 +162,9 @@ quarto preview --profile staging
 
 Staging also runs automatically on Netlify deploy-preview and branch-deploy
 contexts. Drafts have text-sized Draft badges in the home listing and Quarto's
-built-in Draft banner on their page. Staging includes them in search, RSS,
-sitemap, and the Posts menu. These are public previews: URLs use guessable,
+built-in Draft banner on their page. Staging includes them in search, RSS, and sitemap, with a separate home section
+for drafts and scheduled posts. Latest, Pinned, and the Posts menu use only live
+posts in both profiles. These are public previews: URLs use guessable,
 sequential PR numbers. To make previews follow production visibility instead,
 remove both `QUARTO_PROFILE = "staging"` lines from `netlify.toml`.
 
@@ -171,8 +172,8 @@ To check the actual production output locally, use `quarto render` with no
 `QUARTO_PROFILE` set, then `npx pagefind --site _site`. Quarto's local preview
 server itself makes draft pages visible; a production render is the authority
 for publication checks. Production excludes hidden posts from listings, the
-Posts menu, search, RSS, and sitemap. Quarto's `gone` mode leaves blank HTML
-stubs rather than post content. Author profile cards still show the registry;
+Posts menu, search, RSS, and sitemap. A post-render cleanup removes hidden post output directories, including
+Quarto's blank `gone` stubs and copied assets. Author profile cards still show the registry;
 they contain no staged-post listings.
 
 ### Manual publishing routine

@@ -1,51 +1,52 @@
 ---
-title: "GGM Origin Story"
-subtitle: "Why we are starting this blog, our point of view, and how we plan to proceed."
+title: "Welcome to Grammars Gone Mental"
 author:
   - brian-dillon
   - tim-hunter
-  - ellen-lau
   - dave-kush
+  - ellen-lau
   - laurel-perkins
   - matt-wagers
   - ming-xiang
 date: "2026-11-17"
-categories: [about]
+categories: [about, meta]
 featured: true
+description: "Who we are, why we started a blog, and how we plan to run it."
+bibliography: references.bib
 ---
 
-Welcome to GGM (Grammars Gone Mental) – a new blog conceived of by Brian Dillon, Tim Hunter, Ellen Lau, Dave Kush, Laurel Perkins, Matt Wagers, and Ming Xiang. We are a group of linguists and cognitive scientists who care about how language – intricate, dynamic and infinite – arises in our finite brains. We are here because we wanted to think through, together, both the enduring questions and the latest developments in language science. We have our own point of view, of course, but we’re writing for anyone who cares about them: linguists, psychologists, neuroscientists, students, and the growing number of people in AI who find themselves wondering what language is and how humans manage it.
+Welcome to GGM (Grammars Gone Mental), a new blog conceived of by Brian Dillon, Tim Hunter, Dave Kush, Ellen Lau, Laurel Perkins, Matt Wagers, and Ming Xiang. We are a group of linguists and cognitive scientists who care about how language – intricate, dynamic and infinite – arises in our finite brains. We are here because we wanted to think through, together, both the enduring questions and the latest developments in language science. We have our own point of view, of course, but we're writing for anyone who cares about them: linguists, psychologists, neuroscientists, students, and the growing number of people in AI who find themselves wondering what language is and how humans manage it.
 
-**A little bit about our point of view**: we are all trained and working in the generative grammar tradition and consider ourselves, in that sense, mentalists. We care about answering the “three big questions” about humans and language (Chomsky, 1986): (1) what a language user knows; (2) how that knowledge is put into use, to communicate, among other things; and (3) how that ability gets acquired. Calling ourselves mentalists means that we think the right way to answer those questions is by “making reference to the mental events, capacities, and processes” of the language user (Katz, 1964). Needless to say, all those mechanisms are embedded in brains, which some of us study directly. We take, from the ‘generative’ in generative grammar, a commitment to being explicit in our models. To varying degrees, we also all accept a broad version of Chomsky’s Minimalism, a stance of parsimony, and of skepticism, about just how much of our answers to (1)-(3) should be specific both to capital-L Language (and to any small-l language). We value careful attention to the description of specific linguistic systems and an ecumenical but rigorous approach to methods. We like to conjecture, to kvetch, and even to to hear from people who think we’re wrong.
+## A little bit about our point of view
 
-**Why this blog?** It is an exciting time to be a linguist. The field has made remarkable progress on (1)–(3), and we think more of that progress goes unappreciated than it should. We want to celebrate it, and to make more room for the synthesis it allows. But while parts of the map are now filled in at high resolution, much terra incognita remains. So the time is ripe to reconnoiter, and to plan new expeditions.  
+We are all trained and working in the generative grammar tradition and consider ourselves, in that sense, mentalists. We care about answering the "three big questions" about humans and language [@chomsky1986]:
 
-... It is also a vertiginous time – to be any kind of scientist, but especially a language scientist. AI systems built on large language models have opened up new frontiers in research, in generating hypotheses and sharpening our tools. At the same time, none of us thinks that their existence, or their progress, has provided automatic answers to (1)-(3), or even ones that fully pertain to humans. We want to be neither wet blankets nor hype machines, to engage with the new New Science, so to speak, but most importantly to keep our attention focused on the intertwining of language, cognition and humanity.  
+1. what a language user knows;
+2. how that knowledge is put into use, to communicate, among other things; and
+3. how that ability gets acquired.
 
-That’s all about the moment we find ourselves in. But then there’s the way we talk to one another. Traditional academic publishing doesn’t let us move as nimbly, range as widely, or speak as authentically as we want to. At the same time, we also wanted something more measured, and less evanescent, than microblogging on social media. We wanted writing that we controlled, published on our schedule, free to read and at whatever length the idea needs – and that others can respond to directly.	  
+Calling ourselves mentalists means that we think the right way to answer those questions is by "making reference to the mental events, capacities, and processes" of the language user [@katz1964]. Needless to say, all those mechanisms are embedded in brains, which some of us study directly. We take, from the 'generative' in generative grammar, a commitment to being explicit in our formal models. We value careful attention to the description of specific linguistic systems and an ecumenical but rigorous approach to methods. We like to conjecture, to kvetch, and even to hear from people who think we're wrong.
 
-Finally, all of us were strongly influenced by Norbert Hornstein’s “Faculty of Language” blog \[link\] – and we know we’re not the only ones\! – so we wanted to create a space inspired by that, where we could spend some more time together. 
+## Why this blog?
 
-**How we want to proceed**: Like many other blogs, this is a team effort. We don’t necessarily mean to speak in unison, but we hope there is some harmony. We discuss what topics and areas we’d like to say something about and we give each other feedback before publishing. Every post is written by its human authors.  
+It is an exciting time to be a linguist. The field has made remarkable progress on (1)–(3), and we think more of that progress goes unappreciated than it should. We want to celebrate it, and to make more room for the synthesis it allows. But while parts of the map are now filled in at high resolution, much *terra incognita* remains. So the time is ripe to reconnoiter, and to plan new expeditions.
 
+It is also a vertiginous time to be a researcher in these areas. Scientific questions about language are coming into more and more contact with neighboring academic fields and with technological advances, at what seems to be a quickly accelerating pace. We are enthusiastic about many aspects of these convergences and what we might be able to learn from them, but sometimes feel that important issues raised by the core questions in (1)–(3) above, which remain our focus, can get lost in the excitement.
 
-Our posts are not all, or mostly, about “Big Questions”: we’re interested in many approaches, including targeted reactions, bite-sized tutorials and round-ups of recent research (in the spirit of what \*Glot International\* used to run as “State-of-the-Article” pieces).  
+That's all about the moment we find ourselves in.
 
-We’re aiming to publish a piece roughly weekly. Eventually we’re also interested in publishing others’ pieces – **we’re definitely interested in hearing proposals for potential topics** \[email address? form?\]  
+But then there's the way we talk to one another. Traditional academic publishing doesn't let us move as nimbly, range as widely, or speak as authentically as we want to. At the same time, we also wanted something more measured, and less evanescent, than microblogging on social media. We wanted writing that we controlled, published on our schedule, free to read and at whatever length the idea needs – and that others can respond to directly.
 
-**Finally but importantly**: anyone with a GitHub account can comment on posts. See this page about how to do it\! \[link to commenting page\].
+Finally, all of us were strongly influenced by Norbert Hornstein's [*Faculty of Language*](https://facultyoflanguage.blogspot.com/) blog – and we know we're not the only ones! – so we wanted to create a space inspired by that, where we could spend some more time together.
 
-::: {style="position: relative; width: 100%; padding-bottom: 56.25%;"}
-```{=html}
-<iframe
-  style="position:absolute; width:100%; height:100%;"
-  src="https://getyarn.io/yarn-clip/c0924f1c-fd3b-4b6c-9162-8132a3890afb/embed?autoplay=false&responsive=true"
-  title="Video clip"
-  loading="lazy"
-  allowfullscreen
-  frameborder="0"
-></iframe>
-```
-:::
+## How we want to proceed
 
-*"Grammar rodeo? We're going to a grammar rodeo?"*
+Like many other blogs, this is a team effort. We don't necessarily mean to speak in unison, but we hope there is some harmony. We discuss what topics and areas we'd like to say something about and we give each other feedback before publishing. Every post is written by its human authors.
+
+Our posts are not all, or mostly, about "Big Questions": we're interested in many approaches, including targeted reactions, bite-sized tutorials and round-ups of recent research (in the spirit of what *Glot International* used to run as "State-of-the-Article" pieces).
+
+We're aiming to publish a piece roughly weekly. Eventually we're also interested in publishing others' pieces, and we'd love to hear proposals for topics from a wide variety of viewpoints. See the [Contributing](/about.qmd#contributing) section of our About page for how to get in touch.
+
+## Finally but importantly
+
+Anyone with a GitHub account can comment on posts. See [How to comment](/commenting.qmd) for a quick guide.

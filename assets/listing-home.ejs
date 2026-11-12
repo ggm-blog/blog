@@ -1,14 +1,19 @@
 <%
 // The pre-render rank is date descending, non-featured first on ties, then title.
 items.sort((a, b) => Number(a["ggm-order"]) - Number(b["ggm-order"]));
-const latest = items[0];
-const isFeatured = (item) => item.featured === true || item.featured === 'true';
-const pinned = items.slice(1).filter(isFeatured);
-const remaining = items.slice(1).filter((item) => !isFeatured(item));
+const truthy = (value) => value === true || value === 'true';
+const live = items.filter((item) => truthy(item['ggm-live']));
+const staged = items.filter((item) => !truthy(item['ggm-live']));
+const latest = live[0];
+const isFeatured = (item) => truthy(item.featured);
+const pin = live.find(isFeatured);
+const pinned = pin && pin !== latest ? [pin] : [];
+const remaining = live.filter((item) => item !== latest && item !== pin);
 const grouped = [
   ...(latest ? [{ item: latest, kind: 'latest', label: 'Latest' }] : []),
-  ...pinned.map((item, i) => ({ item, kind: 'pinned', label: i === 0 ? 'Pinned' : '' })),
-  ...remaining.map((item, i) => ({ item, kind: 'compact', label: i === 0 ? 'All posts' : '' }))
+  ...pinned.map((item) => ({ item, kind: 'pinned', label: 'Pinned' })),
+  ...remaining.map((item, i) => ({ item, kind: 'compact', label: i === 0 ? 'All posts' : '' })),
+  ...staged.map((item, i) => ({ item, kind: 'staged', label: i === 0 ? 'Drafts and scheduled' : '' }))
 ];
 const preview = (description, length) => {
   const text = String(description || '');
@@ -27,11 +32,12 @@ const preview = (description, length) => {
   <div class="list">
   <% for (const entry of grouped) { const item = entry.item; %>
     <article class="home-post home-<%= entry.kind %>" <%= metadataAttrs(item) %>>
-      <% if (entry.label && entry.kind !== 'compact') { %><span class="ggm-badge ggm-badge-<%- entry.kind %>"><%- entry.label %></span><% } %>
-      <% if (entry.label && entry.kind === 'compact') { %><h2 class="home-group-title">All posts</h2><% } %>
+      <% if (entry.label && ['latest', 'pinned'].includes(entry.kind)) { %><span class="ggm-badge ggm-badge-<%- entry.kind %>"><%- entry.label %></span><% } %>
+      <% if (entry.label && ['compact', 'staged'].includes(entry.kind)) { %><h2 class="home-group-title"><%- entry.label %></h2><% } %>
       <div class="home-post-content">
-        <% if (entry.kind === 'latest' && isFeatured(item)) { %><span class="ggm-badge ggm-badge-pinned">Pinned</span><% } %>
+        <% if (entry.kind === 'latest' && item === pin) { %><span class="ggm-badge ggm-badge-pinned">Pinned</span><% } %>
         <% if (item['ggm-draft'] === true || item['ggm-draft'] === 'true') { %><span class="ggm-badge ggm-badge-draft">Draft</span><% } %>
+        <% if (item['ggm-scheduled']) { %><span class="ggm-badge ggm-badge-scheduled">Scheduled <%- item['ggm-scheduled'] %></span><% } %>
         <h3 class="listing-title"><a href="<%- item.path %>"><%= item.title %></a></h3>
         <div class="home-post-meta">
           <span class="listing-author"><%= item.author %></span>
