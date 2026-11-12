@@ -1,0 +1,49 @@
+<%
+// Quarto supplies items sorted by date descending and resolves registry names.
+const latest = items[0];
+const isFeatured = (item) => item.featured === true || item.featured === 'true';
+const pinned = items.slice(1).filter(isFeatured);
+const remaining = items.slice(1).filter((item) => !isFeatured(item));
+const grouped = [
+  ...(latest ? [{ item: latest, kind: 'latest', label: 'Latest' }] : []),
+  ...pinned.map((item, i) => ({ item, kind: 'pinned', label: i === 0 ? 'Pinned' : '' })),
+  ...remaining.map((item, i) => ({ item, kind: 'compact', label: i === 0 ? 'All posts' : '' }))
+];
+const preview = (description, length) => {
+  const text = String(description || '');
+  // Quarto 1.9 defers automatic excerpts as comments until posts are rendered.
+  // Preserve that token and set its limit rather than truncating the token itself.
+  if (/^<!-- desc\(/.test(text)) return text.replace(/\[max=[^\]]*\]/, `[max=${length}]`);
+  const plain = text.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+  const short = plain.length > length ? plain.slice(0, length).replace(/\s+\S*$/, '') + '…' : plain;
+  return short.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+};
+%>
+```{=html}
+<div class="home-listing">
+  <p class="home-category-reset"><a href="#category=">All categories</a></p>
+  <div class="list">
+  <% for (const entry of grouped) { const item = entry.item; %>
+    <article class="home-post home-<%= entry.kind %>" <%= metadataAttrs(item) %>>
+      <% if (entry.label) { %><h2 class="home-group-title"><%- entry.label %></h2><% } %>
+      <div class="home-post-content">
+        <% if (entry.kind === 'latest' && isFeatured(item)) { %><span class="home-pinned-badge">Pinned</span><% } %>
+        <h3 class="listing-title"><a href="<%- item.path %>"><%= item.title %></a></h3>
+        <div class="home-post-meta">
+          <span class="listing-author"><%= item.author %></span>
+          <% if (item.date) { %><span class="listing-date"><%= item.date %></span><% } %>
+        </div>
+        <% if (item.categories && item.categories.length) { %>
+        <div class="listing-categories home-categories">
+          <% for (const category of item.categories) { %>
+          <a class="listing-category" href="#category=<%- encodeURIComponent(category) %>"><%- category %></a>
+          <% } %>
+        </div>
+        <% } %>
+        <% if (item.description) { %><p class="listing-description"><%= preview(item.description, entry.kind === 'compact' ? 160 : 400) %></p><% } %>
+      </div>
+    </article>
+  <% } %>
+  </div>
+</div>
+```

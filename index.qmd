@@ -5,15 +5,14 @@ title-block-banner: true
 listing:
   id: posts
   contents: generated/posts.yml
-  template: templates/posts.ejs.md
-  fields: [date, title, author, categories, description]
+  template: assets/listing-home.ejs
+  fields: [date, title, author, categories, description, featured]
   sort: "date desc"
   type: default
   categories: false
-  sort-ui: [date, title, author]
-  filter-ui: true
+  sort-ui: false
+  filter-ui: false
+  max-description-length: 400
+  page-size: 1000000
   feed: true
-include-after-body:
-  - text: |
-      <script src="/assets/author-filter.js"></script>
 ---

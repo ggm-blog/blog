@@ -1,15 +1,133 @@
 ---
 title: "A surprising riposte"
+subtitle: "On using many language models to test Surprisal theory, in reply to a recent critique."
 author:
   - brian-dillon
 date: "2026-11-30"
 categories: [psycholinguistics, surprisal]
-description: "On using many language models to test Surprisal theory, in reply to a recent critique."
+csl: https://www.zotero.org/styles/apa
+nocite: |
+  @shain2024, @wilcox2020, @hoover2023
+references:
+  - id: levy2008
+    type: article-journal
+    author: [{family: Levy, given: Roger}]
+    issued: 2008
+    title: "Expectation-based syntactic comprehension"
+    container-title: Cognition
+    volume: 106
+    issue: 3
+    page: 1126-1177
+  - id: smithlevy2013
+    type: article-journal
+    author: [{family: Smith, given: Nathaniel J.}, {family: Levy, given: Roger}]
+    issued: 2013
+    title: "The effect of word predictability on reading time is logarithmic"
+    container-title: Cognition
+    volume: 128
+    issue: 3
+    page: 302-319
+  - id: hale2001
+    type: paper-conference
+    author: [{family: Hale, given: John}]
+    issued: 2001
+    title: "A probabilistic Earley parser as a psycholinguistic model"
+    container-title: "Proceedings of the Second Meeting of the North American Chapter of the Association for Computational Linguistics"
+    page: 159-166
+  - id: hale2014
+    type: book
+    author: [{family: Hale, given: John T.}]
+    issued: 2014
+    title: "Automaton theories of human sentence comprehension"
+    publisher: CSLI Publications
+    publisher-place: Stanford, CA
+  - id: frazier1979
+    type: thesis
+    author: [{family: Frazier, given: Lyn}]
+    issued: 1979
+    title: "On comprehending sentences: Syntactic parsing strategies"
+    genre: Doctoral dissertation
+    publisher: University of Connecticut
+    note: "Distributed by the Indiana University Linguistics Club"
+  - id: cotterell2026
+    type: article
+    author: [{family: Cotterell, given: Ryan}]
+    issued: 2026
+    title: "Surprisal theory is tautological (without rational grounding)"
+    container-title: arXiv
+    URL: https://arxiv.org/abs/2607.21574
+    note: "VERIFY author list, venue, and year (found via search: arXiv 2607.21574)"
+  - id: buxolugo2026
+    type: article
+    author:
+      - {family: Buxó-Lugo, given: Andrés}
+      - {family: De Santo, given: Aniello}
+      - {family: Grobol, given: Morgan}
+      - {family: Hubbard, given: Ryan J.}
+      - {family: Jacobs, given: Cassandra L.}
+    issued: 2026
+    title: "Surprisal is not a theory"
+    container-title: arXiv
+    URL: https://arxiv.org/abs/2607.20208
+  - id: timkey2026
+    type: article-journal
+    author:
+      - {family: Timkey, given: William}
+      - {family: Huang, given: Kuan-Jung}
+      - {family: Oh, given: Byung-Doh}
+      - {family: Prasad, given: Grusha}
+      - {family: Arehalli, given: Suhas}
+      - {family: Linzen, given: Tal}
+      - {family: Dillon, given: Brian}
+    issued: 2026
+    title: "Eye movements reveal a dissociation between prediction and structural processing difficulty in language comprehension"
+    container-title: "Proceedings of the National Academy of Sciences"
+    volume: 123
+    issue: 32
+    page: e2532230123
+    DOI: 10.1073/pnas.2532230123
+  - id: shain2024
+    type: article-journal
+    author:
+      - {family: Shain, given: Cory}
+      - {family: Meister, given: Clara}
+      - {family: Pimentel, given: Tiago}
+      - {family: Cotterell, given: Ryan}
+      - {family: Levy, given: Roger}
+    issued: 2024
+    title: "Large-scale evidence for logarithmic effects of word predictability on reading time"
+    container-title: "Proceedings of the National Academy of Sciences"
+    volume: 121
+    issue: 10
+  - id: wilcox2020
+    type: paper-conference
+    author:
+      - {family: Wilcox, given: Ethan Gotlieb}
+      - {family: Gauthier, given: Jon}
+      - {family: Hu, given: Jennifer}
+      - {family: Qian, given: Peng}
+      - {family: Levy, given: Roger}
+    issued: 2020
+    title: "On the predictive power of neural language models for human real-time comprehension behavior"
+    container-title: "Proceedings of the 42nd Annual Conference of the Cognitive Science Society"
+  - id: hoover2023
+    type: article-journal
+    author:
+      - {family: Hoover, given: Jacob Louis}
+      - {family: Sonderegger, given: Morgan}
+      - {family: Piantadosi, given: Steven T.}
+      - {family: O'Donnell, given: Timothy J.}
+    issued: 2023
+    title: "The plausibility of sampling as an algorithmic theory of sentence processing"
+    container-title: Open Mind
+    volume: 7
+    URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10449406/
+    note: "VERIFY: the post says Hoover et al. (2024); this record is the 2023 Open Mind paper. Left as plain text in the post; listed via nocite."
 ---
 
 It’s been an interesting couple of years for the Surprisal theory of human sentence processing, which has enjoyed an unusually long run as a leading candidate for a (mostly) unifying theory of sentence processing[^1]. 
 
-Surprisal theory is maybe a bit of a misnomer; the idea that surprisal is a key information theoretic correlate of syntactic processing has been grounded in several distinct process models[^2]. But let’s make things concrete, and zoom in on some key tenets of just one influential capital-S *Surprisal* theory[^3], Levy's (2008) proposal. They are:
+Surprisal theory is maybe a bit of a misnomer; the idea that surprisal is a key information theoretic correlate of syntactic processing has been grounded in several distinct process models[^2]. But let’s make things concrete, and zoom in on some key tenets of just one influential capital-S *Surprisal* theory[^3], Levy's [-@levy2008] proposal. They are:
 
 - Sentence comprehension is a process of inference over latent structures: trees, dependency parses, or maybe something fancier.   
 - Comprehenders maintain a probability distribution over a (very) large number of such latent structures as candidate hypotheses of the input.  
@@ -19,13 +137,13 @@ Surprisal theory is maybe a bit of a misnomer; the idea that surprisal is a key 
 
 This is a great idea[^4]. It is a simple theory rooted in a straightforward (though contestable) computational-level characterization of what sentence processing is all about \- it’s just “find the sentence”[^5]. There’s also ample evidence that people are broadly sensitive to *predictability* in online processing*,* as operationalized with (e.g.) Cloze probability — so Surprisal theory would seem to have both conceptual and empirical wind in its sails. This idea, however, seems to have become decoupled from the workaday practice of some psycholinguists, especially in and around the computational corners of our field. 
 
-A very common analysis is to use some language model to operationalize lower-case-s surprisal, derive a metric for each word/linguistic unit in a corpus, and see if that measurement correlates with processing difficulty. There’s enormous evidence it does, and a major achievement of this line of research is showing that this effect obtains over many orders of magnitude of underlying probability. For example, Smith & Levy, 2013 showed this with a low order *n*\-gram language model. Although an *n–*gram model isn’t Surprisal, the theory, this is still a real improvement over the Cloze probability approach to investigating the effect of word predictability, since Cloze typically can’t yield reliable enough estimates of the relevant conditional probabilities at the tail end of the distribution. Thus language models of different stripes became useful practical tools that are deployed tactically to overcome a key challenge, serving as a microscope that lets us ask what happens when the numbers get very small. 
+A very common analysis is to use some language model to operationalize lower-case-s surprisal, derive a metric for each word/linguistic unit in a corpus, and see if that measurement correlates with processing difficulty. There’s enormous evidence it does, and a major achievement of this line of research is showing that this effect obtains over many orders of magnitude of underlying probability. For example, @smithlevy2013 showed this with a low order *n*\-gram language model. Although an *n–*gram model isn’t Surprisal, the theory, this is still a real improvement over the Cloze probability approach to investigating the effect of word predictability, since Cloze typically can’t yield reliable enough estimates of the relevant conditional probabilities at the tail end of the distribution. Thus language models of different stripes became useful practical tools that are deployed tactically to overcome a key challenge, serving as a microscope that lets us ask what happens when the numbers get very small. 
 
 But the adoption of these tools has come at a cost: it has led to a gradual bifurcation of surprisal practice from Surprisal theory, because the language models that yield the relevant surprisal estimates mostly don’t correspond to the underlying Surprisal theory expressed above at all: a trigram model doesn’t implement Surprisal theory. Imperceptably over time, it seems the microscope has become the theory — weird analogy, but it seems to me that this is basically what has happened\!
 
-A pair of recent papers shine a light on this unhappy state of affairs. Cotterell (2026) makes the straightforward point that a language model is a probability distribution over the next token in context, and we’re free to construct any probability distribution (ergo any language model) we like if we do not have any substantive constraints placed on this process. So it is of course possible to construct a language model that predicts all human processing difficulty word by word, and in this sense, lower-case-s surprisal theory[^6] is without any content; it just amounts to saying that there is an ordering of difficulty over linguistic units in their contexts that can be projected onto a language model. This is, in other words, a redescription of the data. To upgrade surprisal theory to Surprisal theory, we need “rational grounding:” a commitment to some computational or algorithmic level characterization of the process that must be met by candidate language models. Makes total sense to me, and I think most psycholinguists would consider this a starting premise of the enterprise. 
+A pair of recent papers shine a light on this unhappy state of affairs. @cotterell2026 makes the straightforward point that a language model is a probability distribution over the next token in context, and we’re free to construct any probability distribution (ergo any language model) we like if we do not have any substantive constraints placed on this process. So it is of course possible to construct a language model that predicts all human processing difficulty word by word, and in this sense, lower-case-s surprisal theory[^6] is without any content; it just amounts to saying that there is an ordering of difficulty over linguistic units in their contexts that can be projected onto a language model. This is, in other words, a redescription of the data. To upgrade surprisal theory to Surprisal theory, we need “rational grounding:” a commitment to some computational or algorithmic level characterization of the process that must be met by candidate language models. Makes total sense to me, and I think most psycholinguists would consider this a starting premise of the enterprise. 
 
-Buxo-Lugo et al (2026) take it one step further, and argue that the rot is more widespread than might be apparent. One key point they make is that a language model is an implicit commitment to a process model, since different models engage different representations and processes to deliver their surprisal estimates. And this is true even within language models of a single computational class: GPT-2 and Pythia may look like the same kind of autoregressive transformer architecture, but Buxo-Lugo and colleagues show that they take very different paths across their hidden layers to compute next word surprisal. Presumably, this means they implement very different process models, maybe even corresponding to different psycholinguistic theories. When we don’t really understand this process, as is the case with transformer models, then the resulting surprisal values become uninterpretable on their own. And because these models display different algorithmic and process level commitments, the surprisal values they deliver are incommensurate and cannot be treated as interchangeable estimates of surprisal. Importantly, their argument holds even if you have two models that you might think realize the same basic “theory” of language processing, like GPT-2 and Pythia.
+Buxo-Lugo et al [-@buxolugo2026] take it one step further, and argue that the rot is more widespread than might be apparent. One key point they make is that a language model is an implicit commitment to a process model, since different models engage different representations and processes to deliver their surprisal estimates. And this is true even within language models of a single computational class: GPT-2 and Pythia may look like the same kind of autoregressive transformer architecture, but Buxo-Lugo and colleagues show that they take very different paths across their hidden layers to compute next word surprisal. Presumably, this means they implement very different process models, maybe even corresponding to different psycholinguistic theories. When we don’t really understand this process, as is the case with transformer models, then the resulting surprisal values become uninterpretable on their own. And because these models display different algorithmic and process level commitments, the surprisal values they deliver are incommensurate and cannot be treated as interchangeable estimates of surprisal. Importantly, their argument holds even if you have two models that you might think realize the same basic “theory” of language processing, like GPT-2 and Pythia.
 
 Buxo-Lugo and colleagues note that work from our own group provides an example of this deleterious practice: *“It is now common to see research articles compute surprisal measure from dozens to hundreds of language models and, assuming that they are interchangeable, use them to study whether a word’s predictability in context reflects processing diﬀiculty (Shain et al., 2024; **Timkey et al., 2026**; Wilcox et al., 2020, 2021).* (Buxo-Lugo et al., 2026; p. 3\)*”*  This was notable to me, because I agree entirely with Buxo-Lugo et al. that the surprisal from a single language model implies the process-level commitments inherent in the model, and probably isn’t all that interpretable in isolation. But I did not find this at odds with the practice of using hundreds of language models to compute surprisal and comparing them against the human data to test Surprisal theory as we have pursued in our work. Why not? 
 
@@ -39,13 +157,13 @@ If this analogy holds, then any claims based on a single language model approxim
 
 I don’t think our approach yields the *definitive once and for all* test of Surprisal theory. There are tricky questions that remain, such as *what would have happened if there were exactly one model out of 400+ models that exactly fit the human data*? *Would this analogy work if the language model probabilities systematically yielded biased estimates of the ‘true’ underlying probability distribution*? But I do think that it is a conceptually coherent test of Surprisal theory, even though at its core it rests on lower-case-s surprisal estimates from a large, heterogenous set of language models that do not directly implement (some version of) Surprisal theory.[^7] By my lights the burden of evidence has been shifted: many flawed but reasonable approximations of word-level surprisal all come up short in explaining the garden path effect in regression-based eye-tracking measures, so it remains to be shown that Surprisal theory can explain syntactic disambiguation effects in comprehension.[^8]
 
-[^1]:  “Mostly” – it has long been acknowledged that not \*all\* of incremental processing difficulty can be reduced to surprisal in the classical sense (Levy, 2008). All that matters for present purposes is that a *great deal* of these effects are thought to be reducible to surprisal, and importantly, the ones like syntactic disambiguation costs that were otherwise construed as evidence for the operation of a bespoke sentence parser (Frazier, 1979). 
+[^1]:  “Mostly” – it has long been acknowledged that not \*all\* of incremental processing difficulty can be reduced to surprisal in the classical sense [@levy2008]. All that matters for present purposes is that a *great deal* of these effects are thought to be reducible to surprisal, and importantly, the ones like syntactic disambiguation costs that were otherwise construed as evidence for the operation of a bespoke sentence parser [@frazier1979]. 
 
-[^2]:  Other prominent process level theories include Hale (2001), a related proposal that links surprisal to the total effort involved in disconfirming a projected rule under a top-down Early parser; Hale (2014) who proposes a process model based in Newell’s *Chunk Theory of Learning*; and Hoover et al. (2024) who propose a process model based on iterative sampling to find a compatible parse.  
+[^2]:  Other prominent process level theories include @hale2001, a related proposal that links surprisal to the total effort involved in disconfirming a projected rule under a top-down Early parser; @hale2014 who proposes a process model based in Newell’s *Chunk Theory of Learning*; and Hoover et al. (2024) who propose a process model based on iterative sampling to find a compatible parse.  
 
-[^3]:  I follow Buxo-Lugo et al. (2026) in using capital-S Surprisal to refer to the theory, and lower-case-s surprisal to refer to the negative log probability of an item in its context.
+[^3]:  I follow Buxo-Lugo et al. [-@buxolugo2026] in using capital-S Surprisal to refer to the theory, and lower-case-s surprisal to refer to the negative log probability of an item in its context.
 
-[^4]:  Disclaimer: I think it is ultimately wrong in key details – see Timkey et al., 2026 – but that doesn’t mean it’s not a great idea\!
+[^4]:  Disclaimer: I think it is ultimately wrong in key details – see @timkey2026 – but that doesn’t mean it’s not a great idea\!
 
 [^5]:  Thanks to Adrian Staub for this characterization. 
 
