@@ -1,0 +1,57 @@
+/*-- scss:defaults --*/
+// Litera typography on warm ink, rather than a separate dark Bootswatch theme.
+$body-bg: #1c1b19;
+$body-color: #e8e4dc;
+$link-color: #e0a96d;
+$link-hover-color: #f0c48f;
+$primary: #e0a96d;
+$secondary: #a8a399;
+$headings-color: #e8e4dc;
+$text-muted: #a8a399;
+$body-secondary-color: #a8a399;
+$body-tertiary-color: #a8a399;
+$body-secondary-bg: #242320;
+$body-tertiary-bg: #2b2924;
+$card-bg: #242320;
+$navbar-bg: #242320;
+$navbar-fg: #e8e4dc;
+$navbar-hl: #e0a96d;
+$footer-fg: #a8a399;
+$border-color: #3a3833;
+$input-bg: #242320;
+$input-color: #e8e4dc;
+$input-border-color: #79756d;
+$input-placeholder-color: #a8a399;
+$form-select-indicator-color: #e8e4dc;
+$dropdown-bg: #242320;
+$dropdown-color: #e8e4dc;
+$dropdown-link-color: #e8e4dc;
+$dropdown-link-hover-color: #f0c48f;
+$dropdown-link-hover-bg: #2b2924;
+$pagination-bg: #242320;
+$pagination-color: #e0a96d;
+$pagination-border-color: #79756d;
+$table-bg: #1c1b19;
+$table-color: #e8e4dc;
+$table-border-color: #79756d;
+$code-bg: #25241f;
+$code-color: #e0b98e;
+$code-block-bg: #25241f;
+$blockquote-color: #a8a399;
+$min-contrast-ratio: 4.5;
+$line-height-base: 1.65;
+
+/*-- scss:rules --*/
+:root {
+  color-scheme: dark;
+  --ggm-code-bg: #25241f;
+  --ggm-surface: #242320;
+  --ggm-muted: #a8a399;
+  --ggm-ui-border: #79756d;
+  --ggm-mark-bg: #5a422a;
+  --ggm-mark-text: #f4e8d8;
+  --ggm-orcid-green: #9dc84b;
+  --ggm-orcid-ink: #1c1b19;
+}
+// Stock Litera has a fixed light-theme lead color.
+.lead { color: $body-color; }

@@ -1,16 +1,86 @@
-/* Widen the main content column slightly */
+/* Shared layout and semantics; mode-specific colors live in the SCSS layers. */
 .quarto-container .column-body,
-.page-columns .column-body {
+.page-columns .column-body,
+main.content {
   max-width: 860px;
 }
-
-/* Smaller pill labels for post categories */
-.quarto-category {
-  font-size: 0.78rem;
+main.content { min-width: 0; }
+main p, main li { line-height: 1.7; }
+main.content p, main.content ul, main.content ol { max-width: 78ch; }
+main li { font-family: Georgia, Cambria, "Times New Roman", serif; }
+main p, main ul, main ol, main blockquote { overflow-wrap: break-word; }
+main img, main image { max-width: 100%; height: auto; }
+main table { display: block; max-width: 100%; overflow-x: auto; }
+main blockquote {
+  color: var(--ggm-muted);
+  border-left: 3px solid var(--ggm-ui-border);
+  padding-left: 1.1rem;
+  font-size: 1em;
 }
-
-/* Softer corners on code blocks */
-pre.sourceCode,
-div.sourceCode {
+.quarto-category, .listing-category { font-size: 0.78rem; }
+.listing-category, .quarto-category {
+  color: var(--bs-body-color);
+  border-color: var(--ggm-ui-border) !important;
+  opacity: 1 !important;
+}
+.listing-selectors select { min-height: 44px; }
+.quarto-post .metadata, .listing-date, .nav-footer { color: var(--ggm-muted); }
+.quarto-title-meta-heading { color: var(--ggm-muted); opacity: 1 !important; }
+.footnotes, .column-margin, .margin-caption, .quarto-margin-figcaption {
+  color: var(--ggm-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.footnotes p, .column-margin p { line-height: 1.6; }
+a.footnote-ref, a.footnote-back { color: var(--bs-link-color); }
+main a:not(.anchorjs-link):not(.no-external):hover { text-decoration: underline; }
+:focus-visible { outline: 3px solid var(--bs-link-color); outline-offset: 3px; }
+pre.sourceCode, div.sourceCode, pre:not(.sourceCode) {
   border-radius: 6px;
+  background-color: var(--ggm-code-bg);
 }
+pre { max-width: 100%; overflow-x: auto; }
+pre, pre code { color: var(--bs-body-color); }
+/* Contributor markup is frozen R output: override its old inline light colors. */
+.contributors-page .grid { row-gap: 1.25rem; }
+.contributors-page .grid > div { min-width: 0; }
+.contributors-page .grid > div > div {
+  background: var(--ggm-surface);
+  border-color: var(--bs-border-color) !important;
+  overflow-wrap: anywhere;
+}
+.contributors-page small { color: var(--ggm-muted) !important; }
+.contributors-page a[href^="https://orcid.org/"] { color: var(--bs-body-color) !important; }
+.contributors-page svg { vertical-align: -0.1em; margin-right: 0.2rem; }
+.contributors-page svg circle { fill: var(--ggm-orcid-green); }
+.contributors-page svg text { fill: var(--ggm-orcid-ink); }
+.contributors-page span[style*="border-radius:10px"] {
+  display: inline-block;
+  border: 1px solid var(--ggm-ui-border);
+  line-height: 1.5;
+}
+/* Pagefind's Default UI accepts CSS variables; indexing and loading stay unchanged. */
+#search {
+  --pagefind-ui-primary: var(--bs-link-color);
+  --pagefind-ui-text: var(--bs-body-color);
+  --pagefind-ui-background: var(--ggm-surface);
+  --pagefind-ui-border: var(--ggm-ui-border);
+  --pagefind-ui-tag: var(--ggm-surface);
+  --pagefind-ui-font: inherit;
+}
+#search .pagefind-ui__search-input::placeholder { color: var(--ggm-muted); opacity: 1; }
+#search .pagefind-ui__message, #search .pagefind-ui__result-excerpt {
+  color: var(--bs-body-color); opacity: 1;
+}
+#search mark { background: var(--ggm-mark-bg); color: var(--ggm-mark-text); }
+@media (max-width: 575.98px) {
+  .contributors-page .grid > div { grid-column: span 12; }
+  .quarto-post { flex-wrap: wrap; }
+  .quarto-post .metadata { flex-basis: 100%; }
+  .listing-selectors > div { flex: 1 1 12rem; }
+  .listing-selectors select { width: 100%; }
+}
+
+.navbar { --bs-navbar-hover-color: var(--bs-link-hover-color); }
+.blockquote-footer { color: var(--ggm-muted); }
+.form-control::placeholder { color: var(--ggm-muted); opacity: 1; }
