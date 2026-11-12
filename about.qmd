@@ -31,3 +31,24 @@ We plan to publish guest posts, and we welcome proposals from a wide range of vi
 A short pitch is all we need to begin: a few sentences on the idea, why it matters now, and roughly how long it would be.
 
 To join the discussion on an existing post, see [How to comment](/commenting.qmd).
+
+## License
+
+Unless noted otherwise, the text of every post is licensed under
+[Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+Authors retain copyright. Images and other third-party material may carry their own terms.
+
+## How to cite
+
+Every post ends with a ready-made citation in APA style and BibTeX, with a
+button to copy either. Example:
+
+Lastname, F. (2026, Month D). Post title. *Grammars Gone Mental*.
+`https://ggmblog.org/posts/<slug>/`
+
+## Permanence
+
+We intend every post to stay at its original URL. If a post's address ever has
+to change, we will redirect the old one. Posts are version-controlled in a Git
+repository. We plan to register the blog with a scholarly blog-archiving
+service, which can issue DOIs, once publishing is steady.

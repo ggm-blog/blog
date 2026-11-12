@@ -151,8 +151,9 @@ The helper reads `_publish.yml`; no Python is used on Netlify. The bundled-Deno
 pre-render script checks all post dates and authors, including drafts. Missing
 or impossible dates fail with the post path. Never edit generated
 `posts/*/_metadata.yml`, `generated/posts.yml`, or `_nav-posts.yml`. These files
-are ignored, rebuilt, and safe across profile switches. Hand-maintained folder
-metadata is never overwritten; a conflicting future-date gate fails explicitly.
+are ignored, rebuilt, and safe across profile switches. Generated folder
+metadata now also provides citation authors for every post. Hand-maintained
+folder metadata is never overwritten; move its settings into post front matter.
 
 Review every post, including drafts and future dates, with:
 
@@ -197,3 +198,42 @@ Run the isolated publication regression checks with pinned Quarto:
 ```bash
 python3 tests/test-prelaunch.py /path/to/quarto-1.9.37/bin/quarto
 ```
+
+## Licensing, citations, and stable URLs
+
+Submitting a post means agreeing to publish its **text under CC BY 4.0**.
+Authors retain copyright. Check the rights for every image and other third-party
+item, and state its credit and applicable terms in the post. The text license
+does not automatically cover those materials.
+
+The shared default is `license: "CC BY"` in `posts/_metadata.yml`. An editor may
+approve a different license for an individual post; add a `license:` line to
+that post's front matter and record the approval in its PR. The rendered Reuse
+section and structured metadata reflect the override. Do not change the default
+for a single exception.
+
+Keep `author:` as registry slugs and set the post's actual publication `date:`.
+The pre-render script supplies resolved citation names in generated folder
+metadata, alongside publication gating. Never edit `posts/*/_metadata.yml`.
+If a name needs explicit parsing, an editor adds both `family:` and `given:` to
+its `authors.yml` record; otherwise the last Latin-script word is the family
+name and preceding Latin-script words are the given names. The full `name:`
+remains the byline and RSS display name. Unresolvable names fail the build.
+
+The local `assets/apa.csl` supplies APA 7 for reference lists and each post's
+native citation appendix. Use the shared default rather than a remote CSL URL.
+Every post has readable citation/BibTeX text, copy buttons, a BibTeX download,
+and a small title-block Cite link. No DOI is required or registered at launch.
+
+**Never rename or move a published post folder.** Its URL is part of its citation.
+If a move is unavoidable, retain the original publication date, add `aliases:`
+to the destination post's front matter for the old URL, and test the redirect in
+both production and a deploy preview before merging. For example:
+
+```yaml
+aliases:
+  - /posts/2026-11-old-slug/
+```
+
+After publication, use Git commits to record corrections and explain substantive
+changes in the PR. Do not silently repurpose an existing post URL for new work.

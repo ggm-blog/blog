@@ -4,7 +4,9 @@ metadata-files:
 project:
   type: website
   pre-render: scripts/prepare-authors.ts
-  post-render: scripts/remove-hidden-posts.ts
+  post-render:
+    - scripts/remove-hidden-posts.ts
+    - scripts/prepare-citations.ts
   render:
     - "*.qmd"
     - "posts/**/*.qmd"
@@ -12,8 +14,9 @@ project:
 
 website:
   draft-mode: gone
-  site-url: https://majestic-palmier-4ce0f2.netlify.app
+  site-url: https://ggmblog.org
   title: "Grammars Gone Mental"
+  open-graph: true
   navbar:
     pinned: true
     right:
@@ -23,7 +26,7 @@ website:
     location: navbar
     type: overlay
   page-footer:
-    left: "© 2026 Grammars Gone Mental"
+    left: "© 2026 the authors. Posts are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Grammars Gone Mental."
     right:
       - icon: github
         href: https://github.com/mattwagers/roundup-sandbox
@@ -31,6 +34,7 @@ website:
 
 format:
   html:
+    canonical-url: true
     theme:
       light: [litera, assets/light.scss]
       dark: [litera, assets/dark.scss]
