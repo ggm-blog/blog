@@ -1,0 +1,39 @@
+# Contributor registry. Replaces the placeholder profiles (Alex Johnson, Jane Smith, Sam Lee, Robin Patel).
+# status: editor | member | guest.  See _docs/SPEC.md.
+# INFERRED fields are flagged in CODEX_NOTES.md; please verify before publishing.
+- id: brian-dillon
+  name: Brian Dillon
+  status: editor
+  affiliation: UMass Amherst
+  url: "https://people.umass.edu/bwdillon/"
+- id: tim-hunter
+  name: Tim Hunter
+  status: editor
+  affiliation: UCLA
+  notes: "Formal grammars, parsing, computational psycholinguistics."
+- id: ellen-lau
+  name: Ellen Lau
+  status: editor
+  affiliation: University of Maryland
+  notes: ""
+- id: dave-kush
+  name: Dave Kush
+  status: editor
+  affiliation: University of Toronto
+  notes: ""
+- id: laurel-perkins
+  name: Laurel Perkins
+  status: editor
+  affiliation: UCLA
+  notes: "Language acquisition."
+- id: matt-wagers
+  name: Matt Wagers
+  status: editor
+  orcid: 0000-0002-3139-2380
+  affiliation: UC Santa Cruz
+  notes: "Sentence processing, syntax."
+- id: ming-xiang
+  name: Ming Xiang 向明
+  status: editor
+  affiliation: University of Chicago
+  url: "https://voices.uchicago.edu/mingxianglab/"

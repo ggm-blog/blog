@@ -1,9 +1,14 @@
 project:
   type: website
-
+  pre-render: scripts/prepare-authors.ts
+  render:
+    - "*.qmd"
+    - "posts/**/*.qmd"
+    - "!_docs/"
 
 website:
-  title: "The Consortium Blog"
+  site-url: https://majestic-palmier-4ce0f2.netlify.app
+  title: "Grammars Gone Mental"
   navbar:
     left:
       - href: index.qmd
@@ -28,8 +33,8 @@ website:
 format:
   html:
     theme:
-      light: flatly
-      dark: darkly
+      light: litera
+      dark: superhero
     css: assets/custom.css
     toc: true
     code-fold: true
@@ -37,3 +42,7 @@ format:
 
 execute:
   freeze: auto
+
+filters:
+  - at: pre-ast
+    path: filters/author-byline.lua

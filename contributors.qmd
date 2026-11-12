@@ -1,27 +1,77 @@
 ---
 title: "Contributors"
+code-tools: false
 ---
 
-Meet the researchers behind The Consortium Blog.
+```{r}
+#| echo: false
+#| results: asis
 
-::: {.grid}
+library(yaml)
+library(htmltools)
 
-::: {.g-col-4}
-### Alex Rivera
-**Field:** Computational Social Science
-**Email:** a.rivera@university.edu
-:::
+authors <- yaml::read_yaml("authors.yml")
 
-::: {.g-col-4}
-### Jane Smith
-**Field:** Biostatistics
-**Email:** j.smith@university.edu
-:::
+present <- function(x) !is.null(x) && length(x) == 1L && !is.na(x) && nzchar(trimws(x))
 
-::: {.g-col-4}
-### Marcus Chen
-**Field:** Cognitive Neuroscience
-**Email:** m.chen@university.edu
-:::
+last_name <- function(x) tail(strsplit(x$name, " ")[[1]], 1)
+editors   <- Filter(function(x) x$status == "editor", authors)
+others    <- Filter(function(x) x$status != "editor", authors)
+editors   <- editors[order(sapply(editors, last_name))]
+others    <- others[order(sapply(others,  last_name))]
+sorted    <- c(editors, others)
 
-:::
+status_badge <- function(status) {
+  color <- switch(status,
+    editor  = "background:#2c6e49;color:#fff;",
+    member  = "background:#1d4e89;color:#fff;",
+    guest   = "background:#6c757d;color:#fff;",
+    "background:#aaa;color:#fff;"
+  )
+  tags$span(style = paste0("font-size:0.72em;padding:2px 8px;border-radius:10px;", color),
+            tools::toTitleCase(status))
+}
+
+orcid_badge <- function(orcid) {
+  tags$a(href = paste0("https://orcid.org/", orcid), target = "_blank",
+         style = "text-decoration:none;color:inherit;",
+    HTML('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#a6ce39"/><text x="3" y="11" fill="white" font-size="9" font-family="sans-serif">iD</text></svg>'),
+    tags$span(style = "font-size:0.8em;", orcid)
+  )
+}
+
+photo_tag <- function(id, name) {
+  path <- file.path("assets", "authors", paste0(id, ".jpg"))
+  if (file.exists(path)) {
+    tags$img(src = path, alt = name,
+             style = "width:90px;height:90px;object-fit:cover;border-radius:50%;margin-bottom:8px;")
+  } else {
+    NULL
+  }
+}
+
+make_card <- function(a) {
+  name_tag <- if (present(a$url)) {
+    tags$a(href = a$url, target = "_blank",
+           style = "font-weight:600;font-size:1.05em;text-decoration:none;", a$name)
+  } else {
+    tags$span(style = "font-weight:600;font-size:1.05em;", a$name)
+  }
+
+  tags$div(class = "g-col-12 g-col-sm-6 g-col-md-4",
+    tags$div(style = "border:1px solid #e0e0e0;border-radius:8px;padding:16px;text-align:center;height:100%;",
+      photo_tag(a$id, a$name),
+      name_tag,
+      tags$br(),
+      status_badge(a$status),
+      if (present(a$orcid))       tagList(tags$br(), orcid_badge(a$orcid))              else NULL,
+      if (present(a$affiliation)) tagList(tags$br(), tags$small(a$affiliation))          else NULL,
+      if (present(a$notes))       tagList(tags$br(), tags$small(style="color:#555;", a$notes)) else NULL
+    )
+  )
+}
+
+cat("\n```{=html}\n",
+    as.character(tags$div(class = "grid", lapply(sorted, make_card))),
+    "\n```\n", sep = "")
+```

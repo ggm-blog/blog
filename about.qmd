@@ -2,9 +2,9 @@
 title: "About"
 ---
 
-## What is The Consortium Blog?
+## What is Grammars Gone Mental?
 
-The Consortium Blog is a shared scholarly space for collaborative research
+Grammars Gone Mental is a shared scholarly space for collaborative research
 communication. It is maintained by a group of researchers committed to open
 science, reproducible analysis, and transparent methods.
 

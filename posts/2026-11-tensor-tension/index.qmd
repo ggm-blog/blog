@@ -1,0 +1,91 @@
+---
+title: "Tensor Tension"
+author:
+  - ellen-lau
+date: "2026-11-23"
+categories: [neuroscience, symbolic-computation]
+description: "Why neural implementation does not undermine symbolic theories of cognition."
+---
+
+*‘Neural computation and symbolic computation appear to differ radically and irreconcilably, yet our results reveal that there is not necessarily a tension between the two: A single system can be simultaneously neural and symbolic by using a neural architecture to construct symbolic representations.’* –McCoy et al. 2026[^1]
+
+In the last few years when I’m conversing with a cognitive scientist whose work is all framed in terms of symbolic architecture notions—predicates, variables, structures, rules—I’ve often discovered to my enormous surprise that they are comfortable with the idea that there’s nothing that actually corresponds to any of that in the biological machinery that implements cognition. Occasionally they refer me back to Marr’s levels: ‘Our symbolic theory is at the computational level; that says nothing about what you have at the implementation level. You’re a neuroscientist: we know that biology is continuous, not discrete.’ And sometimes ‘C’mon you gotta say, it’s just amazing what these AI neural net systems are doing now.’ 
+
+I am a neuroscientist, but none of this makes any sense to me\! So let me say why. (I have to preface this by saying that all of these points have already been made much more clearly in the past by many great cognitive scientists[^2]; I’m just going to review and emphasize a few of them.)
+
+I’d like to start from look-up tables. I don’t know about you, but when my CS teachers would occasionally remind us, as we started out a discussion about what algorithms could be used to solve some problem, that one in-principle solution would just be a look-up table—well I used to think this was the most pointless comment anyone ever wasted their breath making. No one would ever use something as dumb as a look-up table to solve any interesting problem, so why would you bother mentioning it? Does consulting a look-up table even *count* as a solution? But it does. If you state the computational problem as a function in extension, in terms of what outputs should be given in response to what inputs, then as long as your look-up table contains all the outputs and all the inputs (noting of course that in some cases this will require the table to be infinite), then if you look up the line in the table that matches the input, you will find there the correct values to output. If you have a look-up table, the consult-look-up-table algorithm *works*.
+
+To give a concrete example, let’s say you wanted to build a machine that receives a number and then output its double, that is, the function 2x. As long as you set an upper bound on the input numbers, which seems not unreasonable (e.g., I only need this doubling machine for numbers up to 99999999), then you can first store a look-up table of the following form in the machine:
+
+2 \- 4
+
+3 – 6
+
+4 – 8
+
+5 – 10
+
+….
+
+110 – 220
+
+111 – 222
+
+112 \- 214
+
+…
+
+2543 – 5086
+
+2544 – 5088
+
+…
+
+157281 – 314562
+
+…
+
+Then whenever you want to double a number, you just have the machine look up the number in the table and there find the output value.
+
+Now a classic question is, why *exactly* does it feel so ‘yuck’ to solve for 2x with a look-up table? One answer is that it feels like there is some kind of numerical structure in the world that governs the doubling function, and the look-up table algorithm doesn’t reflect that structure. A different version is that it’s because this seems to presuppose the existence of a table listing the function extension out there in Platonic space, whereas in fact there exist only conventionalized procedures that turned out to be useful[^3]. But here I want to put those answers aside and focus on what I would call the ‘engineering’ answer: the look-up table feels ‘yuck’ because as the domain you want to cover gets larger, the look-up table becomes more and more costly both in storage space and in look-up time. And the feeling is that even when this cost is not unaffordable, it is *unnecessary*—there are other solutions to the doubling numbers problem that would be just as accurate in yielding the desired outputs but would require a much smaller, fixed-size look-up table. 
+
+The term ‘symbolic architecture’ has often confused discussions because it can make it sound like the key commitment is to representationalism—that something in the machine ‘symbolizes’ something in the world—but representationalism isn’t unique to symbolic architectures at all. The key commitment is in a symbolic architecture is that the symbols are *constructible*—that is, that a few primitive elements (e.g. 0-9 in the decimal system) can be systematically combined to form new, complex symbols that contain the primitive elements as components (e.g. 81). The primary motivation for this commitment, from the engineering perspective, is that constructible symbols make available more *cost-effective* solutions to problems than look-up tables[^4]. What is crucial about the decimal number system is not that numbers are represented with symbols, but that the number symbols are composed of just 10 elements in various combinations. It is this that allows us to create procedures for solving y \= 2x for any input number that only require the use of a small fixed-size look-up table (i.e. just the multiplication table for single digits). 
+
+The other key engineering appeal of constructible symbols is that they are a *generalized* approach to the goal of being more cost-effective: this single architectural decision allows you to be more cost-effective than the look-up table across *many different* problems. This is important because if you just need to come up with a more cost-effective approach to solving *one* function, there are often gonna be lots of good ways of doing this that don’t require constructible symbols. For example, to solve y \= 2x, you could set up two high-precision scales and couple them with some kind of pulleys in such a way that any force on the first would result in double the force on the second—an ‘analog’ approach. This would be much more cost-effective than the look-up table, and could be more cost-effective within a narrow problem domain than the best constructible-symbols algorithm. But we can intuit that it might not be so easy to set up a single analog mechanism of this kind that could solve a wide range of multiplier functions (y=3x, y=300x), and that it’s not clear how the same weighting approach that executes multiplication could also be made to work for subtraction. 
+
+To sum up, the central appeal of constructible symbol architectures is that they make it possible to create multi-purpose machines that can solve many different large-domain problems in a much more cost-effective way than consulting look-up tables. This engineering motivation has nothing to do with whether humans ‘feel like’ we are doing symbol manipulation when we solve problems, whether symbol-manipulation rules appeal to some ideal of human rationality, or whether or not a symbolic description of an algorithm is a satisfying explanation (whatever you take that to mean). Engineers have tended to be practical people, and the reason that much of the world today is running on constructible-symbol machines (despite serious investigation of analog approaches in the first half of the 20th century) is not because of their humanist ideals but because it is a highly cost-effective solution to multi-purpose problem solving. 
+
+So now let me return to those things I hear in conversation these days. First, **how amazing is it what AI neural nets are able to accomplish?** Well, that boring look-up table point that the teachers belabored was meant to remind us that there is nothing especially interesting about there existing *some* mechanism that can execute a function in extension. The interest is usually coming from the cost-effectiveness: the mechanisms that are interesting are the ones that manage to be much more cost-effective than a look-up table. Now neural nets are not *literally* look-up tables—we know that they can generate appropriate outputs for inputs they have never seen. But the word ‘cost-effective’ certainly does not come to mind as a descriptor for the AI neural nets in use today. They have a training data size and a system size that are simply inconceivably enormous. So I do find it amazing that humans have been able to bring down the cost-per-unit of storage, data transmission, and computation so low, and to amass (for the moment\!) such a humongous quantity of physical resources, that our design of problem-solving machines is no longer being seriously constrained by cost-effectiveness. But no, I’m not surprised that once you let cost-effectiveness go you can execute a bunch of functions without the use of clever symbolic algorithms. That, in the limit, is the look-up table.[^5]  
+
+**Could neural nets ‘approximate’ constructible symbol architectures?** If you had only been on team ‘Symbolic Architecture’ because it fit with a beloved ideal of human rationality, I guess I can see why you might arrive at this question—what you’re really asking is if you could find a way to support some other computational architecture while maintaining your humanistic ideal. But it’s a very odd question to pose if you consider the history of constructible symbol architectures from the engineering perspective, where the goal was just to solve functions in a cost-effective way. Imagine asking analogously ‘Can consulting a look-up table approximate an algorithm that uses constructible symbols?’ or ‘Can a thermostat approximate consulting a look-up table?’ It’s just weird. Engineers decide between distinct but functionally equivalent problem-solving approaches based on the trade-off between various costs and available resources. Machines that use constructible symbols have never been the only *in-principle* means of realizing functions, they’re just a very useful choice when cost-effectiveness in storage and computing time is at issue. Given that constructible symbol algorithms have often been developed with cost-effectiveness of storage and computing time in mind, it would actually be pretty surprising if an architecture designed with relatively minimal cost constraints functioned similarly. 
+
+However, I’ll press further on this ‘function similarly’ to make clear that this approximation question is not only odd but in fact incoherent. Computing architectures fundamentally characterize *physical systems that realize input-output functions*, although it’s no harm done to apply them to simulations of physical systems too (as we do when we apply the term ‘neural net architecture’ to modern AI systems being simulated by physical computers with constructible-symbol architectures). That is, to say something has a symbolic architecture is to state that some physical components of the system (or simulated system) contribute in a particular way to realizing the input-output mappings. To say something does NOT have a symbolic architecture is to state that the physical components of the system (or simulated system) do NOT contribute in that way to realizing the input-output mappings. If the physical components of the system do not contribute in the specified way, it would be nonsensical to say that they ‘approximate’ contributing in that way. This is a category error, like saying that throwing a soccer ball into a goal with my hands ‘approximated’ kicking it. 
+
+Yes, Marr said that there are different levels of explanation, and he also said that assumptions at one level usefully *constrain* assumptions at another level. If you assume an algorithm that operates over constructible-symbol representations, then you are committing to the assumption that any physical system that implements that algorithm will have physical components that correspond to the primitive elements that compose the constructible symbols. Neural nets, by definition, do not have components that correspond to the primitive elements of constructible symbols and therefore they cannot implement algorithms that operate over constructible-symbol representations. 
+
+**But isn’t physical reality continuous, not discrete? Therefore how could any physical system—especially messy biological organisms—truly implement, rather than approximate, a symbolic architecture?** I’m not gonna take on this profound question about whether the physical world is continuous. What I will say, following Pylyshyn’s masterful writings on this subject, is that what it means for a physical system to implement a symbolic architecture is that there is *some* objective physical property of the system that corresponds to the elements of the constructible symbols, and that this physical property plays a particular causal role in the ability of the system to execute the function (to return the output that should be paired with each input). 
+
+We can use this gear from Babbage’s Difference Engine as an example. This machine operated with a constructible-symbol, decimal representation of the numbers. Each of the gears pictured here were separated into sections. Each section had ten ridges which correspond to the 10 digits of the decimal system, and a set of levers implemented the carry-the-tens mechanism. Our question is, is there any discrete physical property of this system which corresponds to the discrete primitive elements which compose the symbols it is supposed to be constructing? The answer is, yes, the discrete ridges on the gear wheel. Now one might respond, if you zoom in with a microscope, we will see that there’s no clear physical position where a ridge begins and ends. One could point out that there are other discretized units at a purely physical level—e.g. the atoms from which the gear is composed—and that from a physics perspective the ridges have no privileged status over any of these other units. One could note that, despite Babbage seeking out some of the best machinists of his time to form each of the gears, at a certain microscopic level the ridge that corresponds to the primitive element ‘3’ on one gear is not exactly the same width as the ridge that corresponds to ‘3’ on another gear. 
+
+![](babbage-gear.png){#fig-gear fig-alt="Close-up photograph of a brass gear wheel from Babbage's Difference Engine, with the digits 2, 3, 4 printed on its numbered rim."}
+
+All that is true, but it is irrelevant. The only thing that matters is that there is *some* level of physical description of the machine which corresponds to the primitive symbolic elements and which play a causal role in the machine executing the function. And we can, with a physical vocabulary, describe the gear in a way that yields a common description being applied to the 10 ridges in each section. It is that common description that makes the machine ‘work’ from the engineer’s perspective, because that is what results in each of the 10 ridges reacting in the same way to a force applied by another gear in a certain direction.
+
+This speaks to the last question: **is it obvious that biology cannot implement constructible symbols?** Certainly it is not. To the contrary, it is obvious that biological components like cellular structures are governed by and thus can leverage exactly the same physical forces as machines like the Difference Engine, regardless of the fact that they are much tinier and composed of a slightly different mix of materials. 
+
+It is an empirical question whether biological structures not only *can* but *do* implement constructible symbols. But that empirical question was answered in the 1950s, when it was shown that cellular DNA and RNA use constructible symbols to encode organismal blueprints. There is no scientific debate about this: every known cellular organism implements constructible symbols to execute developmental and reproductive computations.
+
+I will now close with a recap. Any function in extension can be implemented with a look-up table, but for many problem domains this would be very costly. Engineers like constructible symbol machine architectures because they are much less costly and can be applied to a wide variety of problem domains within a single machine. As cost-effectiveness has been a primary motivator and differentiator of symbolic architectures, it is unsurprising that alternative architectures such as neural nets or look-up tables are also successful when energy and storage costs are not a concern. It is not clear why one would want to say that one of these architectures ‘approximates’ another, nor what this would mean. If you hypothesize that the mind uses a constructible symbol algorithm to execute some cognitive function, you are committing to the assumption that the brain has components at some level of physical description that correspond to the primitive elements that compose the constructible symbols. It has been known for over 70 years that a constructible symbol architecture can be and is realized by biological material.[^6] 
+
+[^1]:  McCoy, R. T., Soulos, P., Linzen, T., & Smolensky, P. (2026). The Emergent Symbolic Structure of Artificial Neural Networks. [arXiv](https://arxiv.org/abs/2608.29530)
+
+[^2]:  Here I draw in particular on Pylyshyn’s (1984) *Computation and Cognition* and Gallistel and King’s (2011) *Memory and the Computational Brain.* 
+
+[^3]:  E.g. Wittgenstein’s *Lectures on the Foundations of Mathematics* (1939)
+
+[^4]:  Bill Idsardi points out that this only holds for non-transcendental functions.
+
+[^5]:  Michael Murez let me know that this is related to a 1981 thought experiment from Ned Block now known as ‘Blockhead’
+
+[^6]:  Thanks to Norbert Hornstein, Bill Idsardi, and Masaya Yoshida for helpful discussion. 
+
