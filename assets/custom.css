@@ -91,7 +91,6 @@ pre, pre code { color: var(--bs-body-color); }
 .form-control::placeholder { color: var(--ggm-muted); opacity: 1; }
 
 /* Home: one automatic hero, optional pins, then compact remaining posts. */
-.home-listing .home-category-reset { font-size: .85rem; margin-bottom: 1.5rem; }
 .home-listing .home-post { margin-bottom: 1.5rem; }
 .home-listing .home-group-title {
   font-size: .82rem;
@@ -265,17 +264,68 @@ html:not([data-ggm-category-filter]) .listing-no-matching { display: none !impor
 .home-listing .home-staged .home-post-content { padding-bottom: 1rem; border-bottom: 1px solid var(--bs-border-color); }
 .home-listing .ggm-badge-scheduled { color: var(--ggm-muted); background: var(--ggm-surface); }
 
-/* Citation appendix enhancement shares the active indigo/amber palette. */
-.ggm-cite {
-  margin-top: 2rem;
-  padding: 1.25rem;
-  border: 1px solid var(--ggm-ui-border);
-  border-left: 4px solid var(--ggm-accent);
-  border-radius: .4rem;
-  background: var(--ggm-surface);
+/* Home: articles lead, with quiet tools alongside on desktop. */
+body:has(.home-layout) main.content {
+  grid-column: screen-start / screen-end;
+  width: min(1240px, calc(100% - 3rem));
+  max-width: 1240px;
+  justify-self: center;
 }
-.ggm-cite h2 { margin-top: 0; font-size: 1.2rem; }
-.ggm-cite-text { margin-bottom: .8rem; overflow-wrap: anywhere; }
+body:has(.home-layout) #title-block-header { margin-bottom: 1rem; }
+body:has(.home-layout) .quarto-title-banner { padding-block: .85rem; margin-bottom: 0; }
+body:has(.home-layout) .quarto-title-meta { display: none; }
+body:has(.home-layout) #title-block-header h1.title { font-size: clamp(1.9rem, 3vw, 2.25rem); margin: 0; }
+body:has(.home-layout) .quarto-title { width: min(1240px, calc(100vw - 3rem)); justify-self: center; }
+.home-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+.home-listing { min-width: 0; }
+.home-sidebar { min-width: 0; align-self: start; font-size: .9rem; }
+.home-sidebar .home-search { margin: 0 0 2rem; }
+.home-sidebar h2 { font-size: .9rem; font-weight: 600; margin: 0 0 .75rem; border: 0; padding: 0; }
+.home-sidebar ul { list-style: none; padding: 0; margin: 0; }
+.home-sidebar li { font: inherit; margin-bottom: .5rem; line-height: 1.5; }
+.home-sidebar .topic-count { color: var(--ggm-muted); font-variant-numeric: tabular-nums; }
+.home-sidebar .home-subscribe { margin-top: 1.5rem; font-size: .85rem; }
+.home-sidebar a[aria-current="true"] { font-weight: 700; }
+@media (min-width: 992px) {
+  .home-layout { grid-template-columns: minmax(0, 1fr) 19rem; gap: clamp(2rem, 4vw, 4rem); }
+  .home-sidebar { position: sticky; top: 5rem; }
+}
+@media (max-width: 991.98px) {
+  .home-sidebar .home-search { display: none; }
+  .home-sidebar { padding-top: 1.25rem; border-top: 1px solid var(--ggm-ui-border); }
+}
+@media (max-width: 575.98px) {
+  body:has(.home-layout) main.content { width: calc(100% - 2rem); }
+  body:has(.home-layout) .quarto-title { width: calc(100vw - 2rem); }
+}
+
+/* One native citation panel, collapsed between references and comments. */
+.ggm-cite { margin: 1.5rem 0 1rem; border: 1px solid var(--ggm-ui-border); border-radius: .3rem; }
+.ggm-cite > summary {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .7rem .85rem;
+  cursor: pointer;
+  color: var(--ggm-accent);
+  font-size: .9rem;
+  list-style: none;
+}
+.ggm-cite > summary::-webkit-details-marker { display: none; }
+.ggm-cite > summary::before {
+  content: "";
+  width: .45rem;
+  height: .45rem;
+  flex: 0 0 .45rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform .15s ease;
+}
+.ggm-cite[open] > summary::before { transform: rotate(45deg); }
+.ggm-cite-body { padding: 1rem; border-top: 1px solid var(--ggm-ui-border); background: var(--ggm-surface); }
+.ggm-cite-text, .ggm-cite .quarto-appendix-citeas { margin: 1rem 0; overflow-wrap: anywhere; }
+.ggm-copy-controls { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
 .ggm-cite button {
   min-height: 44px;
   padding: .4rem .75rem;
@@ -287,9 +337,20 @@ html:not([data-ggm-category-filter]) .listing-no-matching { display: none !impor
 }
 .ggm-cite button:hover { border-color: var(--ggm-accent-2-text); }
 .ggm-cite button[hidden] { display: none; }
-.ggm-cite-bibtex { margin-top: 1rem; padding: .75rem; white-space: pre-wrap; overflow-wrap: anywhere; }
-.ggm-copy-status { display: block; min-height: 1.5em; margin-top: .5rem; color: var(--ggm-accent); }
-.ggm-bibtex-download { display: inline-block; margin: .5rem; }
-.ggm-title-cite { font-size: .85rem; margin-top: .75rem; }
-.ggm-license-scope { font-size: .9rem; }
+.ggm-bibtex { margin-top: 1rem; }
+.ggm-bibtex > summary { cursor: pointer; color: var(--ggm-accent); font-size: .85rem; }
+.ggm-cite-bibtex { margin-top: .75rem; padding: .75rem; white-space: pre-wrap; overflow-wrap: anywhere; }
 .ggm-cite-bibtex code { white-space: inherit; overflow-wrap: anywhere; }
+.ggm-copy-status { min-height: 1.5em; color: var(--ggm-accent); font-size: .85rem; }
+.ggm-bibtex-download { display: inline-block; margin-block: .5rem; font-size: .85rem; }
+.ggm-title-cite { font-size: .85rem; margin-top: .75rem; }
+.ggm-license-scope { font-size: .85rem; margin: .5rem 0 1rem; }
+.ggm-comments { margin-top: 1rem; }
+.ggm-comments > h2 { font-size: 1.1rem; margin: 0 0 1rem; }
+@media (prefers-reduced-motion: reduce) { .ggm-cite > summary::before { transition: none; } }
+@media print {
+  .ggm-cite::details-content, .ggm-bibtex::details-content { content-visibility: visible !important; height: auto !important; }
+  .ggm-cite > .ggm-cite-body, .ggm-bibtex > :not(summary) { display: block !important; }
+  .ggm-copy-controls, .ggm-comments, .ggm-title-cite, .home-sidebar { display: none !important; }
+  .ggm-cite { break-inside: avoid; }
+}

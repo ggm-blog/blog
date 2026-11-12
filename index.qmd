@@ -21,24 +21,25 @@ listing:
 ---
 
 ```{=html}
-<form class="home-search" action="search.html" method="get" role="search">
-  <label for="home-search-query">Search posts</label>
-  <div class="home-search-controls">
-    <input id="home-search-query" name="query" type="search" placeholder="Search posts" required>
-    <button type="submit">Search</button>
-  </div>
-</form>
-```
-
-```{=html}
 <script>
 // Quarto also shows its empty-filter message for an initially empty listing.
 // Only expose it when the visitor has actually selected a category filter.
 function syncCategoryFilter() {
   const category = new URLSearchParams(location.hash.slice(1)).get('category');
   document.documentElement.toggleAttribute('data-ggm-category-filter', Boolean(category));
+  // Quarto only activates nonempty category hashes; explicitly reset its
+  // existing List.js filter when All topics or browser Back clears the hash.
+  if (!category) {
+    for (const listing of Object.values(window['quarto-listings'] || {})) listing.filter();
+  }
+  for (const link of document.querySelectorAll('.home-topics a')) {
+    const selected = new URL(link.href).hash === `#category=${encodeURIComponent(category || '')}`;
+    if (selected) link.setAttribute('aria-current', 'true');
+    else link.removeAttribute('aria-current');
+  }
 }
 window.addEventListener('hashchange', syncCategoryFilter);
+window.addEventListener('DOMContentLoaded', syncCategoryFilter);
 syncCategoryFilter();
 </script>
 ```

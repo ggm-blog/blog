@@ -71,10 +71,11 @@ def main():
                 assert creators and all(' ' in author.text and not re.search('tim-hunter|brian-dillon|ming-xiang', author.text) for author in creators)
                 content = item.findtext('description', '')
                 assert len(content) > 5000, (item.findtext('title'), len(content))
+                assert f'title = {{{{{html.escape(item.findtext("title"), quote=True)}}}}}' in content
             for slug in SLUGS[:2]:
                 page = (site / 'posts' / slug / 'index.html').read_text()
                 assert '<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>' in page
-                assert 'id="cite-this-post"' in page and 'href="#cite-this-post"' in page
+                assert 'id="cite"' in page and 'href="#cite"' in page
                 assert 'aria-live="polite"' in page
                 assert re.search(r'<link[^>]+rel="canonical"[^>]+href="https://ggmblog.org/posts/', page)
                 assert not re.search(r'<meta name="citation_author" content="[^\"]*(tim-hunter|brian-dillon|ming-xiang)', page)

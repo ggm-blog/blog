@@ -1,7 +1,21 @@
 /* The citation and BibTeX remain readable without JavaScript. */
 (() => {
-  const box = document.getElementById('cite-this-post');
+  const box = document.getElementById('cite');
   if (!box) return;
+  function openCitation() {
+    if (location.hash !== '#cite' && location.hash !== '#cite-this-post') return;
+    box.open = true;
+    requestAnimationFrame(() => box.scrollIntoView({ block: 'start' }));
+  }
+  window.addEventListener('hashchange', openCitation);
+  document.querySelector('.ggm-title-cite a')?.addEventListener('click', () => {
+    box.open = true;
+    requestAnimationFrame(() => box.scrollIntoView({ block: 'start' }));
+  });
+  openCitation();
+  let wasOpen = false;
+  window.addEventListener('beforeprint', () => { wasOpen = box.open; box.open = true; });
+  window.addEventListener('afterprint', () => { box.open = wasOpen; });
   function fallbackCopy(text) {
     const area = document.createElement('textarea');
     area.value = text;
@@ -20,7 +34,7 @@
     button.hidden = false;
     button.addEventListener('click', async () => {
       const source = document.getElementById(button.dataset.copySource);
-      const text = source.innerText.replace(/\s*\n\s*/g,
+      const text = source.textContent.replace(/\s*\n\s*/g,
         button.dataset.copySource === 'ggm-citation-text' ? ' ' : '\n').trim();
       const status = box.querySelector('.ggm-copy-status');
       status.textContent = '';
