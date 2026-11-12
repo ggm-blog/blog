@@ -16,20 +16,18 @@ function publicationDay(): string {
   const part = (type: string) => parts.find((p) => p.type === type)!.value;
   return `${part("year")}-${part("month")}-${part("day")}`;
 }
-function dateGate(path: string, future: boolean, staging: boolean) {
+function dateGate(path: string, future: boolean, staging: boolean, authors: unknown[]) {
   const metadataPath = path.replace(/[^/]+$/, "_metadata.yml");
   let existing: string | undefined;
   try { existing = Deno.readTextFileSync(metadataPath); }
   catch (error) { if (!(error instanceof Deno.errors.NotFound)) throw error; }
   const generated = existing?.split(/\r?\n/)[0] === DATE_GATE_MARKER;
-  if (staging || !future) {
-    if (generated) Deno.removeSync(metadataPath);
-  } else {
-    if (existing !== undefined && !generated) {
-      throw new Error(`${path}: date gate cannot replace unmarked ${metadataPath}; move its settings into post front matter`);
-    }
-    writeIfChanged(metadataPath, `${DATE_GATE_MARKER}\ndraft: true\n`);
+  if (existing !== undefined && !generated) {
+    throw new Error(`${path}: date gate cannot replace unmarked ${metadataPath}; move its settings into post front matter`);
   }
+  const metadata: RecordData = { citation: { author: authors } };
+  if (!staging && future) metadata.draft = true;
+  writeIfChanged(metadataPath, `${DATE_GATE_MARKER}\n${stringify(metadata)}`);
 }
 
 type RecordData = Record<string, unknown>;
@@ -42,6 +40,20 @@ function object(value: unknown, context: string): RecordData {
 function requiredString(value: unknown, context: string): string {
   if (typeof value !== "string" || !value.trim()) throw new Error(`${context}: expected a nonempty string`);
   return value;
+}
+// Personal names for citations: preserve the full display name in bylines/feed,
+// but use explicit CSL name parts to avoid treating non-Latin text as a surname.
+function citationName(record: RecordData, context: string) {
+  const name = requiredString(record.name, `${context} name`);
+  const supplied = record.family !== undefined || record.given !== undefined;
+  if (supplied) return {
+    literal: name,
+    family: requiredString(record.family, `${context} family (supply both family and given)`),
+    given: requiredString(record.given, `${context} given (supply both family and given)`),
+  };
+  const words = name.match(/\p{Script=Latin}[\p{Script=Latin}\p{M}'’.-]*/gu) || [];
+  if (words.length < 2) throw new Error(`${context}: cannot resolve citation name from "${name}"; supply family and given in authors.yml`);
+  return { literal: name, family: words[words.length - 1], given: words.slice(0, -1).join(" ") };
 }
 function postDate(value: unknown, path: string): number {
   const text = value instanceof Date ? value.toISOString().slice(0, 10) :
@@ -78,6 +90,7 @@ try {
   const raw = parse(Deno.readTextFileSync("authors.yml"));
   if (!Array.isArray(raw)) throw new Error("authors.yml: expected a list of authors");
   const registry = new Map<string, RecordData>();
+  const names: RecordData = {};
   for (const value of raw) {
     const record = object(value, "authors.yml");
     const id = requiredString(record.id, "authors.yml id");
@@ -85,13 +98,17 @@ try {
     if (registry.has(id)) throw new Error(`authors.yml: duplicate slug "${id}"`);
     requiredString(record.name, `authors.yml ${id} name`);
     requiredString(record.status, `authors.yml ${id} status`);
+    names[id] = citationName(record, `authors.yml ${id}`);
     registry.set(id, record);
   }
+  Deno.mkdirSync("generated", { recursive: true });
+  writeIfChanged("generated/author-names.yml", stringify({ names }));
   const staging = (Deno.env.get("QUARTO_PROFILE") || "").split(",").includes("staging");
   const today = publicationDay();
   const hiddenPosts: string[] = [];
   const excludedPosts: string[] = [];
   const items = [];
+  const citationPosts = [];
   const menuPosts: { path: string; title: string; date: number; featured: boolean }[] = [];
   for (const path of posts("posts")) {
     const meta = frontMatter(path);
@@ -101,8 +118,7 @@ try {
       throw new Error(`${path}: draft must be true or false`);
     }
     const future = date > Date.parse(`${today}T00:00:00Z`);
-    // Never mutate post source. Clear prior generated gates in staging or when due.
-    if (path.endsWith("/index.qmd")) dateGate(path, future && meta.draft !== true, staging);
+    // Publication gating and citation metadata never mutate post source.
     const visible = staging || (meta.draft !== true && !future);
     if (!visible) hiddenPosts.push(path);
     if (meta.draft === true || future) excludedPosts.push(path);
@@ -117,6 +133,17 @@ try {
       if (!author) throw new Error(`${path}: unknown author slug "${slug}"`);
       return { id: slug, name: author.name };
     });
+    // The Lua filter cannot affect Quarto's JS-side citation appendix/Scholar tags.
+    // Supply citation authors in folder metadata before Quarto reads the document.
+    if (path.endsWith("/index.qmd")) dateGate(path, future && meta.draft !== true, staging,
+      authors.map((author) => {
+        const parts = names[author.id] as { family: string; given: string };
+        return { name: { family: parts.family, given: parts.given } };
+      }));
+    if (visible) citationPosts.push({ path, title,
+      date: new Date(date).toISOString().slice(0, 10),
+      authors: authors.map((author) => author.name),
+      license: typeof meta.license === "string" ? meta.license : "CC BY" });
     // Validate every post, but production metadata must not expose hidden posts.
     if (!visible) continue;
     items.push({
@@ -138,6 +165,7 @@ try {
   items.forEach((item, index) => { item["ggm-order"] = index; });
   Deno.mkdirSync("generated", { recursive: true });
   writeIfChanged("generated/posts.yml", stringify(items));
+  writeIfChanged("generated/citation-posts.json", JSON.stringify(citationPosts));
   writeIfChanged("generated/hidden-posts.json", JSON.stringify(staging ? [] : excludedPosts));
   menuPosts.sort((a, b) => b.date - a.date || Number(a.featured) - Number(b.featured) || a.title.localeCompare(b.title));
   const menu = menuPosts.slice(0, POSTS_MENU_LIMIT).map((post) => ({

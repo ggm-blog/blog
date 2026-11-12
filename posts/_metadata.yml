@@ -1,3 +1,12 @@
+# Editors may approve a per-post license override; this default covers text only.
+license: "CC BY"
+citation:
+  type: post-weblog
+  container-title: "Grammars Gone Mental"
+google-scholar: true
+appendix-cite-as: [display, bibtex]
+csl: ../../assets/apa.csl
+
 format:
   html:
     toc: true

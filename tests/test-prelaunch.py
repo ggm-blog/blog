@@ -110,7 +110,7 @@ def main():
         for slug in [ellen, brian]:
             assert 'id="quarto-draft-alert"' in output(f'posts/{slug}/index.html')
         for slug in [tim, origin]:
-            assert not (work / 'posts' / slug / '_metadata.yml').exists()
+            assert 'draft: true' not in (work / 'posts' / slug / '_metadata.yml').read_text()
         print('PASS staging separates drafts/scheduled from live hero and navbar', flush=True)
 
         post(tim, -1, draft=False)
@@ -134,8 +134,8 @@ def main():
         assert 'home-post home-compact' not in home and 'All posts</h2>' not in home
         assert home.count('ggm-badge-pinned') == 1
         for slug in [tim, origin]:
-            assert not (work / 'posts' / slug / '_metadata.yml').exists()
-        # Pagefind sees only these public HTML pages: hidden posts are blank stubs.
+            assert 'draft: true' not in (work / 'posts' / slug / '_metadata.yml').read_text()
+        # Pagefind sees only public HTML pages; hidden post directories are removed.
         result = subprocess.run(['npx', '--yes', 'pagefind', '--site', '_site'], cwd=work, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         assert result.returncode == 0, result.stdout
         print('PASS launch-day Latest/Pinned tie-break, empty archive, and Pagefind index', flush=True)
@@ -168,7 +168,7 @@ def main():
         metadata.write_text('# hand-maintained\ntoc: false\n')
         render(error=f'date gate cannot replace unmarked posts/{tim}/_metadata.yml')
         assert metadata.read_text() == '# hand-maintained\ntoc: false\n'
-        render(staging=True)
+        render(staging=True, error=f'date gate cannot replace unmarked posts/{tim}/_metadata.yml')
         assert metadata.read_text() == '# hand-maintained\ntoc: false\n'
         print('PASS invalid/missing dates, unknown author, and unmarked metadata protection', flush=True)
 

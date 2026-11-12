@@ -264,3 +264,32 @@ html:not([data-ggm-category-filter]) .listing-no-matching { display: none !impor
 .home-listing .home-staged .listing-title { font-size: 1.15rem; }
 .home-listing .home-staged .home-post-content { padding-bottom: 1rem; border-bottom: 1px solid var(--bs-border-color); }
 .home-listing .ggm-badge-scheduled { color: var(--ggm-muted); background: var(--ggm-surface); }
+
+/* Citation appendix enhancement shares the active indigo/amber palette. */
+.ggm-cite {
+  margin-top: 2rem;
+  padding: 1.25rem;
+  border: 1px solid var(--ggm-ui-border);
+  border-left: 4px solid var(--ggm-accent);
+  border-radius: .4rem;
+  background: var(--ggm-surface);
+}
+.ggm-cite h2 { margin-top: 0; font-size: 1.2rem; }
+.ggm-cite-text { margin-bottom: .8rem; overflow-wrap: anywhere; }
+.ggm-cite button {
+  min-height: 44px;
+  padding: .4rem .75rem;
+  border: 1px solid var(--ggm-accent);
+  border-radius: .3rem;
+  background: var(--ggm-surface);
+  color: var(--ggm-accent);
+  font: inherit;
+}
+.ggm-cite button:hover { border-color: var(--ggm-accent-2-text); }
+.ggm-cite button[hidden] { display: none; }
+.ggm-cite-bibtex { margin-top: 1rem; padding: .75rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ggm-copy-status { display: block; min-height: 1.5em; margin-top: .5rem; color: var(--ggm-accent); }
+.ggm-bibtex-download { display: inline-block; margin: .5rem; }
+.ggm-title-cite { font-size: .85rem; margin-top: .75rem; }
+.ggm-license-scope { font-size: .9rem; }
+.ggm-cite-bibtex code { white-space: inherit; overflow-wrap: anywhere; }

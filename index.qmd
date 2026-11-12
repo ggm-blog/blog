@@ -15,7 +15,9 @@ listing:
   filter-ui: false
   max-description-length: 400
   page-size: 1000000
-  feed: true
+  feed:
+    type: full
+    items: 1000000
 ---
 
 ```{=html}
