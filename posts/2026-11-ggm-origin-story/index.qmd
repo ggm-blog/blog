@@ -8,7 +8,7 @@ author:
   - laurel-perkins
   - matt-wagers
   - ming-xiang
-date: "2026-11-17"
+date: "2026-11-12"
 categories: [about, meta]
 featured: true
 description: "Who we are, why we started a blog, and how we plan to run it."

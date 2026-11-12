@@ -3,7 +3,7 @@ title: "What it might mean for the parser to (not) be the grammar"
 subtitle: "Is a grammar an abstraction over the parser, or an information resource the parser consults?"
 author:
   - tim-hunter
-date: "2026-11-17"
+date: "2026-11-12"
 categories: [parsing, grammar]
 ---
 
