@@ -136,3 +136,30 @@ pre, pre code { color: var(--bs-body-color); }
   padding: .1rem .6rem;
   margin-bottom: .65rem;
 }
+
+/* Pinned, compact navbar; Quarto measures its height for body/TOC offsets. */
+.navbar { padding-block: .15rem; }
+.navbar .navbar-brand { font-size: 1.1rem; line-height: 1.35; padding-block: .3rem; }
+.navbar .nav-link { padding-block: .3rem; }
+.navbar .dropdown-menu {
+  width: 26rem;
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100dvh - 5rem);
+  overflow-y: auto;
+}
+.navbar .dropdown-item { white-space: normal; overflow-wrap: anywhere; line-height: 1.4; padding-block: .45rem; }
+.navbar .dropdown-text { white-space: normal; }
+/* Sections already receive Quarto's measured header spacer; cover footnote
+   targets/backlinks too, with enough clearance for the wrapped phone brand. */
+html { scroll-padding-top: 5rem; }
+:is(h1, h2, h3, h4, h5, h6, li[id^="fn"], a[id^="fnref"]) { scroll-margin-top: .5rem; }
+#quarto-margin-sidebar { padding-top: .75rem; }
+@media (max-width: 991.98px) {
+  .navbar { padding-block: .25rem; }
+  .navbar .navbar-brand { max-width: calc(100vw - 10rem); white-space: normal; margin-right: .25rem; }
+  .navbar .navbar-toggler, .navbar .quarto-navbar-tools a, .navbar .quarto-navbar-tools button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .navbar-collapse .dropdown-menu { width: 100%; max-width: 100%; }
+}

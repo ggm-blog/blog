@@ -1,3 +1,6 @@
+metadata-files:
+  - _nav-posts.yml
+
 project:
   type: website
   pre-render: scripts/prepare-authors.ts
@@ -10,15 +13,7 @@ website:
   site-url: https://majestic-palmier-4ce0f2.netlify.app
   title: "Grammars Gone Mental"
   navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - href: about.qmd
-        text: About
-      - href: contributors.qmd
-        text: Contributors
-      - href: search.qmd
-        text: Search
+    pinned: true
     right:
       - icon: github
         href: https://github.com/your-org/blog
