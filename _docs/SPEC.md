@@ -318,26 +318,32 @@ The `search: true` key enables Quarto's built-in navbar search widget.
 
 Both modes use Bootswatch Litera: `light: [litera, assets/light.scss]` and
 `dark: [litera, assets/dark.scss]`. The Quarto navbar light/dark toggle remains.
-The SCSS files define Bootstrap colors, with warm paper (`#fffdf8`) and ink
-(`#1c1b19`) backgrounds. Dark mode uses amber links and warm gray surfaces.
+The SCSS files define the palette once, retaining warm paper (`#fffdf8`) and
+charcoal (`#1c1b19`) backgrounds. Primary indigo is `#4f46e5` light / `#8b85ff`
+dark, with hover shades `#4338ca` / `#a6a1ff`. Shared CSS aliases Bootstrap
+colors as `--ggm-accent` and `--ggm-accent-2`; other semantic tokens come from SCSS.
+Indigo supplies underlined content links, navbar title/active underline, Latest,
+categories, focus outlines, active TOC markers, editor badges, and ORCID borders.
+
+Secondary amber `#fbbf24` is restricted to small Pinned fills, a thin title rule,
+and a narrow search-result hover/focus highlight. Light-mode rule/edge amber
+is `#b45309` for contrast; dark mode uses `#fbbf24`. Pinned text is dark ink.
+Editor badges use paper text in light mode and charcoal text in dark mode.
+The existing green ORCID icon is unchanged; its ID text and border use indigo.
+Member/guest badges retain their existing styling. Inline code uses body text.
+
 Shared CSS retains an 860px content cap, limits essay text to 78ch, uses 1.7
 line spacing, small category labels, rounded code blocks, and responsive images.
+Contributor cards receive semantic status classes; frozen output must be refreshed
+when the generator changes. Site and shared post defaults use `code-tools: false`.
+Pagefind retains its Default UI and indexing pipeline. Giscus theme messages,
+photos, icons, and post text are unchanged by the accent refresh.
 
-Contributor page front matter adds `contributors-page` for scoped CSS over its
-frozen markup. CSS makes card backgrounds, notes, borders, and ORCID icon/text
-adapt to the active palette, without changing the R card generator. Status
-badge text remains white on its existing green/blue/gray backgrounds.
-Site and shared post defaults use `code-tools: false`, so prose pages do not
-show source menus. A future code-focused post can opt in through front matter.
-Pagefind keeps its Default UI and indexing pipeline, with palette variables
-in `custom.css`. Quarto's existing Giscus theme switch messages remain unchanged.
-
-Palette calculations meet 4.5:1 for normal text and 3:1 for UI outlines in both
-modes: body 14.06/13.57, links 6.93/8.25, muted card text 5.89/6.26, and status
-badges at least 4.69. These are color-pair checks, not a complete accessibility
-audit. The standard ORCID image in post bylines is a brand mark; card SVG/text
-colors are adjusted separately for contrast. Browser visual inspection remains
-a PR review item when desktop automation is unavailable.
+Palette checks target 4.5:1 for normal text and 3:1 for UI outlines in both modes.
+Indigo text has at least 5.53:1 light / 5.16:1 dark on body, navbar, and card
+surfaces. Editor badge text has 6.19:1 / 5.65:1; Pinned text has 8.56:1 / 10.31:1.
+Light amber edges have 3.01:1 against the Pinned fill and 4.94:1 against paper.
+These are color-pair checks, not a complete accessibility audit.
 
 ### `posts/_metadata.yml`
 Inherits into every post without authors needing to repeat themselves. Currently
