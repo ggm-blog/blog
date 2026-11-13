@@ -37,6 +37,18 @@ const [base = 'http://127.0.0.1:4317', profile = 'staging', shots = '/tmp/ggm-ci
           && (!appendix || Boolean(appendix.compareDocumentPosition(cite) & Node.DOCUMENT_POSITION_FOLLOWING));
       });
       assert(order);
+      if (width >= 992) {
+        await page.evaluate(() => window.scrollTo(0, 1000));
+        const scrollBefore = await page.evaluate(() => scrollY);
+        await page.locator('.ggm-floating-cite').focus();
+        await page.keyboard.press('Enter');
+        await page.waitForFunction(() => document.querySelector('.ggm-floating-cite-status').textContent === 'Copied');
+        const citation = await page.evaluate(() => navigator.clipboard.readText());
+        assert(citation.includes('https://ggmblog.org/posts/'));
+        assert(citation.includes(slug.includes('parser') ? 'Hunter, T.' : 'Dillon, B.'));
+        assert.equal(await page.evaluate(() => scrollY), scrollBefore);
+        assert.equal(await page.locator('#cite').getAttribute('open'), null);
+      }
       await page.locator('#cite').scrollIntoViewIfNeeded();
       if (width === 1280 && theme === 'light') await page.screenshot({path:`${shots}/${profile}-footer-collapsed.png`});
       await page.locator('#title-block-header .ggm-title-cite a[href$="#cite"]').click();
@@ -96,6 +108,16 @@ const [base = 'http://127.0.0.1:4317', profile = 'staging', shots = '/tmp/ggm-ci
   assert(await page.evaluate(() => window.fallbackUsed));
   assert((await page.evaluate(() => navigator.clipboard.readText())).includes('Hunter, T.'));
   console.log(`PASS ${profile} textarea fallback copies actual citation`);
+  await page.goto(`${base}/posts/2026-12-parser-grammar/`, { waitUntil: 'domcontentloaded' });
+  await page.evaluate(() => {
+    navigator.clipboard.writeText = async () => { throw new Error('Clipboard blocked'); };
+    document.execCommand = () => false;
+  });
+  await page.locator('.ggm-floating-cite').click();
+  await page.waitForFunction(() => document.getElementById('cite').open);
+  assert.equal(new URL(page.url()).hash, '#cite');
+  assert(await page.locator('#ggm-citation-text').isVisible());
+  console.log(`PASS ${profile} floating Cite opens citation panel when both copy methods fail`);
   await context.close();
   const nojs = await browser.newContext({ javaScriptEnabled: false });
   await localOnly(nojs);
