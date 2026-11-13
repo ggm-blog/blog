@@ -75,7 +75,7 @@ for (const post of posts) {
     '$1<p class="ggm-title-cite"><a href="#cite">Cite</a> <span aria-hidden="true">·</span> <a href="#comments">Comments</a></p>$2');
   // This stays inside Quarto's floating margin sidebar as the reader scrolls.
   html = html.replace(/(<nav id="TOC"[^>]*>[\s\S]*?<\/nav>)/,
-    '$1<p class="ggm-toc-comments"><a href="#comments">Jump to comments</a></p>');
+    '$1<p class="ggm-toc-comments"><span class="ggm-toc-cite"><a href="#cite" class="ggm-floating-cite" title="Copy APA citation">Cite</a><span class="ggm-floating-cite-status" role="status" aria-live="polite" aria-atomic="true"></span></span><a href="#comments">Jump to comments</a></p>');
   html = html.replace('document.getElementById("quarto-content").appendChild(script)',
     'document.getElementById("comments").appendChild(script)');
   const schema = { "@context": "https://schema.org", "@type": "BlogPosting",

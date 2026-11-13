@@ -364,3 +364,6 @@ body:has(.home-layout) .quarto-title { width: min(1240px, calc(100vw - 3rem)); j
 }
 #comments { scroll-margin-top: .5rem; }
 @media print { .ggm-toc-comments { display: none; } }
+
+.ggm-toc-cite { display: block; margin-bottom: .4rem; }
+.ggm-floating-cite-status { margin-left: .5rem; color: var(--ggm-muted); font-size: .75rem; }
