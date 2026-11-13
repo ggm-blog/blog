@@ -21,7 +21,7 @@ execute:
 
 comments:
   giscus:
-    repo: mattwagers/roundup-sandbox
+    repo: ggm-blog/blog
     repo-id: R_kgDOSYLa8w
     category: Post Comments
     category-id: DIC_kwDOSYLa884C8oRx

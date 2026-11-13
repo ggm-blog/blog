@@ -489,7 +489,7 @@ The draft stable origin is **https://ggmblog.org**, which is not live yet.
 Canonical, Open Graph, sitemap, RSS, Scholar, citation, and JSON-LD URLs use this
 origin before cutover; navigation and cite-box asset/download links stay
 relative so deploy previews work. The public repository URL, derived from
-`git remote get-url origin`, is https://github.com/mattwagers/roundup-sandbox.
+`git remote get-url origin`, is https://github.com/ggm-blog/blog.
 The footer attributes copyright to the authors and links the text license.
 
 ### Citation and author identity
