@@ -43,7 +43,7 @@ Finally, all of us were strongly influenced by Norbert Hornstein's [*Faculty of 
 
 Like many other blogs, this is a team effort. We don't necessarily mean to speak in unison, but we hope there is some harmony. We discuss what topics and areas we'd like to say something about and we give each other feedback before publishing. Every post is written by its human authors.
 
-Our posts are not all, or mostly, about "Big Questions": we're interested in many approaches, including targeted reactions, bite-sized tutorials and round-ups of recent research (in the spirit of what *Glot International* used to run as "State-of-the-Article" pieces).
+Our posts are not all necessarily about "Big Questions": we're interested in many approaches, including targeted reactions, bite-sized tutorials, round-ups of recent research or contemporary reviews (in the spirit of what *Glot International* used to run as "State-of-the-Article" pieces).
 
 We're aiming to publish a piece roughly weekly. Eventually we're also interested in publishing others' pieces, and we'd love to hear proposals for topics from a wide variety of viewpoints. See the [Contributing](/about.qmd#contributing) section of our About page for how to get in touch.
 

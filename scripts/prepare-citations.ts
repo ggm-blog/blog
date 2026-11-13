@@ -64,7 +64,7 @@ for (const post of posts) {
 <a class="ggm-bibtex-download" href="citation.bib" download>Download BibTeX</a>
 </details>
 </div></div></details>
-<section id="comments" class="ggm-comments" aria-label="Comments"><h2>Comments</h2></section>
+<section id="comments" class="ggm-comments" aria-label="Comments" tabindex="-1"><h2>Comments</h2></section>
 <script src="${relativeRoot}assets/cite.js" defer></script>
 `;
   html = html.replace(/<section[^>]*id="quarto-reuse"[\s\S]*?<\/section>/, '');
@@ -72,7 +72,10 @@ for (const post of posts) {
   html = html.replace(/<div id="quarto-appendix"[^>]*>\s*<\/div>/, '');
   html = html.replace('</main>', panel + '</main>');
   html = html.replace(/(<header id="title-block-header"[\s\S]*?)(<\/header>)/,
-    '$1<p class="ggm-title-cite"><a href="#cite">Cite</a></p>$2');
+    '$1<p class="ggm-title-cite"><a href="#cite">Cite</a> <span aria-hidden="true">·</span> <a href="#comments">Comments</a></p>$2');
+  // This stays inside Quarto's floating margin sidebar as the reader scrolls.
+  html = html.replace(/(<nav id="TOC"[^>]*>[\s\S]*?<\/nav>)/,
+    '$1<p class="ggm-toc-comments"><a href="#comments">Jump to comments</a></p>');
   html = html.replace('document.getElementById("quarto-content").appendChild(script)',
     'document.getElementById("comments").appendChild(script)');
   const schema = { "@context": "https://schema.org", "@type": "BlogPosting",

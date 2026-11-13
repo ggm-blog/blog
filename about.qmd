@@ -4,31 +4,23 @@ title: "About"
 
 ## What is Grammars Gone Mental?
 
-Grammars Gone Mental (GGM) is a group blog about how language – intricate, dynamic and infinite – arises in finite human brains. It was started by seven linguists and cognitive scientists: Brian Dillon, Tim Hunter, Dave Kush, Ellen Lau, Laurel Perkins, Matt Wagers, and Ming Xiang.
+Grammars Gone Mental (GGM) is a group blog about language, linguistics and cognitive science. It was started by seven linguists and cognitive scientists: Brian Dillon, Tim Hunter, Dave Kush, Ellen Lau, Laurel Perkins, Matt Wagers, and Ming Xiang. You can read about why we started this blog [here](posts/2026-11-ggm-origin-story/index.qmd).
 
-We work in the generative grammar tradition and are mentalists. We think the three big questions about language (what a speaker knows, how that knowledge is put to use, and how it is acquired) are best answered in terms of the mental capacities and processes of language users, and that those answers should be stated in explicit formal models. Beyond that, we try to be ecumenical but rigorous about methods, and glad to hear from people who think we're wrong.
-
-We write for anyone who cares about these questions: linguists, psychologists, neuroscientists, students, and people in AI who are wondering what language is and how humans manage it. The blog takes inspiration from Norbert Hornstein's [*Faculty of Language*](https://facultyoflanguage.blogspot.com/). It aims to be more nimble than journal publishing and more lasting than social media. It's free to read, open to comment, and posts are as long as the idea needs.
-
-## What we write about
-
-Our topics are the core questions of language science, and how they fare as the field meets neighboring disciplines and new technologies. Not every post is a Big Question. Expect:
+Our topics are the core questions of language science. Expect:
 
 - **Reactions** to specific papers, debates and claims
 - **Bite-sized tutorials** on methods, models and formal tools
-- **Round-ups** of recent research, in the spirit of *Glot International*'s old "State-of-the-Article" pieces
+- **Round-ups** of recent research
 - **Conjectures and kvetches** about what we think the field is missing
 
 We give each other feedback before anything goes up, and every post is written by its human authors. We aim to publish about once a week.
 
 ## Contributing
 
-We plan to publish guest posts, and we welcome proposals from a wide range of viewpoints. If you have an idea for a post, or a topic you'd like to see us take on, write to us:
+We plan to publish posts from other contributors, and we welcome proposals from a wide range of viewpoints. If you have an idea for a post, write to us:
 
-- **Email:** editors@grammarsgonemental.org <!-- PLACEHOLDER: replace with real address -->
+- **Email:** editors@ggmblog.org <!-- PLACEHOLDER: replace with real address -->
 - **Editorial contact:** [Name], [Institution] <!-- PLACEHOLDER -->
-
-A short pitch is all we need to begin: a few sentences on the idea, why it matters now, and roughly how long it would be.
 
 To join the discussion on an existing post, see [How to comment](/commenting.qmd).
 
@@ -36,7 +28,7 @@ To join the discussion on an existing post, see [How to comment](/commenting.qmd
 
 Unless noted otherwise, the text of every post is licensed under
 [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
-Authors retain copyright. Images and other third-party material may carry their own terms.
+Authors retain copyright. (Images and other third-party material may carry their own terms.)
 
 ## How to cite
 

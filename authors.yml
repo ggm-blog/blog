@@ -10,28 +10,29 @@
   name: Tim Hunter
   status: editor
   affiliation: UCLA
-  notes: "Formal grammars, parsing, computational psycholinguistics."
+  notes: ""
+  url:  "https://mail.timhunter.humspace.ucla.edu/"
 - id: ellen-lau
   name: Ellen Lau
   status: editor
   affiliation: University of Maryland
-  notes: ""
+  url: "https://ellenlau.net/"
 - id: dave-kush
   name: Dave Kush
   status: editor
   affiliation: University of Toronto
-  notes: ""
+  url: "https://davewkush.github.io/"
 - id: laurel-perkins
   name: Laurel Perkins
   status: editor
   affiliation: UCLA
-  notes: "Language acquisition."
+  url: "https://laurelperkins.com/"
 - id: matt-wagers
   name: Matt Wagers
   status: editor
   orcid: 0000-0002-3139-2380
   affiliation: UC Santa Cruz
-  notes: "Sentence processing, syntax."
+  url: "https://mattwagers.net/"
 - id: ming-xiang
   name: Ming Xiang 向明
   status: editor
