@@ -30,11 +30,16 @@ Keep the existing Netlify project `majestic-palmier-4ce0f2` (project ID
 Preserve `main` as production, the existing build command/configuration,
 `_site` as the output, and staging only for deploy/branch previews.
 
-At preparation time, the organization had no GitHub App installations.
-Netlify and Giscus app access must be restored on the organization and verified
-before the cutover is considered complete. Giscus needs metadata read and
-Discussions write access; Netlify needs the permissions shown in its official
-GitHub App installation screen. Limit each installation to `ggm-blog/blog`.
+Netlify and Giscus were installed on the organization with **Only select
+repositories** access, selecting `ggm-blog/blog` only. Netlify has code/metadata
+read access and checks/statuses/issues/pull-requests write access; Giscus has
+metadata read and Discussions write access. The user explicitly approved
+these grants. Keep future access limited to this repository.
+
+The existing Netlify project was relinked to `ggm-blog/blog`, with `main` still
+selected for production. Its existing UI settings were retained. The checked-in
+`netlify.toml` remains authoritative for the `bash build.sh` build command and
+`_site` output, including the contributor fingerprint guard and Pagefind build.
 
 Verify a PR deploy preview, a production rebuild, and the live Giscus widget.
 Production must still expose only approved, due posts; staging previews may
