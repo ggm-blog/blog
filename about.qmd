@@ -4,9 +4,9 @@ title: "About"
 
 ## What is Grammars Gone Mental?
 
-Grammars Gone Mental (GGM) is a group blog about language, linguistics and cognitive science. It was started by seven linguists and cognitive scientists: Brian Dillon, Tim Hunter, Dave Kush, Ellen Lau, Laurel Perkins, Matt Wagers, and Ming Xiang. You can read about why we started this blog [here](posts/2026-11-ggm-origin-story/index.qmd).
+Grammars Gone Mental (GGM) is a group blog about language, linguistics and cognitive science. It was started by Brian Dillon, Tim Hunter, Dave Kush, Ellen Lau, Laurel Perkins, Matt Wagers, and Ming Xiang. You can read about our motivations [here](posts/2026-11-ggm-origin-story/index.qmd).
 
-Our topics are the core questions of language science. Expect:
+We're interested in many kinds of posts:
 
 - **Reactions** to specific papers, debates and claims
 - **Bite-sized tutorials** on methods, models and formal tools
@@ -17,10 +17,9 @@ We give each other feedback before anything goes up, and every post is written b
 
 ## Contributing
 
-We plan to publish posts from other contributors, and we welcome proposals from a wide range of viewpoints. If you have an idea for a post, write to us:
+We hope others will want to contribute and we welcome proposals from a wide range of viewpoints. If you have an idea for a post, write to us:
 
 - **Email:** editors@ggmblog.org <!-- PLACEHOLDER: replace with real address -->
-- **Editorial contact:** [Name], [Institution] <!-- PLACEHOLDER -->
 
 To join the discussion on an existing post, see [How to comment](/commenting.qmd).
 
@@ -30,7 +29,7 @@ Unless noted otherwise, the text of every post is licensed under
 [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
 Authors retain copyright. (Images and other third-party material may carry their own terms.)
 
-## How to cite
+## Citation, permanence
 
 Every post ends with a ready-made citation in APA style and BibTeX, with a
 button to copy either. Example:
@@ -38,9 +37,4 @@ button to copy either. Example:
 Lastname, F. (2026, Month D). Post title. *Grammars Gone Mental*.
 `https://ggmblog.org/posts/<slug>/`
 
-## Permanence
-
-We intend every post to stay at its original URL. If a post's address ever has
-to change, we will redirect the old one. Posts are version-controlled in a Git
-repository. We plan to register the blog with a scholarly blog-archiving
-service, which can issue DOIs, once publishing is steady.
+Posts are version-controlled in a Git repository. Each post should have its own perma-url.
