@@ -3,15 +3,15 @@ title: "How to comment"
 description: "A two-minute guide to joining the discussion on GGM posts."
 ---
 
-Comments on GGM run on [giscus](https://giscus.app). Each post's comment thread is stored as a GitHub Discussion, so you will need a free [GitHub account](https://github.com/signup) to comment. You do not need an account to read comments.
+Comments on GGM are managed using [giscus](https://giscus.app). Each post's comment thread is stored as a GitHub Discussion, so you will need a free [GitHub account](https://github.com/signup) to comment. You do not need an account to read comments.
 
-**To comment:**
+**To make a comment:**
 
 1. Scroll to the bottom of any post.
 2. Click **Sign in with GitHub** and authorize giscus. This is a one-time step. It lets giscus post comments under your name and nothing else.
 3. Type your comment and click **Comment**.
 
-**Good to know:**
+**Tips:**
 
 - Comments support Markdown: `*italics*`, `**bold**`, `[links](https://example.org)`, `> quotes`, and code blocks. Use the **Preview** tab to check formatting before posting.
 - Click **Reply** under a comment to reply in its thread, or use the emoji reactions to respond.

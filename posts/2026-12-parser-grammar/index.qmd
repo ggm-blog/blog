@@ -5,6 +5,72 @@ author:
   - tim-hunter
 date: "2026-11-12"
 categories: [parsing, grammar]
+references:
+  - id: resnik1992
+    type: paper-conference
+    author:
+      - family: Resnik
+        given: Philip
+    issued:
+      date-parts: [[1992]]
+    title: "Left-corner parsing and psychological plausibility"
+    container-title: "COLING 1992 Volume 1: The 14th International Conference on Computational Linguistics"
+    page: "191-197"
+    URL: https://aclanthology.org/C92-1032/
+  - id: stanojevicstabler2018
+    type: paper-conference
+    author:
+      - family: Stanojević
+        given: Miloš
+      - family: Stabler
+        given: Edward
+    editor:
+      - family: Idiart
+        given: Marco
+      - family: Lenci
+        given: Alessandro
+      - family: Poibeau
+        given: Thierry
+      - family: Villavicencio
+        given: Aline
+    issued:
+      date-parts: [[2018]]
+    title: "A sound and complete left-corner parsing for Minimalist Grammars"
+    container-title: "Proceedings of the Eight Workshop on Cognitive Aspects of Computational Language Learning and Processing"
+    publisher: Association for Computational Linguistics
+    page: "65-74"
+    DOI: 10.18653/v1/W18-2809
+    URL: https://aclanthology.org/W18-2809/
+  - id: hunteretal2019
+    type: paper-conference
+    author:
+      - family: Hunter
+        given: Tim
+      - family: Stanojević
+        given: Miloš
+      - family: Stabler
+        given: Edward
+    editor:
+      - family: Chersoni
+        given: Emmanuele
+      - family: Jacobs
+        given: Cassandra
+      - family: Lenci
+        given: Alessandro
+      - family: Linzen
+        given: Tal
+      - family: Prévot
+        given: Laurent
+      - family: Santus
+        given: Enrico
+    issued:
+      date-parts: [[2019]]
+    title: "The active-filler strategy in a move-eager left-corner Minimalist Grammar parser"
+    container-title: "Proceedings of the Workshop on Cognitive Modeling and Computational Linguistics"
+    publisher: Association for Computational Linguistics
+    page: "1-10"
+    DOI: 10.18653/v1/W19-2901
+    URL: https://aclanthology.org/W19-2901/
 ---
 
 
@@ -278,7 +344,7 @@ something along the lines of the left-corner manner outlined above. The evidence
 the fact that the amount of memory (stack space) required by the left-corner recognizer gets 
 large for center-embedded sentences, but not for left-embedded or right-embedded sentences, 
 and therefore aligns neatly with the pattern of difficulty that humans experience with these 
-constructions ([Resnik 1992](https://aclanthology.org/C92-1032/), and many references there). 
+constructions [@resnik1992, and many references there].
 And as Resnik points out in that paper (section 4), it's particularly critical that when a 
 posited parent node is going to "pay off a debt", this must happen as soon as the parent is 
 posited; in other words, it's critical that we have `complete` as a separate transition schema 
@@ -298,8 +364,7 @@ further from such a one-to-one correspondence? It doesn't seem crazy to lean sli
 the latter, all else being equal. And for what it's worth, although I'm not suggesting that 
 this should hold much water, this seems to be what we see in parsers that extend the 
 left-corner system illustrated above to incorporate movement 
-([Stanojević and Stabler 2018](https://aclanthology.org/W18-2809/), 
- [Hunter et al. 2019](https://aclanthology.org/W19-2901/)): 
+[@stanojevicstabler2018; @hunteretal2019]:
 the point in the above was that the parser needs to treat merge steps that create left 
 daughters differently from those that create right daughters, and once movement is introduced 
 it becomes similarly necessary to distinguish typical, simple movement dependencies from 

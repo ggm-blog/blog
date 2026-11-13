@@ -39,7 +39,7 @@ const [base = 'http://127.0.0.1:4317', profile = 'staging', shots = '/tmp/ggm-ci
       assert(order);
       await page.locator('#cite').scrollIntoViewIfNeeded();
       if (width === 1280 && theme === 'light') await page.screenshot({path:`${shots}/${profile}-footer-collapsed.png`});
-      await page.locator('#title-block-header .ggm-title-cite a').click();
+      await page.locator('#title-block-header .ggm-title-cite a[href$="#cite"]').click();
       assert.equal(new URL(page.url()).hash, '#cite');
       assert.equal(await page.locator('#cite').getAttribute('open'), '');
       assert(await page.locator('#quarto-reuse a[rel=license]').isVisible());

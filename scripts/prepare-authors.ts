@@ -176,7 +176,10 @@ try {
   const nav = { website: { drafts: hiddenPosts, navbar: { left: [
     { text: "Home", href: "index.qmd" },
     { text: POSTS_MENU_LABEL, menu: [...menu, { text: "---" }, { text: "All posts", href: "index.qmd" }] },
-    { text: "About", href: "about.qmd" },
+    { text: "About", menu: [
+      { text: "Who are we?", href: "about.qmd" },
+      { text: "Commenting guide", href: "commenting.qmd" },
+    ] },
     { text: "Contributors", href: "contributors.qmd" },
     { text: "Search", href: "search.qmd" },
   ] } } };

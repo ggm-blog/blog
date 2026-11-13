@@ -31,7 +31,7 @@ Calling ourselves mentalists means that we think the right way to answer those q
 
 It is an exciting time to be a linguist. The field has made remarkable progress on (1)–(3), and we think more of that progress goes unappreciated than it should. We want to celebrate it, and to make more room for the synthesis it allows. But while parts of the map are now filled in at high resolution, much *terra incognita* remains. So the time is ripe to reconnoiter, and to plan new expeditions.
 
-It is also a vertiginous time to be a researcher in these areas. Scientific questions about language are coming into more and more contact with neighboring academic fields and with technological advances, at what seems to be a quickly accelerating pace. We are enthusiastic about many aspects of these convergences and what we might be able to learn from them, but sometimes feel that important issues raised by the core questions in (1)–(3) above, which remain our focus, can get lost in the excitement.
+It is also a vertiginous time to be a researcher in these areas. Scientific questions about language are coming into closer contact with neighboring academic fields and with technological advances, at what seems to be a quickly accelerating pace. We are enthusiastic about many aspects of these convergences and what we might be able to learn from them, but sometimes feel that important issues raised by the core questions in (1)–(3) above, which remain our focus, can get lost in the excitement.
 
 That's all about the moment we find ourselves in.
 
@@ -43,7 +43,7 @@ Finally, all of us were strongly influenced by Norbert Hornstein's [*Faculty of 
 
 Like many other blogs, this is a team effort. We don't necessarily mean to speak in unison, but we hope there is some harmony. We discuss what topics and areas we'd like to say something about and we give each other feedback before publishing. Every post is written by its human authors.
 
-Our posts are not all, or mostly, about "Big Questions": we're interested in many approaches, including targeted reactions, bite-sized tutorials and round-ups of recent research (in the spirit of what *Glot International* used to run as "State-of-the-Article" pieces).
+Our posts are not all necessarily about "Big Questions": we're interested in many approaches, including targeted reactions, bite-sized tutorials, round-ups of recent research or contemporary reviews (in the spirit of what *Glot International* used to run as "State-of-the-Article" pieces).
 
 We're aiming to publish a piece roughly weekly. Eventually we're also interested in publishing others' pieces, and we'd love to hear proposals for topics from a wide variety of viewpoints. See the [Contributing](/about.qmd#contributing) section of our About page for how to get in touch.
 
