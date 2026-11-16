@@ -162,9 +162,9 @@ what is the relationship between the rule listed in the third column and the
 stack-manipulation that happens in the fifth column?
 
 According to the grammar-as-abstraction view, the processor has transitions available to it 
-that manipulate the stack in certain ways -- for example, it can consume the word `dog` and 
+that manipulate the stack in certain ways --- for example, it can consume the word `dog` and 
 push `N` onto the stack, and it can replace a `V NP` sequence at the top of the stack with a `VP` 
--- and those stack-manipulating transitions are, in a sense, "all there is". Writing things 
+--- and those stack-manipulating transitions are, in a sense, "all there is". Writing things 
 like `VP → V NP` in the third column is a helpful way for us to encapsulate certain aspects 
 of what's going on (and writing out the full rule list at the beginning of this post is a 
 helpful way to summarize the overall capacity of this processing device), but no more than 
@@ -179,11 +179,11 @@ the fifth column are licensed. The processor, on this view, is something that ta
 different kinds of information, a collection of grammar rules and a sequence of words, and 
 tries to knit them together in a certain way.
 
-In this particular case of a simple shift-reduce processor, I think it is *very* difficult 
+In this particular case of simple shift-reduce recognition, I think it is *very* difficult 
 to tell these two views apart. This is because there is a one-to-one correspondence between 
 processing transitions and grammar rules. For every `shift` transition that the grammar-as-abstraction 
 proponent posits as part of the processor, there is exactly one rule of the form `X → blah` that 
-the grammar-as-information proponent posits on the list of rules; and for every `reduce` transition, 
+the grammar-as-information proponent posits in the list of rules; and for every `reduce` transition, 
 there is exactly one rule of the form `X → Y Z`. Knowing that the relevant mental processing 
 proceeds as in the table above seems equally compatible with either of these views.
 
@@ -245,8 +245,8 @@ The next transition is where things get particularly interesting.
 
 <image width="500" src="data/left-corner-step5-step6.png">
 
-The transition at Step 6 is different from any of the three kinds of transitions we have 
-seen before (`shift`, `project` and `match`). It has something in common with the `project` transitions 
+The transition at Step 6 is different from the three kinds of transitions we have 
+seen so far (`shift`, `project` and `match`). It has something in common with the `project` transitions 
 that we saw at Step 2 and Step 4: it involves positing a `VP` on the basis of its left daughter 
 (a `V`), and taking on a debt of the right daughter (an `NP`). But instead of this posited parent 
 constituent being freshly introduced to the stack, like the `NP` at Step 2 or the `S` at Step 4, 
@@ -310,9 +310,9 @@ language over" might have just one of these two; this would mean that the consti
 could appear as an `NP` in a subject position would differ from those that could appear as an 
 `NP` in an object position, for example. To the extent that the next language over always 
 corresponds to what we would get by making some change to the underlying list of rules and 
-letting the transition schemas work with that modified list -- for example, if the next 
+letting the transition schemas work with that modified list --- for example, if the next 
 language over lacks both the `D` to `NP/N` stack transition and the `⋯/NP D` to `⋯/N` 
-stack transition -- it makes less sense to think of the transitions themselves as primitive.
+stack transition --- it makes less sense to think of the transitions themselves as primitive.
 
 Notice how this is different from the situation with shift-reduce recognition, where there's 
 a one-to-one correspondence between rules and transitions. If the only consequence of having 
