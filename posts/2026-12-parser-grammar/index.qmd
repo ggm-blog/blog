@@ -86,7 +86,7 @@ sentences of their language (and the structures that they associate with those s
                     V → chased
                     V → watched
 
-What are the ways in which this collection of rules might relate the actual work 
+What are the ways in which this collection of rules might relate to the actual work 
 that speakers do in the course of recognizing and understanding sentences? There are 
 at least two possibilities.
 
@@ -120,7 +120,7 @@ it's at least one way), so as to identify some of the kinds of empirical evidenc
 could be brought to bear on the question. This will lead to what I think is some 
 suggestive evidence in favor of the grammar-as-information view; unsurprisingly, there 
 will be plenty of scope for objections along the way, and I don't expect the argument 
-to be convincing to everyone, but I hope that the argument form itself is at least 
+to be convincing to everyone, but I hope that the argument *form* is at least 
 interesting and perhaps could clarify the nature of the questions at hand.
 
 It will be useful to first consider a very simple system of sentence recognition, the 
@@ -152,6 +152,7 @@ Here's how this kind of processor would recognize the sentence `the dog chased i
 | 5     | shift     | NP → it       | the dog chased it •   | NP V NP           |
 | 6     | reduce    | VP → V NP     | the dog chased it •   | NP VP             |
 | 7     | reduce    | S → NP VP     | the dog chased it •   | S                 |
+: {tbl-colwidths="[5,15,25,35,20]"}
 
 Suppose we have determined that the sequence of steps shown in this table is an accurate 
 characterization of the steps that are carried out in the relevant speakers' minds in 
@@ -161,9 +162,9 @@ what is the relationship between the rule listed in the third column and the
 stack-manipulation that happens in the fifth column?
 
 According to the grammar-as-abstraction view, the processor has transitions available to it 
-that manipulate the stack in certain ways -- for example, it can consume the word `dog` and 
+that manipulate the stack in certain ways --- for example, it can consume the word `dog` and 
 push `N` onto the stack, and it can replace a `V NP` sequence at the top of the stack with a `VP` 
--- and those stack-manipulating transitions are, in a sense, "all there is". Writing things 
+--- and those stack-manipulating transitions are, in a sense, "all there is". Writing things 
 like `VP → V NP` in the third column is a helpful way for us to encapsulate certain aspects 
 of what's going on (and writing out the full rule list at the beginning of this post is a 
 helpful way to summarize the overall capacity of this processing device), but no more than 
@@ -178,11 +179,11 @@ the fifth column are licensed. The processor, on this view, is something that ta
 different kinds of information, a collection of grammar rules and a sequence of words, and 
 tries to knit them together in a certain way.
 
-In this particular case of a simple shift-reduce processor, I think it is **very** difficult 
+In this particular case of simple shift-reduce recognition, I think it is *very* difficult 
 to tell these two views apart. This is because there is a one-to-one correspondence between 
 processing transitions and grammar rules. For every `shift` transition that the grammar-as-abstraction 
 proponent posits as part of the processor, there is exactly one rule of the form `X → blah` that 
-the grammar-as-information proponent posits on the list of rules; and for every `reduce` transition, 
+the grammar-as-information proponent posits in the list of rules; and for every `reduce` transition, 
 there is exactly one rule of the form `X → Y Z`. Knowing that the relevant mental processing 
 proceeds as in the table above seems equally compatible with either of these views.
 
@@ -218,13 +219,14 @@ Here are the steps by which a left-corner recognizer would process the same sent
 | 5     | shift     | V → chased    | the dog chased • it   | S/VP V            |
 | 6     | complete  | VP → V NP     | the dog chased • it   | S/NP              |
 | 7     | match     | NP → it       | the dog chased it •   | S                 |
+: {tbl-colwidths="[5,15,25,35,20]"}
 
 To clarify the meaning of the `X/Y` notation, here are pictures representing the first three 
 steps.
 
-<image width="500" src="https://gist.githubusercontent.com/timhunter/f7efd9a0b144cedb6b17fec9231c9bc5/raw/left-corner-step1-step2-step3.png">
+<image width="500" src="data/left-corner-step1-step2-step3.png">
 
-Unlike the shift-reduce system, where the `NP` constituent is posited only after **both** of 
+Unlike the shift-reduce system, where the `NP` constituent is posited only after *both* of 
 its daughter constituents are identified, here the `NP` constituent is posited at Step 2, 
 when only its left daughter has been identified; the transitions of this form are called 
 `project` transitions. Of course the fact that the right daughter hasn't yet been found needs 
@@ -241,10 +243,10 @@ the one at Step 1) which adds to the stack, specifically it introduces a `V`.
 
 The next transition is where things get particularly interesting.
 
-<image width="500" src="https://gist.githubusercontent.com/timhunter/f7efd9a0b144cedb6b17fec9231c9bc5/raw/left-corner-step5-step6.png">
+<image width="500" src="data/left-corner-step5-step6.png">
 
-The transition at Step 6 is different from any of the three kinds of transitions we have 
-seen before (`shift`, `project` and `match`). It has something in common with the `project` transitions 
+The transition at Step 6 is different from the three kinds of transitions we have 
+seen so far (`shift`, `project` and `match`). It has something in common with the `project` transitions 
 that we saw at Step 2 and Step 4: it involves positing a `VP` on the basis of its left daughter 
 (a `V`), and taking on a debt of the right daughter (an `NP`). But instead of this posited parent 
 constituent being freshly introduced to the stack, like the `NP` at Step 2 or the `S` at Step 4, 
@@ -262,11 +264,11 @@ For rules of the form `X → blah`, this is the distinction between what `shift`
 which consume `blah` from the input) do with `X`. For rules of the form `X → Y Z`, this is the distinction 
 between what `project` and `complete` (both of which build on a `Y` and take on an owed `Z`) do with `X`.
 
-<image width="800" src="https://gist.githubusercontent.com/timhunter/f7efd9a0b144cedb6b17fec9231c9bc5/raw/left-corner-schemas.png">
+<image width="800" src="data/left-corner-schemas.png">
 
 ## So what?
 
-It's quite easy to make sense of this under the grammar-as-information view. The processor itself 
+It's quite easy to make sense of left-corner recognition under the grammar-as-information view. The processor itself 
 "knows" only the four schemas or templates illustrated above (one each for `shift`, `match`, `project` 
 and `complete`), and consults the list of grammatical rules to determine how those schemas can be 
 instantiated. The transition at Step 2 above arose from instantiating the `project` schema using 
@@ -286,6 +288,7 @@ instantiate the `project` schema at Step 2.
 | 7     | shift     | D → the       | the dog chased the • cat  | S/NP D            |
 | 8     | complete  | NP → D N      | the dog chased the • cat  | S/N               |
 | 9     | match     | N → cat       | the dog chased the cat •  | S                 |
+: {tbl-colwidths="[5,15,25,35,20]"}
 
 So the rule `NP → D N` can be used to instantiate the `project` schema to yield a transition 
 that replaces `D` with `NP/N`, and can also be used to instantiate the `complete` schema to yield 
@@ -307,9 +310,9 @@ language over" might have just one of these two; this would mean that the consti
 could appear as an `NP` in a subject position would differ from those that could appear as an 
 `NP` in an object position, for example. To the extent that the next language over always 
 corresponds to what we would get by making some change to the underlying list of rules and 
-letting the transition schemas work with that modified list -- for example, if the next 
+letting the transition schemas work with that modified list --- for example, if the next 
 language over lacks both the `D` to `NP/N` stack transition and the `⋯/NP D` to `⋯/N` 
-stack transition -- it makes less sense to think of the transitions themselves as primitive.
+stack transition --- it makes less sense to think of the transitions themselves as primitive.
 
 Notice how this is different from the situation with shift-reduce recognition, where there's 
 a one-to-one correspondence between rules and transitions. If the only consequence of having 
@@ -328,13 +331,13 @@ node) whether the left-corner recognition of this sentence will involve a step o
 `D` with `NP/N`, or a step of replacing `⋯/NP D` with `⋯/N`. This one-to-many (specifically, 
 one-to-two) relationship between the rules and transitions is what provides the impetus for 
 treating a rule itself as a meaningful primitive, something that can be separated from any 
-**single** action that might take place in the course of processing a sentence.
+*single* action that might take place in the course of processing a sentence.
 
 ## The bigger picture
 
 The main suggestion I want to put on the table is that this kind of one-to-many relationship 
 between grammar rules and parser actions is a key form of evidence that might be used in support 
-of the grammar-as-information view. One might agree that this is an interesting form of argument 
+of the grammar-as-information view. One might agree that this is an interesting *form* of argument 
 that could in principle be used to in support of the grammar-as-information view, without buying 
 into any claims that the specifics of human sentence processing look anything like the picture 
 I laid out with left-corner recognition above.
@@ -349,7 +352,7 @@ And as Resnik points out in that paper (section 4), it's particularly critical t
 posited parent node is going to "pay off a debt", this must happen as soon as the parent is 
 posited; in other words, it's critical that we have `complete` as a separate transition schema 
 from `project`, which is what leads to the one-to-many relationship between rules and transitions. 
-(The alternative "arc-standard" system where rules of the form `X → Y Z` are **only** associated 
+(The alternative "arc-standard" system where rules of the form `X → Y Z` are *only* associated 
 with `project` transitions, and there's a separate operation that "cancels out" parents posited 
 by `project` with owed categories, does not yield the same predictions about memory load.)
 
