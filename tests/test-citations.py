@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 QUARTO = str(Path(sys.argv[1]).resolve())
 TODAY = datetime.now(ZoneInfo('America/Los_Angeles')).date()
 SLUGS = ['2026-12-parser-grammar', '2026-11-ggm-origin-story',
-         '2026-11-tensor-tension', '2026-11-surprising-riposte']
+         'test-draft-one', 'test-draft-two']
 
 
 def main():
@@ -39,6 +39,13 @@ def main():
             if src.is_file():
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(src, dst)
+        # Synthetic drafts keep regression coverage independent of editorial drafts.
+        for slug in SLUGS[2:]:
+            fixture = work / 'posts' / slug / 'index.qmd'
+            fixture.parent.mkdir(parents=True, exist_ok=True)
+            fixture.write_text(
+                f'---\ntitle: "Test draft {slug}"\nauthor:\n  - tim-hunter\n'
+                'date: "2099-01-01"\ndraft: true\n---\n\nSynthetic test content.\n')
         bodies = {p: p.read_bytes().split(b'\n---', 1)[1] for p in ROOT.glob('posts/**/*.qmd')}
         for slug in SLUGS[:2]:
             path = work / 'posts' / slug / 'index.qmd'
@@ -70,7 +77,10 @@ def main():
                 creators = item.findall('{http://purl.org/dc/elements/1.1/}creator')
                 assert creators and all(' ' in author.text and not re.search('tim-hunter|brian-dillon|ming-xiang', author.text) for author in creators)
                 content = item.findtext('description', '')
-                assert len(content) > 5000, (item.findtext('title'), len(content))
+                if any(slug in item.findtext('link') for slug in SLUGS[2:]):
+                    assert 'Synthetic test content.' in content
+                else:
+                    assert len(content) > 5000, (item.findtext('title'), len(content))
                 assert f'title = {{{{{html.escape(item.findtext("title"), quote=True)}}}}}' in content
             for slug in SLUGS[:2]:
                 page = (site / 'posts' / slug / 'index.html').read_text()
