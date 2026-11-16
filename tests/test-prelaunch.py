@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 QUARTO = str(Path(sys.argv[1]).resolve()) if len(sys.argv) > 1 else shutil.which('quarto')
 TODAY = datetime.now(ZoneInfo('America/Los_Angeles')).date()
 SLUGS = ['2026-12-parser-grammar', '2026-11-ggm-origin-story',
-         '2026-11-tensor-tension', '2026-11-surprising-riposte']
+         'test-draft-one', 'test-draft-two']
 
 
 def main():
@@ -36,6 +36,13 @@ def main():
             if src.is_file():
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(src, dst)
+        # Synthetic drafts keep regression coverage independent of editorial drafts.
+        for slug in SLUGS[2:]:
+            fixture = work / 'posts' / slug / 'index.qmd'
+            fixture.parent.mkdir(parents=True, exist_ok=True)
+            fixture.write_text(
+                f'---\ntitle: "Test draft {slug}"\nauthor:\n  - tim-hunter\n'
+                'date: "2099-01-01"\ndraft: true\n---\n\nSynthetic test content.\n')
         sources = {slug: (work / 'posts' / slug / 'index.qmd').read_text() for slug in SLUGS}
 
         def post(slug, offset, draft=None, featured=None):
@@ -191,7 +198,9 @@ def main():
 
         # All fixture post edits above are front matter; real sources are unchanged.
         for slug in SLUGS:
-            assert (ROOT / 'posts' / slug / 'index.qmd').read_text() == sources[slug]
+            source = ROOT / 'posts' / slug / 'index.qmd'
+            if source.exists():
+                assert source.read_text() == sources[slug]
     spec = importlib.util.spec_from_file_location('next_publish', ROOT / 'scripts/next-publish-date.py')
     helper = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(helper)
