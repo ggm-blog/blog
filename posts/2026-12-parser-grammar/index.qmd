@@ -224,7 +224,7 @@ Here are the steps by which a left-corner recognizer would process the same sent
 To clarify the meaning of the `X/Y` notation, here are pictures representing the first three 
 steps.
 
-<image width="500" src="https://gist.githubusercontent.com/timhunter/f7efd9a0b144cedb6b17fec9231c9bc5/raw/left-corner-step1-step2-step3.png">
+<image width="500" src="data/left-corner-step1-step2-step3.png">
 
 Unlike the shift-reduce system, where the `NP` constituent is posited only after *both* of 
 its daughter constituents are identified, here the `NP` constituent is posited at Step 2, 
@@ -243,7 +243,7 @@ the one at Step 1) which adds to the stack, specifically it introduces a `V`.
 
 The next transition is where things get particularly interesting.
 
-<image width="500" src="https://gist.githubusercontent.com/timhunter/f7efd9a0b144cedb6b17fec9231c9bc5/raw/left-corner-step5-step6.png">
+<image width="500" src="data/left-corner-step5-step6.png">
 
 The transition at Step 6 is different from any of the three kinds of transitions we have 
 seen before (`shift`, `project` and `match`). It has something in common with the `project` transitions 
@@ -264,7 +264,7 @@ For rules of the form `X → blah`, this is the distinction between what `shift`
 which consume `blah` from the input) do with `X`. For rules of the form `X → Y Z`, this is the distinction 
 between what `project` and `complete` (both of which build on a `Y` and take on an owed `Z`) do with `X`.
 
-<image width="800" src="https://gist.githubusercontent.com/timhunter/f7efd9a0b144cedb6b17fec9231c9bc5/raw/left-corner-schemas.png">
+<image width="800" src="data/left-corner-schemas.png">
 
 ## So what?
 
