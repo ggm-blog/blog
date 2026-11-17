@@ -19,18 +19,11 @@ website:
   open-graph: true
   navbar:
     pinned: true
-    right:
-      - icon: github
-        href: https://github.com/ggm-blog/blog
   search:
     location: navbar
     type: overlay
   page-footer:
     left: "© 2026 the authors. Posts are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Grammars Gone Mental."
-    right:
-      - icon: github
-        href: https://github.com/ggm-blog/blog
-        aria-label: GitHub
 
 format:
   html:
