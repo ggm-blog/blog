@@ -3,7 +3,7 @@ title: "Some thoughts on aligning language models and psycholinguistic theory"
 subtitle: "On using many language models to test Surprisal theory."
 author:
   - brian-dillon
-date: "2026-24-11"
+date: "2026-11-24"
 categories: [psycholinguistics, surprisal]
 csl: ../../assets/apa.csl
 link-citations: true
