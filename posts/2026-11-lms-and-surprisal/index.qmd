@@ -151,7 +151,6 @@ references:
     container-title: Open Mind
     volume: 7
     URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10449406/
-draft: true
 ---
 
 I thought I’d help get this party started by opening up a fun can of worms and asking: What can we learn about human sentence processing by looking at the outputs of (large) language models? There have been some really interesting contributions to this conversation recently. This point pivots off one such contribution - Buxó-Lugo et al.'s [-@buxolugo2026] *Surprisal is Not a Theory* paper. And I gather folks have opinions on this question? 
