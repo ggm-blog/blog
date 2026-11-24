@@ -153,7 +153,7 @@ references:
     URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10449406/
 ---
 
-I thought I’d help get this party started by opening up a fun can of worms and asking: What can we learn about human sentence processing by looking at the outputs of (large) language models? There have been some really interesting contributions to this conversation recently. This point pivots off one such contribution - Buxó-Lugo et al.'s [-@buxolugo2026] *Surprisal is Not a Theory* paper. And I gather folks have opinions on this question? 
+I thought I’d help get this party started by opening up a fun can of worms and asking: What can we learn about human sentence processing by looking at the outputs of (large) language models? There have been some really interesting contributions to this conversation recently. This point pivots off one such contribution - Buxó-Lugo et al.'s [-@buxolugo2026] *surprisal is Not a Theory* paper. And I gather folks have opinions on this question? 
 
 To start: I note that Surprisal theory has enjoyed an unusually long run as a leading candidate for a (mostly) unifying theory of sentence processing[^1], with the idea that surprisal is a key information theoretic correlate of syntactic processing being independently grounded in several distinct process models[^2]. For present purposes, let’s make things concrete, and zoom in on some key tenets of just one influential capital-S *Surprisal* theory[^3], Levy's [-@levy2008] proposal. They are:
 
