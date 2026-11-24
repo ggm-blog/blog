@@ -21,6 +21,6 @@ export default async () => {
 }
 
 export const config = {
-  // Cron syntax, UTC. Every day at 06:00 UTC.
+  // Cron syntax, UTC. Every Tuesday at 12:00 UTC.
   schedule: '0 12 * * 2',
 }
